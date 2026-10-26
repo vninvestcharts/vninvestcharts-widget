@@ -1,0 +1,182 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.container.horizontal {
+  flex-direction: row;
+}
+
+.container.vertical {
+  flex-direction: column;
+}
+
+.pane {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.pane.horizontal {
+  height: 100%;
+}
+
+.pane.vertical {
+  width: 100%;
+}
+
+.paneContent {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.handle {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+  transition: background-color 0.1s ease, box-shadow 0.1s ease;
+}
+
+.handle.horizontal {
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  top: 0;
+  background-color: transparent;
+}
+
+.handle.vertical {
+  width: 100%;
+  height: 8px;
+  cursor: row-resize;
+  left: 0;
+  background-color: transparent;
+}
+
+.handle:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.handle:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-focus, #3498db);
+  background-color: rgba(52, 152, 219, 0.2);
+}
+
+.handle.dragging {
+  background-color: rgba(52, 152, 219, 0.3);
+  box-shadow: 0 0 0 2px var(--color-focus, #3498db);
+}
+
+.handleGrip {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.handle:hover .handleGrip,
+.handle:focus .handleGrip,
+.handle.dragging .handleGrip {
+  opacity: 1;
+  background-color: var(--color-focus, #3498db);
+}
+
+.handleGrip::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.container.horizontal .handleGrip::before {
+  width: 4px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.container.vertical .handleGrip::before {
+  width: 16px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .handle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .handle:focus {
+    box-shadow: 0 0 0 2px var(--color-focus, #5dade2);
+    background-color: rgba(89, 171, 226, 0.3);
+  }
+
+  .handle.dragging {
+    background-color: rgba(89, 171, 226, 0.4);
+  }
+
+  .handleGrip {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .handle:hover .handleGrip,
+  .handle:focus .handleGrip,
+  .handle.dragging .handleGrip {
+    background-color: var(--color-focus, #5dade2);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .handle {
+    border: 2px solid currentColor;
+  }
+
+  .handle:focus {
+    outline: 3px solid currentColor;
+    outline-offset: -3px;
+  }
+
+  .handleGrip {
+    opacity: 1;
+    background-color: currentColor;
+  }
+
+  .handleGrip::before {
+    background-color: currentColor;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .handle {
+    transition: none;
+  }
+
+  .handleGrip {
+    transition: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .handle {
+    display: none;
+  }
+}

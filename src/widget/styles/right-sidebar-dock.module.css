@@ -1,0 +1,277 @@
+/* P4a: Right Sidebar Dock (TradingView-style strip + panel) */
+.dock {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 100%;
+  border-left: 1px solid var(--vnsc-border, #2a2a2a);
+  background: var(--vnsc-bg-secondary, #111820);
+  position: relative;
+  z-index: 48;
+  min-width: 150px;
+  overflow: hidden;
+  transition: width 0.18s ease;
+}
+
+/* Closed dock collapses to the strip — min-width must yield. */
+.dockClosed {
+  min-width: 40px;
+}
+
+@media (max-width: 767px) {
+  .dock {
+    transition: none;
+  }
+
+  /* Closed sheet shrinks to the strip instead of an empty 45% bar. */
+  .dockClosed {
+    height: auto;
+    min-height: 0;
+    border-top: none;
+  }
+}
+
+.splitter {
+  width: 4px;
+  cursor: col-resize;
+  z-index: 49;
+  background: transparent;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.splitterActive {
+  background: var(--vnsc-accent, #2962ff);
+}
+
+.stacked {
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+}
+
+.panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--vnsc-border-divider, #2a2a2a);
+  flex-shrink: 0;
+}
+
+.panelTitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vnsc-text-secondary, #787b86);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* F2: gom actions (pin + close) sát phải — single không pin nên X giữ nguyên vị trí.
+   F3: gap 8px — pin sát X quá (2px) khó phân biệt khi thao tác nhanh. */
+.panelActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panelClose {
+  background: transparent;
+  border: none;
+  color: var(--vnsc-text-secondary, #787b86);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.panelClose:hover {
+  background: var(--vnsc-bg-hover, rgba(255, 255, 255, 0.04));
+  color: var(--vnsc-text-primary, #d1d4dc);
+}
+
+.panelBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.strip {
+  width: 40px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 0;
+  border-left: 1px solid var(--vnsc-border-divider, #2a2a2a);
+  background: var(--vnsc-bg-primary, #131722);
+  overflow-y: auto;
+}
+
+.stripBtn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--vnsc-text-secondary, #787b86);
+  cursor: pointer;
+}
+
+.stripBtn:hover {
+  background: var(--vnsc-bg-hover, rgba(255, 255, 255, 0.04));
+  color: var(--vnsc-text-primary, #d1d4dc);
+}
+
+/* Disabled tabs stay visible (discovery) but dimmed with reason tooltip. */
+.stripBtnDisabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+/* D3: visible keyboard focus (strip is arrow-navigable). */
+.stripBtn:focus {
+  outline: none;
+}
+
+.stripBtn:focus-visible {
+  outline: 2px solid var(--vnsc-accent-strong, #2563eb);
+  outline-offset: -2px;
+}
+
+.stripBtnActive {
+  background: var(--vnsc-bg-selected, rgba(59, 130, 246, 0.15));
+  color: var(--vnsc-accent, #2962ff);
+}
+
+/* D4: mobile — dock becomes a bottom sheet instead of a 150px+40px side rail. */
+@media (max-width: 767px) {
+  .splitter {
+    display: none;
+  }
+
+  .dock {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    height: 45%;
+    min-height: 220px;
+    min-width: 0;
+    width: auto !important;
+    border-left: none;
+    border-top: 1px solid var(--vnsc-border, #2a2a2a);
+    /* W3 (C7): hạ về trần A12 ≤20 — dock sống trong overlay wrapper z-20. */
+    z-index: 20;
+  }
+
+  .stripBtn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .panelClose {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+.dw {
+  padding: 8px 10px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.dwHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.dwSymbol {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--vnsc-text-primary, #d1d4dc);
+}
+
+.dwTime {
+  font-size: 10px;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.dwRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--vnsc-border-divider, #2a2a2a);
+}
+
+.dwRow:last-child {
+  border-bottom: none;
+}
+
+.dwLabel {
+  color: var(--vnsc-text-secondary, #787b86);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 1;
+}
+
+.dwValue {
+  font-weight: 600;
+  color: var(--vnsc-text-primary, #d1d4dc);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.dwUp {
+  color: var(--vnsc-color-bullish, rgb(38, 166, 154));
+}
+
+.dwDown {
+  color: var(--vnsc-color-bearish, rgb(239, 83, 80));
+}
+
+.dwSection {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--vnsc-border-divider, #2a2a2a);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.dwEmpty {
+  padding: 16px 12px;
+  font-size: 12px;
+  color: var(--vnsc-text-secondary, #787b86);
+  text-align: center;
+}

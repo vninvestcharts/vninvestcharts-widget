@@ -1,0 +1,265 @@
+/* Timeframe Footer Styles - CSS Module — TradingView parity, WCAG AA */
+.timeframeFooter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 8px;
+  background: var(--vnsc-bg-secondary, transparent);
+  border-top: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  z-index: 30;
+  /* Single line always: compact density fits the viewport; scrolls only when
+     truly narrower than content (last resort, never wraps). */
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  font-family: var(--vnsc-font-family-base, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.timeframeChips {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.tfChip {
+  padding: 2px 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--vnsc-text-secondary, #787b86);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.tfChip:hover {
+  color: var(--vnsc-text-primary, #d1d4dc);
+  border-color: var(--vnsc-border-secondary, rgba(255, 255, 255, 0.12));
+  background: var(--vnsc-bg-hover, rgba(255, 255, 255, 0.04));
+}
+
+.tfChipActive {
+  /* V-05: solid + white = 5.2:1 (was translucent/accent, weak). */
+  background: var(--vnsc-accent-strong, #2563eb);
+  color: #fff;
+  font-weight: 600;
+  border-color: var(--vnsc-accent-strong, #2563eb);
+  box-shadow: none;
+}
+
+.tfChipActive:hover {
+  background: var(--vnsc-accent-strong, #2563eb);
+  color: #fff;
+  border-color: var(--vnsc-accent-hover, #1e4bd8);
+}
+
+.separator {
+  width: 1px;
+  height: 14px;
+  background: var(--vnsc-border, rgba(255, 255, 255, 0.08));
+}
+
+.rangeChips {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.rangeChip {
+  padding: 2px 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--vnsc-text-secondary, #787b86);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.rangeChip:hover {
+  color: var(--vnsc-text-primary, #d1d4dc);
+  border-color: var(--vnsc-border-secondary, rgba(255, 255, 255, 0.12));
+  background: var(--vnsc-bg-hover, rgba(255, 255, 255, 0.04));
+}
+
+.rangeChipActive {
+  /* V-05: solid + white = 5.2:1 (was translucent/accent, weak). */
+  background: var(--vnsc-accent-strong, #2563eb);
+  color: #fff;
+  font-weight: 600;
+  border-color: var(--vnsc-accent-strong, #2563eb);
+  box-shadow: none;
+}
+
+.rangeChipActive:hover {
+  background: var(--vnsc-accent-strong, #2563eb);
+  color: #fff;
+  border-color: var(--vnsc-accent-hover, #1e4bd8);
+}
+
+.footerChildren {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* V-07: visible group captions (Interval vs Range) — ends 1D ambiguity. */
+.groupCaption {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--vnsc-text-muted, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  align-self: center;
+  margin-right: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Compact: hide captions first when the viewport gets narrow — chips stay. */
+@media (max-width: 1280px) {
+  .groupCaption {
+    display: none;
+  }
+}
+
+.rightCluster {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.footerChildren + .rightCluster {
+  margin-left: 0;
+}
+
+.scaleGroup {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  background: transparent;
+}
+
+.scaleBtn {
+  padding: 2px 6px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--vnsc-text-secondary, #787b86);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+.scaleBtn:hover {
+  color: var(--vnsc-text-primary, #d1d4dc);
+  background: var(--vnsc-bg-hover, rgba(255, 255, 255, 0.04));
+}
+
+.scaleBtnActive {
+  /* V-05: solid #2563eb + white = 5.2:1. */
+  background: var(--vnsc-accent-strong, #2563eb);
+  color: var(--vnsc-text-on-primary, #ffffff);
+  font-weight: 600;
+}
+
+.tzBadge {
+  padding: 2px 6px;
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--vnsc-text-secondary, #787b86);
+  background: var(--vnsc-bg-hover, transparent);
+  white-space: nowrap;
+}
+
+.clockText {
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--vnsc-font-family-mono, ui-monospace, monospace);
+  color: var(--vnsc-text-primary, #d1d4dc);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.countdownText {
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--vnsc-font-family-mono, ui-monospace, monospace);
+  color: var(--vnsc-accent, #2962ff);
+  white-space: nowrap;
+}
+
+.countdownGlyph {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.trademark {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--vnsc-text-muted, #6b7280);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+.trademark:hover {
+  color: var(--vnsc-text-secondary, #787b86);
+  opacity: 1;
+}
+
+.trademarkIcon {
+  font-size: 11px;
+  color: var(--vnsc-accent, #2962ff);
+  opacity: 0.7;
+}
+
+.trademarkIcon:hover {
+  color: var(--vnsc-accent, #2962ff);
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .timeframeFooter {
+    padding: 4px 8px;
+    gap: 8px;
+  }
+  
+  .tfChip,
+  .rangeChip {
+    padding: 2px 6px;
+    font-size: 10px;
+  }
+  
+  .separator {
+    height: 12px;
+  }
+}

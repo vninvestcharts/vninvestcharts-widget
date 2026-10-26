@@ -1,0 +1,22 @@
+/**
+ * Floating Chart Control Bar — auto-hide only (position/visuals live in
+ * floating-chart-bar.module.css). Loaded via widget.css @import.
+ * Hide rule wrapped in @media (hover: hover): on touch the rule never
+ * applies so the bar stays visible (specificity (0,3,0) would otherwise
+ * beat any (0,2,0) override — media queries don't add specificity).
+ */
+.rsc-engine-surface .vnsc-floating-bar {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+@media (hover: hover) {
+  .rsc-engine-surface:not(:hover) .vnsc-floating-bar {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(4px);
+  }
+}
+.rsc-engine-surface:focus-within .vnsc-floating-bar {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}

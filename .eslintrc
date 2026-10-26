@@ -1,0 +1,179 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "plugins": [
+    "import",
+    "jsx-a11y",
+    "react",
+    "const-immutable",
+    "@typescript-eslint",
+    "react-hooks"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true,
+    "es2020": true
+  },
+  "settings": {
+    "import/ignore": [
+      "node_modules",
+      "\\.(json|css|jpg|png|gif|eot|svg|ttf|woff|woff2|mp4|webm)$"
+    ],
+    "import/extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ],
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx",
+          ".json"
+        ]
+      }
+    },
+    "react": {
+      "version": "19.0"
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "jsx-a11y/aria-role": "warn",
+    "jsx-a11y/img-redundant-alt": "warn",
+    "jsx-a11y/no-access-key": "warn",
+    // react-hooks was installed but never declared in `plugins` or `extends`.
+    // Every `eslint-disable-next-line react-hooks/exhaustive-deps` in the tree
+    // therefore raised "Definition for rule ... was not found" as a severity-2
+    // error (13 of them, which the lint ratchet counted as real debt), while the
+    // rule itself never checked a single hook. Declared as `warn`, not `error`:
+    // it now genuinely reports, but does not fail lint:ratchet, which gates on
+    // severity 2 only. Triage backlog, measured at 2026-10-01:
+    //   164 findings / 64 files - useDynamicPanes 21, VNInvestCharts 16,
+    //   useWidgetData 14. Fixing them is a slice of its own; some will be real
+    //   stale-closure bugs, not formatting.
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-pascal-case": 1,
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1,
+    "react/jsx-no-bind": 0,
+    "react/jsx-no-undef": 1,
+    "react/display-name": 0,
+    "react/prefer-es6-class": 1,
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/no-unescaped-entities": 0,
+    "const-immutable/no-mutation": 2,
+    "no-var": "error",
+    "prefer-const": "error",
+    "array-bracket-spacing": [2, "never"],
+    "block-scoped-var": 2,
+    "brace-style": [2, "1tbs", { "allowSingleLine": true }],
+    "comma-spacing": [2, { "before": false, "after": true }],
+    "eqeqeq": [2, "smart"],
+    "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
+    "indent": [2, "tab", { "SwitchCase": 1 }],
+    "comma-dangle": 0,
+    "jsx-quotes": [2, "prefer-double"],
+    "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
+    "no-trailing-spaces": [2, { "skipBlankLines": false }],
+    "no-undef": 0,
+    // BL-08: warn-only ratchet — 5 useWidgetData hotspots migrated to lib logger;
+    // remaining ~190 hits go to error level in Phase 2 (see BL-08 ledger entry).
+    "no-console": 1,
+    "no-unused-vars": 0,
+    "@typescript-eslint/no-unused-vars": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-unused-expressions": 0,
+    "import/no-unresolved": 0,
+    "no-empty": 0,
+    "prefer-rest-params": 0,
+    "no-prototype-builtins": 0,
+    "no-case-declarations": 0,
+    "no-restricted-imports": [
+      1,
+      {
+        "patterns": [
+          {
+            "group": [
+              "../demo/**",
+              "../../demo/**",
+              "../../../demo/**"
+            ],
+            "message": "Importing from src/demo is forbidden. Library code (src/lib, src/widget) must not depend on demo code.",
+            "caseSensitive": true
+          },
+          {
+            "group": [
+              "../../widget/**",
+              "../../../widget/**"
+            ],
+            "message": "Importing from src/widget is forbidden in lib. Widget code must not be imported by lib code.",
+            "caseSensitive": true
+          }
+        ]
+      }
+    ],
+    "no-restricted-globals": [
+      "error",
+      {
+        "name": "window",
+        "message": "Direct window access is forbidden. Use injected adapters instead."
+      },
+      {
+        "name": "document",
+        "message": "Direct document access is forbidden. Use injected adapters instead."
+      },
+      {
+        "name": "globalThis",
+        "message": "Direct globalThis access is forbidden. Use injected adapters instead."
+      },
+      {
+        "name": "localStorage",
+        "message": "Direct localStorage access is forbidden. Use StorageAdapter instead."
+      },
+      {
+        "name": "sessionStorage",
+        "message": "Direct sessionStorage access is forbidden. Use StorageAdapter instead."
+      },
+      {
+        "name": "navigator",
+        "message": "Direct navigator access is forbidden. Use injected browserFeatures instead."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/__tests__/**/*.ts",
+        "**/__tests__/**/*.tsx",
+        "tests/**/*.ts",
+        "tests/**/*.tsx"
+      ],
+      "rules": {
+        "no-restricted-globals": "off",
+        "no-console": "off"
+      }
+    }
+  ]
+}

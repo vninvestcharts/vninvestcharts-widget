@@ -1,0 +1,79 @@
+/**
+ * MultiCharts Drawing Toolbar Styles
+ * Layout-specific styles for left sidebar positioning in multicharts view
+ */
+
+.multiChartsToolbar {
+  /* Full height between header and footer */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  /* Left sidebar positioning */
+  position: relative;
+  z-index: 50;
+  
+  /* Smooth transitions for collapse/expand */
+  transition: width 0.2s ease, min-width 0.2s ease, max-width 0.2s ease;
+}
+
+/* Ensure the inner toolbar fills the wrapper */
+.multiChartsToolbar :global(.unifiedDrawingToolbar) {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Collapsed state handled by UnifiedDrawingToolbar's CSS */
+
+/* Responsive adjustments for multicharts layout */
+@media (max-width: 1024px) {
+  .multiChartsToolbar {
+    /* Tablet: keep collapsed by default */
+  }
+}
+
+@media (max-width: 768px) {
+  .multiChartsToolbar {
+    /* Mobile: hidden by default, shown via FAB */
+    display: none;
+  }
+  
+  .multiChartsToolbar.mobileVisible {
+    display: flex;
+    position: fixed;
+    top: 40px; /* Below header */
+    left: 0;
+    bottom: 32px; /* Above footer */
+    width: 280px;
+    max-width: 85vw;
+    height: auto;
+    max-height: calc(100vh - 72px);
+    z-index: 1000;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+    border-right: 1px solid var(--vnsc-border, #2a2e39);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .multiChartsToolbar :global(.unifiedDrawingToolbar) {
+    border-right-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .multiChartsToolbar,
+  .multiChartsToolbar :global(.unifiedDrawingToolbar) {
+    transition: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .multiChartsToolbar {
+    display: none;
+  }
+}

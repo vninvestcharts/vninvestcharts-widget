@@ -1,0 +1,519 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* BL-19: CSS replacements for framer-motion enter animations.
+   Exit animations are intentionally dropped (unmount is instant);
+   enter parity: fade 0.18s + pop scale 0.95->1. */
+@keyframes ldFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ldPopIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animFadeIn {
+  animation: ldFadeIn 0.18s ease-out;
+}
+
+.animPopIn {
+  animation: ldPopIn 0.18s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animFadeIn,
+  .animPopIn {
+    animation: none;
+  }
+}
+
+.modal {
+  background: var(--modal-bg, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-color, #e8e8e8);
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.presetButton {
+  padding: 8px 16px;
+  background: var(--primary-color, #1890ff);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.presetButton:hover {
+  background: var(--primary-hover, #096dd9);
+}
+
+.closeButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  font-size: 24px;
+  color: var(--text-secondary, #8c8c8c);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.closeButton:hover {
+  background: var(--hover-bg, #f5f5f5);
+  color: var(--text-primary, #1a1a1a);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-color, #e8e8e8);
+  flex-wrap: wrap;
+}
+
+.toolbarGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbarLabel {
+  font-size: 13px;
+  color: var(--text-secondary, #8c8c8c);
+  white-space: nowrap;
+}
+
+.toolbarInput {
+  width: 60px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-color, #d9d9d9);
+  border-radius: 6px;
+  font-size: 14px;
+  background: var(--input-bg, #ffffff);
+  color: var(--text-primary, #1a1a1a);
+}
+
+.toolbarInput:focus {
+  outline: none;
+  border-color: var(--primary-color, #1890ff);
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.actionButton {
+  padding: 6px 12px;
+  background: var(--button-bg, #f5f5f5);
+  border: 1px solid var(--border-color, #d9d9d9);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text-primary, #1a1a1a);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.actionButton:hover {
+  background: var(--button-hover, #e8e8e8);
+  border-color: var(--primary-color, #1890ff);
+}
+
+.gridPreview {
+  flex: 1;
+  overflow: auto;
+  padding: 24px;
+  min-height: 300px;
+}
+
+.gridContainer {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  background: var(--grid-bg, #f0f0f0);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.slot {
+  position: relative;
+  background: var(--slot-bg, #ffffff);
+  border-radius: 6px;
+  border: 1px solid var(--slot-border, #e8e8e8);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+/* BL-19: replaces whileHover={{ scale: 1.02, zIndex: 10 }} */
+.slot:hover {
+  border-color: var(--primary-color, #1890ff);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+/* BL-19: replaces whileTap={{ scale: 0.98 }} */
+.slot:active {
+  transform: scale(0.98);
+}
+
+.slot.selected {
+  border-color: var(--primary-color, #1890ff);
+  box-shadow: 0 0 0 2px var(--primary-color, #1890ff), 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slotContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 12px;
+  text-align: center;
+}
+
+.slotSymbol {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.slotTimeframe {
+  font-size: 12px;
+  color: var(--text-secondary, #8c8c8c);
+  margin-top: 4px;
+}
+
+.resizeHandle {
+  position: absolute;
+  background: var(--primary-color, #1890ff);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.slot:hover .resizeHandle {
+  opacity: 1;
+}
+
+.resizeTop,
+.resizeBottom {
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.resizeTop {
+  top: -2px;
+  cursor: ns-resize;
+}
+
+.resizeBottom {
+  bottom: -2px;
+  cursor: ns-resize;
+}
+
+.resizeLeft,
+.resizeRight {
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.resizeLeft {
+  left: -2px;
+  cursor: ew-resize;
+}
+
+.resizeRight {
+  right: -2px;
+  cursor: ew-resize;
+}
+
+.splitButtons {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.slot:hover .splitButtons {
+  opacity: 1;
+}
+
+.splitButton {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-color, #1890ff);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.splitButton:hover {
+  background: var(--primary-hover, #096dd9);
+  transform: scale(1.1);
+}
+
+.splitButton:active {
+  transform: scale(0.95);
+}
+
+/* Preset Modal */
+.presetModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.presetModal {
+  background: var(--modal-bg, #ffffff);
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.presetModal h3 {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.presetInput {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color, #d9d9d9);
+  border-radius: 6px;
+  font-size: 14px;
+  background: var(--input-bg, #ffffff);
+  color: var(--text-primary, #1a1a1a);
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+.presetInput:focus {
+  outline: none;
+  border-color: var(--primary-color, #1890ff);
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.presetError {
+  margin: -8px 0 12px;
+  font-size: 13px;
+  color: var(--error-color, #cf1322);
+}
+
+/* P0: vùng liệt kê preset đã lưu (trước đây lưu được nhưng không hiện ở đâu cả). */
+.savedPresetsLabel {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.savedPresetChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--border-color, #d9d9d9);
+  border-radius: 999px;
+  padding: 0 2px 0 0;
+}
+
+.presetActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancelButton {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--border-color, #d9d9d9);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text-primary, #1a1a1a);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover {
+  background: var(--hover-bg, #f5f5f5);
+  border-color: var(--primary-color, #1890ff);
+}
+
+.saveButton {
+  padding: 8px 16px;
+  background: var(--primary-color, #1890ff);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.saveButton:hover {
+  background: var(--primary-hover, #096dd9);
+}
+
+/* Dark theme support */
+[data-chart-mode="dark"] .modal,
+[data-chart-mode="dark"] .presetModal {
+  background: var(--modal-bg-dark, #1e1e1e);
+}
+
+[data-chart-mode="dark"] .header,
+[data-chart-mode="dark"] .toolbar {
+  border-color: var(--border-color-dark, #434343);
+}
+
+[data-chart-mode="dark"] .slot {
+  background: var(--slot-bg-dark, #2a2a2a);
+  border-color: var(--slot-border-dark, #434343);
+}
+
+[data-chart-mode="dark"] .slot:hover {
+  border-color: var(--primary-color-dark, #177ddc);
+}
+
+[data-chart-mode="dark"] .toolbarInput,
+[data-chart-mode="dark"] .presetInput {
+  background: var(--input-bg-dark, #2a2a2a);
+  border-color: var(--border-color-dark, #434343);
+  color: var(--text-primary-dark, #ffffff);
+}
+
+[data-chart-mode="dark"] .actionButton {
+  background: var(--button-bg-dark, #2a2a2a);
+  border-color: var(--border-color-dark, #434343);
+  color: var(--text-primary-dark, #ffffff);
+}
+
+[data-chart-mode="dark"] .actionButton:hover {
+  background: var(--button-hover-dark, #3a3a3a);
+}
+
+[data-chart-mode="dark"] .gridContainer {
+  background: var(--grid-bg-dark, #1a1a1a);
+}
+
+[data-chart-mode="dark"] .cancelButton {
+  border-color: var(--border-color-dark, #434343);
+  color: var(--text-primary-dark, #ffffff);
+}
+
+[data-chart-mode="dark"] .cancelButton:hover {
+  background: var(--hover-bg-dark, #3a3a3a);
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .slot.selected {
+    border-width: 3px;
+  }
+  
+  .resizeHandle {
+    opacity: 1;
+  }
+  
+  .splitButtons {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .slot,
+  .resizeHandle,
+  .splitButton,
+  .modal,
+  .presetModal {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.slot:focus-within {
+  outline: 2px solid var(--primary-color, #1890ff);
+  outline-offset: -2px;
+}
+
+.presetButton:focus,
+.actionButton:focus,
+.closeButton:focus,
+.splitButton:focus,
+.cancelButton:focus,
+.saveButton:focus {
+  outline: 2px solid var(--primary-color, #1890ff);
+  outline-offset: 2px;
+}
+
+.toolbarInput:focus,
+.presetInput:focus {
+  outline: none;
+}

@@ -1,0 +1,7 @@
+/* Design Tokens - Focus Ring System */
+.vnsc-root {
+  --vnsc-ring-width: 2px;
+  --vnsc-ring-offset: 2px;
+  --vnsc-ring-color: var(--vnsc-color-primary);
+  --vnsc-ring-opacity: 0.4;
+}

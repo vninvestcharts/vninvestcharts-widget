@@ -1,0 +1,316 @@
+/* Design Tokens - Colors */
+/* All --vnsc-color-*, --vnsc-bg-*, --vnsc-text-*, --vnsc-border-* tokens */
+/* SSOT: dark mode is default (.vnsc-root), light mode override via data-chart-mode="light" */
+
+.vnsc-root {
+  /* Primary Colors */
+  --vnsc-color-primary: #3b82f6;
+  --vnsc-color-primary-hover: #2563eb;
+  --vnsc-color-primary-active: #1d4ed8;
+  --vnsc-color-primary-muted: rgba(59, 130, 246, 0.15);
+  --vnsc-color-accent: #2962ff;
+  --vnsc-color-accent-hover: #1e4bd8;
+
+  /* P1-5b: `--vnsc-primary` trước đây KHÔNG được khai ở SSOT ⇒ 39 chỗ dùng
+     `var(--vnsc-primary, #2962ff)` chỉ resolve được nhờ fallback (và chỉ trong
+     dark multi-layout). Khai ở đây với **đúng** giá trị fallback ⇒ không đổi màu
+     render, nhưng token trở thành hợp lệ (và có thể override theo theme sau này). */
+  --vnsc-primary: #2962ff;
+  --vnsc-primary-hover: #1a52e0;
+
+  /* Semantic Colors */
+  --vnsc-color-success: #22a85e;
+  --vnsc-color-success-hover: #1e8a49;
+  --vnsc-color-warning: #e67e22;
+  --vnsc-color-warning-hover: #d46e1a;
+  --vnsc-color-error: #c0392b;
+  --vnsc-color-error-hover: #a93226;
+  --vnsc-color-info: #3b82f6;
+
+  /* Background Colors */
+  --vnsc-bg: var(--vnsc-bg-primary);
+  --vnsc-bg-primary: #131722;
+  --vnsc-bg-primary-rgba: rgba(19, 23, 34, 0.85);
+  --vnsc-bg-secondary: #1e222d;
+  --vnsc-bg-tertiary: #131722;
+  --vnsc-bg-elevated: #1f2937;
+  --vnsc-bg-overlay: rgba(10, 14, 20, 0.85);
+  --vnsc-bg-modal: #1e222d;
+  --vnsc-bg-popover: #1a1f2e;
+  --vnsc-bg-tooltip: #1f2937;
+  --vnsc-bg-input: #1a1f2e;
+  --vnsc-bg-input-hover: #1f2937;
+  --vnsc-bg-input-focus: #1f2937;
+  --vnsc-bg-disabled: #1a1f2e;
+  --vnsc-bg-hover: rgba(255, 255, 255, 0.04);
+  --vnsc-bg-active: rgba(255, 255, 255, 0.08);
+  --vnsc-bg-selected: rgba(59, 130, 246, 0.15);
+  --vnsc-bg-focus: rgba(59, 130, 246, 0.2);
+
+  /* Text Colors */
+  --vnsc-text-primary: #d1d4dc;
+  --vnsc-text-secondary: #787b86;
+  --vnsc-text-tertiary: #50535e;
+  --vnsc-text-muted: #4e5263;
+  --vnsc-text-inverse: #0a0e14;
+  --vnsc-text-link: #3b82f6;
+  --vnsc-text-link-hover: #60a5fa;
+  --vnsc-text-disabled: #4a4a4a;
+  --vnsc-text-placeholder: #606060;
+  --vnsc-text-on-primary: #ffffff;
+  --vnsc-text-on-accent: #ffffff;
+
+  /* Surface (aliases for backward compat / convenience) */
+  --vnsc-surface: var(--vnsc-bg-secondary);
+  --vnsc-text: var(--vnsc-text-primary);
+
+  /* Border Colors */
+  --vnsc-border-primary: #2a2a2a;
+  --vnsc-border-secondary: #3a3a3a;
+  --vnsc-border-focus: #3b82f6;
+  --vnsc-border-error: #c0392b;
+  --vnsc-border-success: #22a85e;
+  --vnsc-border-warning: #e67e22;
+  --vnsc-border-input: #2a2a2a;
+  --vnsc-border-input-hover: #3a3a3a;
+  --vnsc-border-input-focus: #3b82f6;
+  --vnsc-border-divider: #2a2a2a;
+  --vnsc-border-overlay: rgba(255, 255, 255, 0.1);
+
+  /* Chart-specific Colors — TradingView palette SSOT */
+  --vnsc-color-bullish: rgb(38, 166, 154);
+  --vnsc-color-bearish: rgb(239, 83, 80);
+  --vnsc-color-neutral: #6c757d;
+  --vnsc-color-volume: rgba(59, 130, 246, 0.3);
+  --vnsc-color-grid: rgba(255, 255, 255, 0.05);
+  --vnsc-color-grid-subtle: rgba(255, 255, 255, 0.025);
+  --vnsc-color-crosshair: #2962ff;
+  --vnsc-color-selection: rgba(41, 98, 255, 0.2);
+  --vnsc-grid-dash: "";
+  --vnsc-grid-width: 1;
+
+  /* Short-name aliases (used by CSS modules) */
+  --vnsc-accent: var(--vnsc-color-accent);
+  --vnsc-accent-hover: var(--vnsc-color-accent-hover);
+  --vnsc-border: var(--vnsc-border-primary);
+
+  /* Up / Down aliases */
+  --vnsc-up: var(--vnsc-color-bullish);
+  --vnsc-down: var(--vnsc-color-bearish);
+
+  /* Overlay Colors */
+  --vnsc-color-whale-buy: var(--vnsc-color-bullish);
+  --vnsc-color-whale-sell: var(--vnsc-color-bearish);
+  --vnsc-color-cvd-positive: var(--vnsc-color-bullish);
+  --vnsc-color-cvd-negative: var(--vnsc-color-bearish);
+  --vnsc-color-darkflow-strong: #7c3aed;
+  --vnsc-color-darkflow-weak: #a855f7;
+
+  /* Drawing Colors */
+  --vnsc-drawing-color-default: #3b82f6;
+  --vnsc-drawing-color-selected: #fbbf24;
+  --vnsc-drawing-color-hover: #60a5fa;
+  --vnsc-drawing-color-locked: #6c757d;
+  --vnsc-drawing-color-hidden: #4a4a4a;
+
+  /* Scrollbar Colors */
+  --vnsc-scrollbar-track: transparent;
+  --vnsc-scrollbar-thumb: #3a3a3a;
+  --vnsc-scrollbar-thumb-hover: #4a4a4a;
+  --vnsc-scrollbar-corner: transparent;
+  --vnsc-accent-subtle: rgba(41, 98, 255, 0.15);
+}
+
+/* Light mode overrides */
+.vnsc-root[data-chart-mode="light"] {
+  --vnsc-bg: var(--vnsc-bg-primary);
+  --vnsc-bg-primary: #ffffff;
+  --vnsc-bg-primary-rgba: rgba(255, 255, 255, 0.85);
+  --vnsc-bg-secondary: #f8fafc;
+  --vnsc-bg-tertiary: #f1f5f9;
+  --vnsc-bg-elevated: #ffffff;
+  --vnsc-bg-overlay: rgba(255, 255, 255, 0.95);
+  --vnsc-bg-modal: #ffffff;
+  --vnsc-bg-popover: #f8fafc;
+  --vnsc-bg-tooltip: #1e293b;
+  --vnsc-bg-input: #ffffff;
+  --vnsc-bg-input-hover: #f8fafc;
+  --vnsc-bg-input-focus: #ffffff;
+  --vnsc-bg-disabled: #f1f5f9;
+  --vnsc-bg-hover: rgba(0, 0, 0, 0.04);
+  --vnsc-bg-active: rgba(0, 0, 0, 0.08);
+  --vnsc-bg-selected: rgba(59, 130, 246, 0.1);
+  --vnsc-bg-focus: rgba(59, 130, 246, 0.15);
+
+  --vnsc-text: #1e293b;
+  --vnsc-text-primary: #0f172a;
+  --vnsc-text-secondary: #475569;
+  --vnsc-text-tertiary: #94a3b8;
+  --vnsc-text-muted: #64748b;
+  --vnsc-text-inverse: #ffffff;
+  --vnsc-text-link: #2563eb;
+  --vnsc-text-link-hover: #1d4ed8;
+  --vnsc-text-disabled: #cbd5e1;
+  --vnsc-text-placeholder: #94a3b8;
+  --vnsc-text-on-primary: #ffffff;
+  --vnsc-text-on-accent: #ffffff;
+
+  --vnsc-surface: #ffffff;
+
+  --vnsc-accent: #2563eb;
+  --vnsc-accent-hover: #1d4ed8;
+  --vnsc-border: var(--vnsc-border-primary);
+
+  --vnsc-border-primary: #e2e8f0;
+  --vnsc-border-secondary: #cbd5e1;
+  --vnsc-border-focus: #2563eb;
+  --vnsc-border-input: #e2e8f0;
+  --vnsc-border-input-hover: #cbd5e1;
+  --vnsc-border-input-focus: #2563eb;
+  --vnsc-border-divider: #e2e8f0;
+  --vnsc-border-overlay: rgba(0, 0, 0, 0.1);
+
+  --vnsc-color-grid: rgba(150, 160, 180, 0.07);
+  --vnsc-color-grid-subtle: rgba(150, 160, 180, 0.035);
+  --vnsc-color-crosshair: #2563eb;
+  --vnsc-color-selection: rgba(37, 99, 235, 0.15);
+
+  --vnsc-scrollbar-track: transparent;
+  --vnsc-scrollbar-thumb: #cbd5e1;
+  --vnsc-scrollbar-thumb-hover: #94a3b8;
+}
+
+/* Classic Dark — rich blue-black shell */
+.vnsc-root[data-chart-theme="classic-dark"] {
+  --vnsc-bg-primary: #0F1720;
+  --vnsc-bg-primary-rgba: rgba(15, 23, 32, 0.85);
+  --vnsc-bg-secondary: #07101A;
+  --vnsc-bg-tertiary: #0F1925;
+  --vnsc-bg-elevated: #122433;
+  --vnsc-bg-overlay: rgba(7, 16, 26, 0.9);
+  --vnsc-bg-modal: #07101A;
+  --vnsc-bg-popover: #0F1720;
+  --vnsc-bg-tooltip: #122433;
+  --vnsc-bg-input: #0F1720;
+  --vnsc-bg-input-hover: #122433;
+  --vnsc-bg-hover: rgba(77, 166, 255, 0.06);
+  --vnsc-bg-active: rgba(77, 166, 255, 0.1);
+  --vnsc-bg-selected: rgba(77, 166, 255, 0.15);
+  --vnsc-text-primary: #B8C7D6;
+  --vnsc-text-secondary: #7A8B9E;
+  --vnsc-text-muted: #4E6273;
+  --vnsc-accent: #4DA6FF;
+  --vnsc-accent-hover: #3690E8;
+  --vnsc-border-primary: #122433;
+  --vnsc-border-divider: #122433;
+  --vnsc-border-overlay: rgba(77, 166, 255, 0.15);
+  --vnsc-color-grid: rgba(255, 255, 255, 0.05);
+  --vnsc-color-grid-subtle: rgba(255, 255, 255, 0.025);
+  --vnsc-color-crosshair: #4DA6FF;
+  --vnsc-color-selection: rgba(77, 166, 255, 0.15);
+  --vnsc-accent-subtle: rgba(77, 166, 255, 0.15);
+}
+
+/* Trading Night — deep navy with cyan-green accents */
+.vnsc-root[data-chart-theme="trading-night"] {
+  --vnsc-bg-primary: #071226;
+  --vnsc-bg-primary-rgba: rgba(7, 18, 38, 0.85);
+  --vnsc-bg-secondary: #041022;
+  --vnsc-bg-tertiary: #071A30;
+  --vnsc-bg-elevated: #083044;
+  --vnsc-bg-overlay: rgba(4, 16, 34, 0.9);
+  --vnsc-bg-modal: #041022;
+  --vnsc-bg-popover: #071226;
+  --vnsc-bg-tooltip: #083044;
+  --vnsc-bg-input: #071226;
+  --vnsc-bg-input-hover: #083044;
+  --vnsc-bg-hover: rgba(0, 163, 255, 0.07);
+  --vnsc-bg-active: rgba(0, 163, 255, 0.12);
+  --vnsc-bg-selected: rgba(0, 163, 255, 0.18);
+  --vnsc-text-primary: #A9D6FF;
+  --vnsc-text-secondary: #6B9BC0;
+  --vnsc-text-muted: #3E6E91;
+  --vnsc-accent: #00A3FF;
+  --vnsc-accent-hover: #0090E0;
+  --vnsc-border-primary: #083044;
+  --vnsc-border-divider: #083044;
+  --vnsc-border-overlay: rgba(0, 163, 255, 0.15);
+  --vnsc-color-grid: rgba(255, 255, 255, 0.05);
+  --vnsc-color-grid-subtle: rgba(255, 255, 255, 0.025);
+  --vnsc-color-crosshair: #00A3FF;
+  --vnsc-color-selection: rgba(0, 163, 255, 0.15);
+  --vnsc-color-bullish: #00C48C;
+  --vnsc-color-bearish: #FF4D6D;
+  --vnsc-accent-subtle: rgba(0, 163, 255, 0.15);
+}
+
+/* Modern Light — bright white shell (fine-tune over light defaults) */
+.vnsc-root[data-chart-theme="modern-light"] {
+  --vnsc-accent: #0B74DE;
+  --vnsc-accent-hover: #095BB8;
+  --vnsc-color-crosshair: #0B74DE;
+  --vnsc-color-selection: rgba(11, 116, 222, 0.12);
+  --vnsc-color-bullish: #1E8A3A;
+  --vnsc-color-bearish: #D64545;
+  --vnsc-accent-subtle: rgba(11, 116, 222, 0.12);
+}
+
+/* Neutral Pro — warm light shell with muted slate accents */
+.vnsc-root[data-chart-theme="neutral-pro"] {
+  --vnsc-bg-primary: #FAFBFC;
+  --vnsc-bg-primary-rgba: rgba(250, 251, 252, 0.85);
+  --vnsc-bg-secondary: #F4F6F8;
+  --vnsc-bg-tertiary: #EEF0F2;
+  --vnsc-bg-elevated: #FFFFFF;
+  --vnsc-bg-overlay: rgba(244, 246, 248, 0.95);
+  --vnsc-bg-modal: #FFFFFF;
+  --vnsc-bg-popover: #F4F6F8;
+  --vnsc-bg-input: #FFFFFF;
+  --vnsc-bg-input-hover: #F4F6F8;
+  --vnsc-bg-hover: rgba(43, 108, 176, 0.05);
+  --vnsc-bg-active: rgba(43, 108, 176, 0.1);
+  --vnsc-bg-selected: rgba(43, 108, 176, 0.15);
+  --vnsc-text-primary: #2C3E50;
+  --vnsc-text-secondary: #64748B;
+  --vnsc-text-muted: #94A3B8;
+  --vnsc-accent: #2B6CB0;
+  --vnsc-accent-hover: #234F86;
+  --vnsc-border-primary: #E6EDF5;
+  --vnsc-border-divider: #E6EDF5;
+  --vnsc-border-overlay: rgba(43, 108, 176, 0.1);
+  --vnsc-color-grid: rgba(150, 160, 180, 0.07);
+  --vnsc-color-grid-subtle: rgba(150, 160, 180, 0.035);
+  --vnsc-color-crosshair: #2B6CB0;
+  --vnsc-color-selection: rgba(43, 108, 176, 0.12);
+  --vnsc-accent-subtle: rgba(43, 108, 176, 0.12);
+}
+
+/* High Contrast — a11y: black bg, gold accent, visible grid */
+.vnsc-root[data-chart-theme="high-contrast"] {
+  --vnsc-bg-primary: #000000;
+  --vnsc-bg-primary-rgba: rgba(0, 0, 0, 0.95);
+  --vnsc-bg-secondary: #0A0A0A;
+  --vnsc-bg-tertiary: #000000;
+  --vnsc-bg-elevated: #1A1A1A;
+  --vnsc-bg-overlay: rgba(0, 0, 0, 0.95);
+  --vnsc-bg-modal: #0A0A0A;
+  --vnsc-bg-popover: #0A0A0A;
+  --vnsc-bg-tooltip: #1A1A1A;
+  --vnsc-bg-input: #000000;
+  --vnsc-bg-hover: rgba(255, 255, 255, 0.12);
+  --vnsc-bg-active: rgba(255, 255, 255, 0.2);
+  --vnsc-bg-selected: rgba(255, 255, 255, 0.18);
+  --vnsc-text-primary: #FFFFFF;
+  --vnsc-text-secondary: #B0B0B0;
+  --vnsc-text-muted: #808080;
+  --vnsc-accent: #FFD700;
+  --vnsc-accent-hover: #FFC700;
+  --vnsc-border-primary: #2A2A2A;
+  --vnsc-border-divider: #2A2A2A;
+  --vnsc-border-overlay: rgba(255, 255, 255, 0.15);
+  --vnsc-color-grid: rgba(255, 255, 255, 0.12);
+  --vnsc-color-grid-subtle: rgba(255, 255, 255, 0.06);
+  --vnsc-color-crosshair: #FFD700;
+  --vnsc-color-selection: rgba(255, 215, 0, 0.15);
+  --vnsc-accent-subtle: rgba(255, 215, 0, 0.15);
+}

@@ -1,0 +1,47 @@
+{
+  "id": "builtin-ema-multi",
+  "name": "EMA Multi",
+  "createdAt": 1710000000000,
+  "updatedAt": 1710000000000,
+  "isBuiltin": true,
+  "panes": [
+    {
+      "id": "price",
+      "label": "Price",
+      "pinned": true,
+      "visible": true,
+      "heightRatio": 0.62,
+      "splitScale": false,
+      "tooltip": "ohlc",
+      "series": [
+        { "type": "Candlestick", "yAxis": "right" },
+        { "type": "EMA", "params": { "period": 13, "color": "#f97316" }, "yAxis": "right", "overlay": true },
+        { "type": "EMA", "params": { "period": 20, "color": "#2563eb" }, "yAxis": "right", "overlay": true }
+      ]
+    },
+    {
+      "id": "volume",
+      "label": "Volume",
+      "pinned": false,
+      "visible": true,
+      "heightRatio": 0.2,
+      "splitScale": false,
+      "tooltip": "value",
+      "series": [
+        { "type": "Volume", "yAxis": "right" }
+      ]
+    },
+    {
+      "id": "momentum",
+      "label": "RSI",
+      "pinned": false,
+      "visible": true,
+      "heightRatio": 0.18,
+      "splitScale": false,
+      "tooltip": "value",
+      "series": [
+        { "type": "RSI", "params": { "period": 14 }, "yAxis": "right" }
+      ]
+    }
+  ]
+}

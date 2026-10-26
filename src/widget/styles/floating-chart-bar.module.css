@@ -1,0 +1,80 @@
+/** FloatingChartBar visuals + positioning (auto-hide: floating-chart-bar.css). */
+.bar {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  max-width: 320px;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: max-width 0.2s ease, height 0.2s ease, opacity 0.2s ease, border-radius 0.2s ease, padding 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 8px;
+  background: var(--vnsc-bg-secondary, #111820);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--vnsc-text-secondary, #a0a0a0);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--vnsc-text-primary, #e0e0e0);
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btnActive {
+  color: var(--vnsc-primary, #2962ff);
+}
+
+.separator {
+  width: 1px;
+  height: 18px;
+  background: var(--vnsc-border, #2a2a2a);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+.grip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 24px;
+  color: var(--vnsc-text-secondary, #a0a0a0);
+  flex-shrink: 0;
+}
+
+/* A+B7 idle: flat stadium pill. hover:hover wrap (A1) keeps touch expanded.
+   :not(:focus-within) keeps Tab expanding the bar (opacity, never display:none).
+   Grip is absolutely centered: flex auto-margins collapse to 0 under overflow,
+   which left the dots off-center in the circle variant — absolute centering is exact. */
+@media (hover: hover) {
+  .bar:not(:hover):not(:focus-within) { max-width: 40px; height: 18px; padding: 1px 8px; border-radius: 13px; opacity: 0.85; }
+  .bar:not(:hover):not(:focus-within) > :not(.grip) { opacity: 0; }
+  .bar:not(:hover):not(:focus-within) > .grip { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); height: 14px; }
+  .bar:not(:hover):not(:focus-within) > .grip svg { width: 12px; height: 12px; }
+}

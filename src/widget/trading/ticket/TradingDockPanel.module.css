@@ -1,0 +1,137 @@
+.dock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  padding: 8px 10px;
+  background: var(--vnsc-bg-primary, #1e293b);
+  color: var(--vnsc-text-primary, #e2e8f0);
+  font-family: var(--vnsc-font-family-base);
+  font-size: var(--vnsc-font-size-sm, 12px);
+}
+
+/* Gom 9 tab loại lệnh thành wrap — không cắt chữ (P2-1). */
+.dock .tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.dock .tabs .tab,
+.dock .tabs .activeTab {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 4px 6px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* TIF thu vào select nhỏ (P2-2). */
+.tifRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tifLabel {
+  font-size: 11px;
+  color: var(--vnsc-text-secondary, #787b86);
+  white-space: nowrap;
+}
+
+.tifSelect {
+  flex: 1;
+  min-width: 0;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  background: var(--vnsc-bg-primary, #0d141b);
+  color: inherit;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Vị thế đang mở (Pha 3 polish): hiện ngay trong panel. */
+.positionRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: var(--vnsc-bg-secondary, rgba(255, 255, 255, 0.04));
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+/* Quick ticket (P2-6): ẩn TP/SL/risk khi bật — conditional render đã xử lý,
+   CSS này chỉ là fallback nếu element còn tồn tại trong DOM. */
+
+/* TP/SL share one row (mini stacked labels fit narrow halves). */
+.dualField {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+}
+
+.dualField label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 10px;
+  color: var(--vnsc-text-secondary, #787b86);
+  min-width: 0;
+}
+
+.dualField label input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 6px;
+  font-size: 12px;
+}
+
+/* Risk readout compact: single-line rows, no bulk. */
+.riskCompact {
+  font-size: 11px;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.riskCompact > div > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 1px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.submitBar {
+  /* In normal flow right after content: no void above, no footer overlap. */
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  /* Token, không hard-code (AC7): đổi theme là nút đổi theo. */
+  background: var(--vnsc-color-bullish, #16a34a);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: pre-wrap;
+}
+
+.submitBar:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.submitBarSell {
+  background: var(--vnsc-color-bearish, #dc2626);
+}
+
+/* Stop tab hint (P1-4): làm rõ stop-market vs stop-limit. */
+.hint {
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--vnsc-text-secondary, #787b86);
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: var(--vnsc-bg-secondary, rgba(255, 255, 255, 0.04));
+}

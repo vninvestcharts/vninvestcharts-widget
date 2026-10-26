@@ -1,0 +1,191 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // ── Runtime ──────────────────────────────────────────────────────────────
+  "default_agent": "build",
+  "shell": "pwsh",
+  "autoupdate": "notify",
+  "snapshot": true,
+  "compaction": { "auto": true, "prune": true, "reserved": 12000 },
+
+  // ── Instructions (project rules) ────────────────────────────────────────
+  // Preserves the existing hard rules in AGENTS.md + CLAUDE.md.
+  // workflow-dev-loop (học từ erp-dev-loop của ERP-Edusuccess, hiệu chỉnh cho repo chart):
+  // vòng kín 9 bước mặc định cho mọi nhiệm vụ code. AGENTS.md đang kịch trần budget (265/265)
+  // nên con trỏ vòng lặp sống ở đây + trong skill, không paste vào AGENTS.md.
+  "instructions": ["CLAUDE.md", "AGENTS.md", ".opencode/skills/workflow-dev-loop/SKILL.md"],
+
+  // ── Diagnostics & watching ──────────────────────────────────────────────
+  "lsp": true,
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      "dist/**",
+      ".git/**",
+      ".opencode/**",
+      "coverage/**",
+      ".tmp/**",
+      "videos/**",
+      "log/**"
+    ]
+  },
+
+  // ── Permissions (global guardrails) ─────────────────────────────────────
+  // Edits allowed; destructive bash is blocked/asked; MCP tools always ask.
+  "permission": {
+    "edit": "allow",
+    "write": "allow",
+    "mcp_*": "ask",
+    "bash": {
+      "*": "allow",
+      "rm -rf *": "deny",
+      "rm -fr *": "deny",
+      "sudo *": "ask",
+      "git push*": "ask",
+      // 2026-10-20 (agent harness P2): `git commit*` must be "ask", not "allow", or the
+      // `permission.ask` hook in .opencode/plugins/agent-harness.js NEVER fires (the hook only
+      // runs for permissions that resolve to "ask"). That hook is what denies a commit while the
+      // slice plan still has an in_progress phase. Without this line the gate is a dead switch.
+      "git commit*": "ask",
+      "git reset --hard*": "ask",
+      "git clean*": "ask",
+      "git checkout -- *": "ask",
+      "npm publish*": "ask"
+    }
+  },
+
+  // ── Agents ──────────────────────────────────────────────────────────────
+  // Built-in `build` (primary) and `plan` (primary) are used as-is.
+  // Subagents are restricted per purpose using `permission` (not deprecated `tools`).
+  "agent": {
+    "planner": {
+      "description": "Expert planning specialist for complex features and refactoring. Use for implementation planning, architectural changes, or complex refactoring.",
+      "mode": "subagent",
+      "temperature": 0.1,
+      "permission": { "edit": "deny", "write": "deny", "bash": "ask", "webfetch": "allow", "websearch": "allow" }
+    },
+    "architect": {
+      "description": "Software architecture specialist for system design, scalability, and technical decision-making.",
+      "mode": "subagent",
+      "temperature": 0.1,
+      "permission": { "edit": "deny", "write": "deny", "bash": "ask", "webfetch": "allow", "websearch": "allow" }
+    },
+    "code-reviewer": {
+      "description": "Expert code review specialist. Reviews code for quality, security, and maintainability. Use immediately after writing or modifying code.",
+      "mode": "subagent",
+      "permission": { "edit": "deny", "write": "deny", "bash": "ask", "webfetch": "allow", "websearch": "allow" }
+    },
+    "security-reviewer": {
+      "description": "Security vulnerability detection and remediation specialist. Use after writing code that handles user input, authentication, API endpoints, or sensitive data.",
+      "mode": "subagent",
+      "permission": { "edit": "deny", "write": "deny", "bash": "ask", "webfetch": "allow", "websearch": "allow" }
+    },
+    "build-error-resolver": {
+      "description": "Build and TypeScript error resolution specialist. Use when build fails or type errors occur. Fixes build/type errors only with minimal diffs.",
+      "mode": "subagent",
+      "permission": { "edit": "allow", "write": "allow", "bash": "allow" }
+    },
+    "tdd-guide": {
+      "description": "Test-Driven Development specialist enforcing write-tests-first methodology. Use when writing new features, fixing bugs, or refactoring code. Ensures 80%+ test coverage.",
+      "mode": "subagent",
+      "permission": { "edit": "allow", "write": "allow", "bash": "allow" }
+    },
+    "e2e-runner": {
+      "description": "End-to-end testing specialist using Playwright. Generates, maintains, and runs E2E tests for critical user flows.",
+      "mode": "subagent",
+      "permission": { "edit": "allow", "write": "allow", "bash": "allow" }
+    },
+    "doc-updater": {
+      "description": "Documentation and codemap specialist. Use for updating codemaps and documentation (docs/, AGENTS.md).",
+      "mode": "subagent",
+      "permission": { "edit": "allow", "write": "allow", "bash": "ask", "webfetch": "allow" }
+    },
+    "refactor-cleaner": {
+      "description": "Dead code cleanup and consolidation specialist. Use for removing unused code, duplicates, and refactoring.",
+      "mode": "subagent",
+      "permission": { "edit": "allow", "write": "allow", "bash": "allow" }
+    }
+  },
+
+  // ── Commands ────────────────────────────────────────────────────────────
+  "command": {
+    "test": {
+      "description": "Run the full test suite",
+      "template": "Run the full test suite: npm test",
+      "agent": "build"
+    },
+    "type-check": {
+      "description": "Run TypeScript type checking",
+      "template": "Run TypeScript type checking: npm run type-check",
+      "agent": "build"
+    },
+    "lint": {
+      "description": "Run linter",
+      "template": "Run linter: npm run lint",
+      "agent": "build"
+    },
+    "build": {
+      "description": "Build the project",
+      "template": "Build the project: npm run build",
+      "agent": "build"
+    },
+    "audit": {
+      "description": "Run fat-file budget audit",
+      "template": "Run the fat-file budget audit: npm run audit:fat-files",
+      "agent": "build"
+    },
+    "plan": {
+      "description": "Create a detailed implementation plan for complex features",
+      "template": "Analyze the request and produce a detailed implementation plan. Request: $ARGUMENTS",
+      "agent": "planner",
+      "subtask": true
+    },
+    "tdd": {
+      "description": "Enforce TDD workflow with 80%+ coverage",
+      "template": "Apply Test-Driven Development to: $ARGUMENTS. Write tests first, then implement, then reach 80%+ coverage.",
+      "agent": "tdd-guide",
+      "subtask": true
+    },
+    "code-review": {
+      "description": "Review code for quality, security, and maintainability",
+      "template": "Review the current changes for quality, security, and maintainability. Focus on correctness and the AGENTS.md hard rules.",
+      "agent": "code-reviewer",
+      "subtask": true
+    },
+    "security": {
+      "description": "Run comprehensive security review",
+      "template": "Run a comprehensive security review of the changes. Check for secret exposure, input validation, and auth flaws.",
+      "agent": "security-reviewer",
+      "subtask": true
+    },
+    "build-fix": {
+      "description": "Fix build and TypeScript errors with minimal changes",
+      "template": "Fix the build/type errors with minimal diffs. Run npm run type-check and npm run build to verify.",
+      "agent": "build-error-resolver",
+      "subtask": true
+    },
+    "e2e": {
+      "description": "Generate and run E2E tests with Playwright",
+      "template": "Generate and run Playwright E2E tests for: $ARGUMENTS",
+      "agent": "e2e-runner",
+      "subtask": true
+    },
+    "refactor-clean": {
+      "description": "Remove dead code and consolidate duplicates",
+      "template": "Remove dead code and consolidate duplicates in: $ARGUMENTS",
+      "agent": "refactor-cleaner",
+      "subtask": true
+    },
+    "update-docs": {
+      "description": "Update documentation and codemaps",
+      "template": "Update the documentation/codemaps for: $ARGUMENTS.",
+      "agent": "doc-updater",
+      "subtask": true
+    },
+    "verify": {
+      "description": "Run full verification (type-check, lint, audit, tests)",
+      "template": "Run the full verification loop: npm run type-check && npm run lint && npm run audit:fat-files && npm test. Report any failures.",
+      "agent": "build"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+/* Design Tokens - Opacity Scale */
+.vnsc-root {
+  --vnsc-opacity-disabled: 0.38;
+  --vnsc-opacity-hover: 0.04;
+  --vnsc-opacity-focus: 0.12;
+  --vnsc-opacity-pressed: 0.16;
+  --vnsc-opacity-dragging: 0.08;
+  --vnsc-opacity-overlay: 0.5;
+  --vnsc-opacity-backdrop: 0.85;
+  --vnsc-opacity-watermark: 0.05;
+  --vnsc-opacity-skeleton-base: 0.08;
+  --vnsc-opacity-skeleton-highlight: 0.15;
+}

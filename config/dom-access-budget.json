@@ -1,0 +1,8 @@
+{
+	"_why": "Trần cho scripts/check-dom-access.cjs (D-03). Ratchet: CHI XUONG. Tang tran can coordinator duyet + '### Trade-off' trong AUDIT_LEDGER.md (L-P01).",
+	"_measuredAt": "2026-10-14 @ 3f71d4f",
+	"_measurement": "node scripts/check-dom-access.cjs — production ONLY (khong tinh file test, khong tinh .css). Con so 1405 trong AUDIT_360 la tong cua CA test; __tests__ duoc phep cham DOM truc tiep.",
+	"_scopeNote": "95 file · document. 124 · window. 310 · total 434. Raise chi khi co ly do ghi ro, khong phai de lam co portal xanh.",
+	"maxTotal": 434,
+	"maxFiles": 95
+}

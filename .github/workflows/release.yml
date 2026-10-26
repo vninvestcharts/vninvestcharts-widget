@@ -1,0 +1,90 @@
+name: Publish Widget
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm ci
+
+      - name: Type check
+        run: npm run type-check
+
+      - name: Test
+        run: npm test
+
+      # REL-06: release gate phải mạnh không kém CI. Trước đây release.yml thiếu
+      # các gate dưới đây nên có thể publish package lỗi cấu trúc export.
+      - name: Audit fat-files
+        run: npm run audit:fat-files
+
+      - name: Audit props
+        run: npm run audit:props
+
+      - name: Audit any
+        run: npm run audit:any
+
+      - name: Audit hardcoded text
+        run: npm run audit:hardcoded-text
+
+      - name: Version sync (GOV-02)
+        run: npm run check:version
+
+      - name: Engine dist freshness (Rule 13)
+        run: npm run check-engine-timestamp
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify dist
+        run: npm run verify-dist
+
+      - name: Consumer compile smoke (tarball)
+        run: npm run verify:consumer
+
+      - name: Release manifest
+        run: npm run release:manifest
+
+      - name: Verify npm package
+        run: |
+          npm pack --dry-run 2>&1
+          if npm pack --dry-run 2>&1 | grep -q "\.map"; then
+            echo "FAIL: .map files found in npm package"
+            exit 1
+          fi
+          echo "PASS: npm package OK"
+
+      # VER-01: publish evidence even when a gate above failed, so the release
+      # decision can be audited afterwards.
+      - name: upload release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-evidence-${{ github.ref_name }}
+          path: |
+            release-manifest.json
+            dist
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Publish to NPM
+        # RC/PRERELEASE (v*-rc.*, v*-beta.*): publish under `rc` dist-tag so the
+        # public `latest` tag keeps pointing at the last stable release.
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == *"-rc."* || "${GITHUB_REF_NAME}" == *"-beta."* ]]; then
+            npm publish --access public --tag rc
+          else
+            npm publish --access public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

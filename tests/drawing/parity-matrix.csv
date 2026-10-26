@@ -1,0 +1,7 @@
+tool,RENDER,SELECT,MOVE,RESIZE,DELETE,UNDO,REDO,PROP,passed,total,status
+trendLine,,,,,,,,,0,8,pending
+fibonacci,,,,,,,,,0,8,pending
+hLine,,,,,,,,,0,8,pending
+vLine,,,,,,,,,0,8,pending
+ray,,,,,,,,,0,8,pending
+rectangle,,,,,,,,,0,8,pending

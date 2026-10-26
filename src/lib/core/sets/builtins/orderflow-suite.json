@@ -1,0 +1,74 @@
+{
+  "id": "builtin-orderflow-suite",
+  "name": "Orderflow Suite",
+  "createdAt": 1710000000000,
+  "updatedAt": 1710000000000,
+  "isBuiltin": true,
+  "panes": [
+    {
+      "id": "price",
+      "label": "Price",
+      "pinned": true,
+      "visible": true,
+      "heightRatio": 0.42,
+      "splitScale": false,
+      "tooltip": "ohlc",
+      "series": [
+        { "type": "Candlestick", "yAxis": "right" },
+        { "type": "EMA", "params": { "period": 20, "color": "#2d9cdb" }, "yAxis": "right", "overlay": true },
+        { "type": "EMA", "params": { "period": 50, "color": "#f2994a" }, "yAxis": "right", "overlay": true }
+      ]
+    },
+    {
+      "id": "volume",
+      "label": "Volume",
+      "pinned": false,
+      "visible": false,
+      "heightRatio": 0.16,
+      "splitScale": false,
+      "tooltip": "value",
+      "series": [
+        { "type": "Volume", "yAxis": "right" }
+      ]
+    },
+    {
+      "id": "momentum",
+      "label": "RSI+MACD",
+      "pinned": false,
+      "visible": false,
+      "heightRatio": 0.22,
+      "splitScale": true,
+      "tooltip": "value",
+      "series": [
+        { "type": "RSI", "params": { "period": 14 }, "yAxis": "left" },
+        { "type": "MACD", "params": { "fast": 12, "slow": 26, "signal": 9 }, "yAxis": "right" }
+      ]
+    },
+    {
+      "id": "orderflow",
+      "label": "Order Flow",
+      "pinned": false,
+      "visible": true,
+      "heightRatio": 0.26,
+      "splitScale": false,
+      "tooltip": "value",
+      "series": [
+        { "type": "Whale", "params": { "threshold": 50000 }, "yAxis": "right" },
+        { "type": "CVDApprox", "yAxis": "right" }
+      ]
+    },
+    {
+      "id": "strength",
+      "label": "Strength",
+      "pinned": false,
+      "visible": true,
+      "heightRatio": 0.14,
+      "splitScale": true,
+      "tooltip": "value",
+      "series": [
+        { "type": "StrengthElder", "yAxis": "left" },
+        { "type": "StrengthRelative", "yAxis": "right" }
+      ]
+    }
+  ]
+}

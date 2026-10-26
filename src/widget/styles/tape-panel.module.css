@@ -1,0 +1,192 @@
+/* Tape Panel Styles - CSS Module */
+.panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 240px;
+  z-index: var(--vnsc-z-dock, 51);
+  background: var(--vnsc-bg-primary);
+  border-left: 1px solid var(--vnsc-border-primary);
+  display: flex;
+  flex-direction: column;
+  font-size: var(--vnsc-font-size-xs);
+  color: var(--vnsc-text-primary);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--vnsc-space-2);
+  border-bottom: 1px solid var(--vnsc-border-divider);
+  background: var(--vnsc-bg-secondary);
+  flex-shrink: 0;
+}
+
+.title {
+  font-weight: 700;
+  font-size: var(--vnsc-font-size-sm);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--vnsc-text-secondary);
+  cursor: pointer;
+  font-size: var(--vnsc-font-size-md);
+  padding: 0 4px;
+  transition: color 0.15s ease;
+}
+
+.closeBtn:hover {
+  color: var(--vnsc-text-primary);
+}
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--vnsc-border-divider);
+  flex-shrink: 0;
+}
+
+.filterLabel {
+  color: var(--vnsc-text-secondary);
+  white-space: nowrap;
+}
+
+.filterSlider {
+  flex: 1;
+  cursor: pointer;
+}
+
+.filterValue {
+  width: 38px;
+  text-align: right;
+  color: var(--vnsc-text-primary);
+  flex-shrink: 0;
+}
+
+.columnHeaders {
+  display: grid;
+  grid-template-columns: 52px 70px 52px 44px 22px;
+  padding: 2px 4px;
+  color: var(--vnsc-text-secondary);
+  font-size: var(--vnsc-font-size-2xs);
+  border-bottom: 1px solid var(--vnsc-border-divider);
+  flex-shrink: 0;
+}
+
+.entriesList {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.loading,
+.empty {
+  text-align: center;
+  color: var(--vnsc-text-secondary);
+  padding-top: 20px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 52px 70px 52px 44px 22px;
+  height: 22px;
+  align-items: center;
+  padding: 0 4px;
+  background: transparent;
+  border-bottom: 1px solid var(--vnsc-border-divider);
+}
+
+.rowWhale {
+  background: color-mix(in srgb, var(--vnsc-color-warning) 15%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--vnsc-color-warning) 60%, transparent);
+}
+
+.rowTime {
+  color: var(--vnsc-text-secondary);
+  font-size: var(--vnsc-font-size-2xs);
+}
+
+.rowPrice {
+  text-align: right;
+  font-weight: 400;
+}
+
+.rowPriceBuy {
+  color: var(--vnsc-color-bullish);
+}
+
+.rowPriceSell {
+  color: var(--vnsc-color-bearish);
+}
+
+.rowPriceWhale {
+  font-weight: 700;
+}
+
+.rowVolume {
+  text-align: right;
+  color: var(--vnsc-text-secondary);
+}
+
+.rowValue {
+  text-align: right;
+  color: var(--vnsc-text-secondary);
+}
+
+.rowValueWhale {
+  color: var(--vnsc-color-warning);
+}
+
+.rowSide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 14px;
+  width: 16px;
+  border-radius: 2px;
+  font-size: var(--vnsc-font-size-2xs);
+  font-weight: 700;
+}
+
+.rowSideBuy {
+  background: color-mix(in srgb, var(--vnsc-color-bullish) 35%, transparent);
+  color: var(--vnsc-text-on-primary);
+}
+
+.rowSideSell {
+  background: var(--vnsc-color-bearish);
+  color: var(--vnsc-text-on-primary);
+}
+
+.rowSideUnknown {
+  background: color-mix(in srgb, var(--vnsc-text-secondary) 30%, transparent);
+  color: var(--vnsc-text-primary);
+}
+
+.footer {
+  padding: 4px 8px;
+  border-top: 1px solid var(--vnsc-border-divider);
+  color: var(--vnsc-text-secondary);
+  font-size: var(--vnsc-font-size-2xs);
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .panel {
+    width: 100%;
+    height: auto;
+    max-height: 40%;
+    bottom: 0;
+    top: auto;
+    right: 0;
+    border-left: none;
+    border-top: 1px solid var(--vnsc-border-primary);
+  }
+}

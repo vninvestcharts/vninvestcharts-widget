@@ -1,0 +1,75 @@
+/* BL-10: generic toast stack (bottom-right, above chart chrome). */
+.stack {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1200;
+  max-width: min(360px, 80%);
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-primary, #1a1a1a);
+  background: var(--toast-bg, #ffffff);
+  border: 1px solid var(--border-color, #e8e8e8);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  animation: toastIn 0.18s ease-out;
+}
+
+.info {
+  border-left: 3px solid var(--primary-color, #1890ff);
+}
+
+.success {
+  border-left: 3px solid #16a34a;
+}
+
+.warn {
+  border-left: 3px solid #d97706;
+}
+
+.error {
+  border-left: 3px solid #b91c1c;
+}
+
+.message {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+
+.dismiss {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  color: inherit;
+  opacity: 0.6;
+  padding: 2px 4px;
+}
+
+.dismiss:hover {
+  opacity: 1;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}

@@ -1,0 +1,44 @@
+export { ChartTerminal } from "./ChartTerminal";
+export { ChartPane } from "./ChartPane";
+export { PaneSplitter } from "./PaneSplitter";
+export { usePaneManager, paneManagerReducer } from "./hooks/usePaneManager";
+export { useCanvasResize } from "./hooks/useCanvasResize";
+export { computeScales } from "./scales/computeScales";
+
+// ── Pane sizing & splitter ────────────────────────────────────────────────────
+export { ChartSplitter } from "./ChartSplitter";
+export { usePaneSizes } from "./hooks/usePaneSizes";
+export { useChartTheme, themeToMode } from "./hooks/useChartTheme";
+export { useIndicatorSets } from "./hooks/useIndicatorSets";
+export { PaneLabel } from "./PaneLabel";
+export { PaneHeader } from "./PaneHeader";
+export { SeriesPicker } from "./SeriesPicker";
+export { IndicatorLegend } from "./IndicatorLegend";
+export type { IndicatorLegendProps } from "./IndicatorLegend";
+export { BarReplayController } from "./replay/BarReplayController";
+export { ChartRenderContext, useChartRenderContext } from "./canvas/ChartRenderContext";
+export { OverlayCanvas } from "./canvas/OverlayCanvas";
+export type { OverlayDrawContext, OverlayCanvasProps } from "./canvas/OverlayCanvas";
+export { useDynamicPanes, dynamicPanesReducer, createDefaultPaneLayout, loadPaneLayout, savePaneLayout } from "./hooks/useDynamicPanes";
+export { DEFAULT_PANES, PANE_LAYOUT_STORAGE_KEY, PANE_MAX_VISIBLE } from "./types/pane-descriptor";
+export { isDefaultPaneId } from "./types/pane-descriptor";
+export type { PaneDescriptor, SeriesConfig, SeriesTypeId, TooltipMode, YAxisSide } from "./types/pane-descriptor";
+export { SERIES_SUB_COMPONENTS } from "./types/seriesComponents";
+export type { SeriesSubComponent } from "./types/seriesComponents";
+export { INDICATOR_SETS_STORAGE_KEY } from "./types/indicator-set";
+export type { IndicatorSet, IndicatorSetsStorage, IndicatorSetStorageLike } from "./types/indicator-set";
+export type { BarReplayState, ReplayBarLike, ReplaySpeed } from "./replay/BarReplayController";
+export { getSeries, listRegistered, registerSeries } from "./registry/SeriesRegistry";
+export { filterAvailableSeries, getSeriesTier, isSeriesAvailableForTier, toSeriesTier } from "./registry/SeriesRegistry";
+export type { SeriesTier } from "./registry/SeriesRegistry";
+export { clearSeriesStyleOverride, clearSeriesStyleOverrides, getSeriesStyleOverride, listSeriesStyleOverrides, overrideSeriesStyle, subscribeSeriesStyle, subscribeSeriesStyleChanges } from "./registry/SeriesRegistry";
+export type { SeriesSettingField, IndicatorCatalogEntry, IndicatorCategory, RepaintPolicy, PanePolicy, ScalePolicy } from "./types/indicator-catalog";
+export type { ChartHandle, VisibleRange } from "./types/chart";
+export type { SeriesStyleOverride } from "./registry/SeriesRegistry";
+export { initRegistry } from "./registry/registerAll";
+
+export type { ChartSyncState } from "./ChartPane";
+export type { PaneInput, PaneManagerState, PaneManagerAction } from "./hooks/usePaneManager";
+export type { ChartSplitterProps } from "./ChartSplitter";
+export type { UsePaneSizesOptions, UsePaneSizesResult } from "./hooks/usePaneSizes";
+export type { UseChartThemeResult, ChartTheme, ThemeMode } from "./hooks/useChartTheme";

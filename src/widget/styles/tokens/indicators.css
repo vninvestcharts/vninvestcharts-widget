@@ -1,0 +1,21 @@
+/* Design Tokens - Technical Indicator Color Palette */
+.vnsc-root {
+  --vnsc-indicator-1: #2962ff;
+  --vnsc-indicator-2: #ff6d00;
+  --vnsc-indicator-3: #e040fb;
+  --vnsc-indicator-4: #00bcd4;
+  --vnsc-indicator-5: #ffeb3b;
+  --vnsc-indicator-6: #4caf50;
+  --vnsc-indicator-7: #ff5252;
+  --vnsc-indicator-8: #7c4dff;
+  --vnsc-indicator-9: #00e676;
+  --vnsc-indicator-10: #ff9100;
+
+  --vnsc-macd-signal: #ff6d00;
+  --vnsc-macd-histogram-positive: var(--vnsc-color-bullish);
+  --vnsc-macd-histogram-negative: var(--vnsc-color-bearish);
+
+  --vnsc-bb-upper: #2962ff;
+  --vnsc-bb-lower: #2962ff;
+  --vnsc-bb-fill: rgba(41, 98, 255, 0.06);
+}

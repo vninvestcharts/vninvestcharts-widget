@@ -1,0 +1,186 @@
+/* Design Tokens - Motion & Transitions */
+/* All --vnsc-transition-*, --vnsc-animation-* tokens */
+
+/* H0.8: `.vnsc-root` — the document-root selector never matches inside the
+   widget's Shadow DOM (useShadowDOM defaults on), so tokens resolved to "". */
+.vnsc-root {
+  /* Transition Durations */
+  --vnsc-transition-duration-instant: 0ms;
+  --vnsc-transition-duration-fast: 100ms;
+  --vnsc-transition-duration-normal: 200ms;
+  --vnsc-transition-duration-slow: 300ms;
+  --vnsc-transition-duration-slower: 500ms;
+
+  /* Semantic duration aliases */
+  --vnsc-transition-duration-hover: 150ms;
+  --vnsc-transition-duration-focus: 100ms;
+  --vnsc-transition-duration-press: 50ms;
+  --vnsc-transition-duration-enter: 200ms;
+  --vnsc-transition-duration-exit: 150ms;
+  --vnsc-transition-duration-modal: 200ms;
+  --vnsc-transition-duration-tooltip: 100ms;
+  --vnsc-transition-duration-panel: 300ms;
+
+  /* Transition Easings */
+  --vnsc-transition-easing-linear: linear;
+  --vnsc-transition-easing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --vnsc-transition-easing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --vnsc-transition-easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --vnsc-transition-easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --vnsc-transition-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Semantic easing aliases */
+  --vnsc-transition-easing-default: var(--vnsc-transition-easing-ease-out);
+  --vnsc-transition-easing-enter: var(--vnsc-transition-easing-ease-out);
+  --vnsc-transition-easing-exit: var(--vnsc-transition-easing-ease-in);
+  --vnsc-transition-easing-spring: var(--vnsc-transition-easing-spring);
+
+  /* Transition Properties */
+  --vnsc-transition-property-all: all;
+  --vnsc-transition-property-colors: color, background-color, border-color, fill, stroke;
+  --vnsc-transition-property-transform: transform;
+  --vnsc-transition-property-opacity: opacity;
+  --vnsc-transition-property-shadow: box-shadow;
+  --vnsc-transition-property-visibility: visibility;
+
+  /* Shorthand Transitions */
+  --vnsc-transition-fast: var(--vnsc-transition-duration-fast) var(--vnsc-transition-easing-default);
+  --vnsc-transition-normal: var(--vnsc-transition-duration-normal) var(--vnsc-transition-easing-default);
+  --vnsc-transition-slow: var(--vnsc-transition-duration-slow) var(--vnsc-transition-easing-default);
+  --vnsc-transition-colors-fast: var(--vnsc-transition-property-colors) var(--vnsc-transition-duration-fast) var(--vnsc-transition-easing-default);
+  --vnsc-transition-colors-normal: var(--vnsc-transition-property-colors) var(--vnsc-transition-duration-normal) var(--vnsc-transition-easing-default);
+  --vnsc-transition-transform-fast: var(--vnsc-transition-property-transform) var(--vnsc-transition-duration-fast) var(--vnsc-transition-easing-spring);
+  --vnsc-transition-transform-normal: var(--vnsc-transition-property-transform) var(--vnsc-transition-duration-normal) var(--vnsc-transition-easing-spring);
+  --vnsc-transition-opacity-fast: var(--vnsc-transition-property-opacity) var(--vnsc-transition-duration-fast) var(--vnsc-transition-easing-default);
+  --vnsc-transition-opacity-normal: var(--vnsc-transition-property-opacity) var(--vnsc-transition-duration-normal) var(--vnsc-transition-easing-default);
+  --vnsc-transition-shadow-fast: var(--vnsc-transition-property-shadow) var(--vnsc-transition-duration-fast) var(--vnsc-transition-easing-default);
+  --vnsc-transition-shadow-normal: var(--vnsc-transition-property-shadow) var(--vnsc-transition-duration-normal) var(--vnsc-transition-easing-default);
+
+  /* Component-specific transitions */
+  --vnsc-transition-button: var(--vnsc-transition-colors-fast), var(--vnsc-transition-transform-fast);
+  --vnsc-transition-input: var(--vnsc-transition-colors-fast), var(--vnsc-transition-shadow-fast);
+  --vnsc-transition-panel: var(--vnsc-transition-transform-normal), var(--vnsc-transition-opacity-normal);
+  --vnsc-transition-modal: var(--vnsc-transition-transform-normal), var(--vnsc-transition-opacity-normal);
+  --vnsc-transition-tooltip: var(--vnsc-transition-opacity-fast), var(--vnsc-transition-transform-fast);
+  --vnsc-transition-dropdown: var(--vnsc-transition-transform-normal), var(--vnsc-transition-opacity-normal);
+  --vnsc-transition-drawing: var(--vnsc-transition-transform-fast), var(--vnsc-transition-opacity-fast);
+  --vnsc-transition-splitter: var(--vnsc-transition-transform-fast);
+  --vnsc-transition-chart: var(--vnsc-transition-transform-normal);
+
+  /* Animations */
+  --vnsc-animation-duration-spin: 1000ms;
+  --vnsc-animation-duration-pulse: 2000ms;
+  --vnsc-animation-duration-bounce: 1000ms;
+  --vnsc-animation-duration-shimmer: 1500ms;
+
+  /* Keyframe Animations */
+  --vnsc-animation-spin: spin var(--vnsc-animation-duration-spin) linear infinite;
+  --vnsc-animation-pulse: pulse var(--vnsc-animation-duration-pulse) ease-in-out infinite;
+  --vnsc-animation-bounce: bounce var(--vnsc-animation-duration-bounce) var(--vnsc-transition-easing-bounce) infinite;
+  --vnsc-animation-shimmer: shimmer var(--vnsc-animation-duration-shimmer) ease-in-out infinite;
+  --vnsc-animation-fade-in: fadeIn var(--vnsc-transition-duration-enter) var(--vnsc-transition-easing-enter);
+  --vnsc-animation-fade-out: fadeOut var(--vnsc-transition-duration-exit) var(--vnsc-transition-easing-exit);
+  --vnsc-animation-slide-up: slideUp var(--vnsc-transition-duration-normal) var(--vnsc-transition-easing-enter);
+  --vnsc-animation-slide-down: slideDown var(--vnsc-transition-duration-normal) var(--vnsc-transition-easing-enter);
+  --vnsc-animation-slide-left: slideLeft var(--vnsc-transition-duration-normal) var(--vnsc-transition-easing-enter);
+  --vnsc-animation-slide-right: slideRight var(--vnsc-transition-duration-normal) var(--vnsc-transition-easing-enter);
+  --vnsc-animation-scale-in: scaleIn var(--vnsc-transition-duration-normal) var(--vnsc-transition-easing-spring);
+  --vnsc-animation-scale-out: scaleOut var(--vnsc-transition-duration-exit) var(--vnsc-transition-easing-exit);
+}
+
+/* Reduced Motion — phải ở TOP-LEVEL (không nest trong .vnsc-root).
+   Lý do: CSS Nesting biến `.vnsc-root` con thành descendant `:is(.vnsc-root) .vnsc-root`
+   ⇒ KHÔNG BAO GIỜ match (mỗi widget chỉ có 1 root) ⇒ các token override bên dưới chết.
+   Đưa ra top-level thì `.vnsc-root` match đúng ⇒ token reduced-motion sống lại. */
+@media (prefers-reduced-motion: reduce) {
+  .vnsc-root {
+    --vnsc-transition-duration-instant: 0ms;
+    --vnsc-transition-duration-fast: 0ms;
+    --vnsc-transition-duration-normal: 0ms;
+    --vnsc-transition-duration-slow: 0ms;
+    --vnsc-transition-duration-slower: 0ms;
+    --vnsc-transition-duration-hover: 0ms;
+    --vnsc-transition-duration-focus: 0ms;
+    --vnsc-transition-duration-press: 0ms;
+    --vnsc-transition-duration-enter: 0ms;
+    --vnsc-transition-duration-exit: 0ms;
+    --vnsc-transition-duration-modal: 0ms;
+    --vnsc-transition-duration-tooltip: 0ms;
+    --vnsc-transition-duration-panel: 0ms;
+
+    --vnsc-animation-duration-spin: 0ms;
+    --vnsc-animation-duration-pulse: 0ms;
+    --vnsc-animation-duration-bounce: 0ms;
+    --vnsc-animation-duration-shimmer: 0ms;
+  }
+
+  .vnsc-root *,
+  .vnsc-root *::before,
+  .vnsc-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Keyframe Definitions */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(10px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideRight {
+  from { transform: translateX(-10px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scaleOut {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.95); opacity: 0; }
+}

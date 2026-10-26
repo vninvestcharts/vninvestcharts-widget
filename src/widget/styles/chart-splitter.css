@@ -1,0 +1,75 @@
+/* ════════════════════════════════════════════════════════════════
+   VNInvestCharts — ChartSplitter default styles
+   ────────────────────────────────────────────────────────────────
+   Minimalist: invisible until hover, then bright accent line.
+   Override colours via --vnsc-* CSS custom properties.
+════════════════════════════════════════════════════════════════ */
+
+.vnsc-splitter,
+.rsc-splitter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18px;
+  margin-top: -9px;
+  cursor: row-resize;
+  z-index: 12;
+  pointer-events: auto;
+  user-select: none;
+  touch-action: none;
+}
+
+/* Splitter line — invisible by default, appears on hover */
+.vnsc-splitter::after,
+.rsc-splitter::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2px;
+  background: transparent;
+  transition: background 0.15s;
+}
+
+/* On hover or drag: bright accent line */
+.vnsc-splitter:hover::after,
+.vnsc-splitter--dragging::after,
+.rsc-splitter:hover::after,
+.rsc-splitter--dragging::after {
+  background: var(--vnsc-accent, #2962ff);
+}
+
+.rsc-splitter__badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(20, 20, 28, 0.85);
+  color: #fff;
+  font: 11px/1 sans-serif;
+  padding: 3px 8px;
+  border-radius: 10px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Suppress ugly focus rectangle on mouse click — keep only accent line for a11y */
+.rsc-splitter:focus {
+  outline: none;
+}
+.rsc-splitter:focus-visible {
+  outline: none;
+}
+.rsc-splitter:focus-visible::after {
+  background: var(--vnsc-accent, #2962ff);
+}
+
+@media (pointer: coarse) {
+  .vnsc-splitter,
+  .rsc-splitter {
+    height: 24px;
+    margin-top: -12px;
+  }
+}

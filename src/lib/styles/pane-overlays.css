@@ -1,0 +1,287 @@
+.rsc-pane-label {
+	position: absolute;
+	left: 0;
+	width: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	writing-mode: vertical-rl;
+	transform: rotate(180deg);
+	font-size: 9px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	color: var(--rsc-text-micro, #7c8798);
+	pointer-events: none;
+	user-select: none;
+	z-index: 10;
+}
+
+.rsc-pane-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 4px;
+	padding: 0;
+	background: transparent;
+	border-bottom: none;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 150ms ease;
+	z-index: 50;
+	min-width: 0;
+}
+
+.rsc-pane-wrap:hover .rsc-pane-header,
+.rsc-pane-wrap:focus-within .rsc-pane-header,
+.rsc-pane-wrap--active .rsc-pane-header {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.rsc-pane-header__label {
+	display: inline-flex;
+	align-items: center;
+	min-height: 20px;
+	padding: 0 8px;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--rsc-surface, #ffffff) 86%, transparent);
+	border: 1px solid color-mix(in srgb, var(--rsc-border, rgba(148, 163, 184, 0.24)) 100%, transparent);
+	box-shadow: 0 6px 18px rgba(15, 23, 42, 0.10);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	font-size: 10px;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	color: var(--rsc-text, #1e2a3b);
+	flex-shrink: 0;
+}
+
+.rsc-pane-header__content {
+	display: flex;
+	align-items: center;
+	min-width: 0;
+	flex: 1 1 auto;
+	overflow: hidden;
+}
+
+.rsc-pane-header__actions {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	min-height: 20px;
+	padding: 0 5px;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--rsc-surface, #ffffff) 86%, transparent);
+	border: 1px solid color-mix(in srgb, var(--rsc-border, rgba(148, 163, 184, 0.24)) 100%, transparent);
+	box-shadow: 0 6px 18px rgba(15, 23, 42, 0.10);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	margin-left: auto;
+	margin-right: 0;
+	flex-shrink: 0;
+}
+
+.rsc-pane-btn {
+	border: 0;
+	background: transparent;
+	color: inherit;
+	padding: 1px 3px;
+	border-radius: 4px;
+	cursor: pointer;
+	font: inherit;
+	line-height: 1;
+}
+
+.rsc-pane-btn:hover {
+	background: rgba(148, 163, 184, 0.18);
+}
+
+.rsc-pane-btn:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+
+.rsc-pane-wrap {
+	overflow: visible;
+}
+
+.rsc-series-picker {
+	position: absolute;
+	min-width: 240px;
+	max-width: min(320px, calc(100vw - 24px));
+	box-sizing: border-box;
+	padding: 8px;
+	border-radius: 10px;
+	background: var(--rsc-surface, rgba(255, 255, 255, 0.98));
+	border: 1px solid var(--rsc-border, rgba(148, 163, 184, 0.24));
+	box-shadow: 0 18px 48px rgba(15, 23, 42, 0.18);
+	z-index: 70;
+}
+
+.rsc-series-picker__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	max-height: 320px;
+	overflow: auto;
+}
+
+.rsc-series-picker__item {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 8px 10px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--rsc-text, #1e2a3b);
+	text-align: left;
+	cursor: pointer;
+	font: inherit;
+}
+
+.rsc-series-picker__item:hover {
+	background: rgba(45, 156, 219, 0.12);
+}
+
+.rsc-series-picker__item--active {
+	background: rgba(45, 156, 219, 0.16);
+}
+
+.rsc-series-picker__check {
+	font-size: 12px;
+	color: #2d9cdb;
+}
+
+.rsc-series-picker__footer {
+	margin-top: 8px;
+	padding-top: 8px;
+	border-top: 1px solid rgba(148, 163, 184, 0.18);
+	font-size: 12px;
+	color: var(--rsc-text-muted, #64748b);
+}
+
+/* ─── Indicator Legend Chips ─────────────────────────────────────────────── */
+
+.rsc-indicator-legend {
+  position: absolute;
+	top: 24px;          /* flush below the compact pane-header hover zone */
+	left: 36px;         /* align with chart area (accounts for y-axis width) */
+	right: 8px;        /* avoid right y-axis area */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px 0;
+  /* Hidden by default — revealed on pane hover */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+  z-index: 15;        /* above chart canvas (z=0), below pane-header (z=20) */
+}
+
+.rsc-pane-header__legend {
+	display: flex;
+	position: static;
+	top: auto;
+	left: auto;
+	right: auto;
+	flex: 1 1 auto;
+	min-width: 0;
+	align-items: center;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	overflow-y: hidden;
+	gap: 3px;
+	padding: 0;
+	opacity: 1;
+	pointer-events: auto;
+	transition: none;
+	z-index: auto;
+	scrollbar-width: none;
+}
+
+.rsc-pane-header__legend::-webkit-scrollbar {
+	display: none;
+}
+
+/* Reveal on hover (same trigger as .rsc-pane-header) */
+.rsc-pane-wrap:hover .rsc-indicator-legend,
+.rsc-pane-wrap:focus-within .rsc-indicator-legend,
+.rsc-pane-wrap--active .rsc-indicator-legend {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.rsc-indicator-chip {
+  display: inline-flex;
+  align-items: center;
+	gap: 2px;
+	padding: 1px 5px 1px 4px;
+  border-radius: 4px;
+  background: var(--rsc-surface, rgba(255, 255, 255, 0.92));
+  border: 1px solid var(--rsc-border, rgba(148, 163, 184, 0.24));
+	font-size: 9px;
+  font-weight: 500;
+  color: var(--rsc-text, #1e2a3b);
+  cursor: default;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.rsc-indicator-chip--hidden {
+  opacity: 0.45;
+}
+
+.rsc-indicator-chip__dot {
+	width: 6px;
+	height: 6px;
+  border-radius: 50%;
+  background-color: var(--chip-color, #2962ff);
+  flex-shrink: 0;
+}
+
+.rsc-indicator-chip__name {
+  white-space: nowrap;
+}
+
+.rsc-indicator-chip__suffix {
+  margin-left: 3px;
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--chip-color, #2962ff);
+}
+
+.rsc-indicator-chip__btn {
+  border: 0;
+  background: transparent;
+  color: inherit;
+	padding: 0 1px;
+  cursor: pointer;
+	font-size: 10px;
+  line-height: 1;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.rsc-indicator-chip__btn:hover {
+  background: rgba(148, 163, 184, 0.18);
+}
+
+.rsc-indicator-chip__btn--remove {
+  opacity: 0.5;
+}
+
+.rsc-indicator-chip__btn--remove:hover {
+  opacity: 1;
+  color: #f23645;
+  background: rgba(242, 54, 69, 0.08);
+}

@@ -1,0 +1,166 @@
+/* Strategy Tester Panel Styles - CSS Module */
+.panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding: 12px;
+  gap: 12px;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  background: var(--vnsc-bg-primary, #0c1017);
+}
+
+.header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid var(--vnsc-border-divider, #202b3c);
+  padding-bottom: 10px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.select {
+  padding: 4px 8px;
+  background: var(--vnsc-bg-input, #131b26);
+  border: 1px solid var(--vnsc-border-input, #202b3c);
+  border-radius: 4px;
+  color: var(--vnsc-text-primary, #fff);
+}
+
+.runBtn {
+  padding: 5px 12px;
+  background: var(--vnsc-accent, #2962ff);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: auto;
+  transition: background-color 0.2s ease;
+}
+
+.runBtn:hover {
+  background: var(--vnsc-accent-hover, #1a52d6);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.statCard {
+  padding: 10px;
+  background: var(--vnsc-bg-secondary, #131b26);
+  border-radius: 4px;
+  border: 1px solid var(--vnsc-border-divider, #202b3c);
+}
+
+.statLabel {
+  color: var(--vnsc-text-secondary, #888);
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.statValue {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.statValuePositive {
+  color: var(--vnsc-color-bullish, #089981);
+}
+
+.statValueNegative {
+  color: var(--vnsc-color-bearish, #f23645);
+}
+
+.tradeLog {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid var(--vnsc-border-divider, #202b3c);
+  border-radius: 4px;
+}
+
+.tradeTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tradeTable th {
+  padding: 8px;
+  border-bottom: 1px solid var(--vnsc-border-divider, #202b3c);
+  color: var(--vnsc-text-secondary, #888);
+  background: var(--vnsc-bg-secondary, #131b26);
+  position: sticky;
+  top: 0;
+}
+
+.tradeTable td {
+  padding: 8px;
+  border-bottom: 1px solid var(--vnsc-border-divider, #1c2430);
+}
+
+.tradeTypeLong {
+  text-transform: uppercase;
+  color: var(--vnsc-accent, #2962ff);
+  font-weight: bold;
+}
+
+.tradeTypeShort {
+  text-transform: uppercase;
+  color: var(--vnsc-color-warning, #ff6d00);
+  font-weight: bold;
+}
+
+.tradePnlPositive {
+  color: var(--vnsc-color-bullish, #089981);
+  font-weight: bold;
+}
+
+.tradePnlNegative {
+  color: var(--vnsc-color-bearish, #f23645);
+  font-weight: bold;
+}
+
+.tradeDate {
+  color: var(--vnsc-text-secondary, #888);
+}
+
+.emptyState {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--vnsc-text-muted, #555);
+  font-style: italic;
+}
+
+@media (max-width: 480px) {
+  .panel {
+    padding: 8px;
+    gap: 8px;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .header {
+    flex-wrap: wrap;
+  }
+  
+  .runBtn {
+    margin-left: 0;
+    margin-top: 8px;
+    width: 100%;
+  }
+}

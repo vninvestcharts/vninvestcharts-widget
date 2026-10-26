@@ -1,0 +1,117 @@
+/**
+ * RightDockRail Styles (DOCK_SSOT_B3 — RD-03a)
+ * Shell dùng chung single↔multi: grip 10px + flyout trượt + pinned in-flow +
+ * mobile bottomsheet. Rule dời NGUYÊN VĂN từ multicharts-layout.module.css
+ * (audit O-1: dời theo rule dock-scoped; `.workspaceBody/.workspaceMainCol/
+ * .charts` Ở LẠI file cũ — consumer multi).
+ */
+
+/* F1 autohide (giống hệt drawing toolbar shell): wrapper 10px = grip zone
+   thường trực; flyout trượt thuần CSS (:hover/:focus-within hoặc class Open
+   khi drawer mở). Không JS timer. z-index: PHẢI nổi trên bottom panel
+   (--vnsc-z-bottom-panel = 40) trong cùng stacking context .workspaceBody
+   (z-index 10) — nếu thấp hơn, panel vẽ đè nửa dưới dock và drawer mất
+   hit-test (bug user 2026-10-18). Mirror single: dock host desktop z 48
+   (right-sidebar-dock.module.css:10, token --vnsc-z-sidebar). Mobile giữ 20
+   (C7/A12 — xem khai báo tường minh trong block @media bên dưới). */
+.workspaceDock {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  z-index: var(--vnsc-z-sidebar, 48);
+  pointer-events: auto;
+}
+
+/* Grip dots (mirror .vnsc-drawing-toolbar-handle::before). */
+.workspaceDock::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--vnsc-text-secondary);
+  box-shadow:
+    0 -6px 0 var(--vnsc-text-secondary),
+    0 6px 0 var(--vnsc-text-secondary);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.workspaceDockFlyout {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  transform: translateX(100%);
+  /* S1: flyout ẩn PHẢI visibility:hidden — kẻo tạo scrollable overflow làm
+     scrollIntoView/keyboard-Tab lệch cả app (đã đo scrollLeft=24 trên root). */
+  visibility: hidden;
+  transition: transform 0.2s ease, visibility 0s linear 0.2s;
+}
+
+.workspaceDock:hover .workspaceDockFlyout,
+.workspaceDock:focus-within .workspaceDockFlyout,
+.workspaceDockOpen .workspaceDockFlyout {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.2s ease, visibility 0s;
+}
+
+/* W3-fix: descendant (không phải >) — Suspense/host render fragment nên
+   .dock là cháu (không phải con trực tiếp); `>` làm nút mất hit-test và
+   elementFromPoint rơi xuống header bên dưới (đã đo thực tế). */
+.workspaceDock * {
+  pointer-events: auto;
+}
+
+/* E2: pinned dock in-flow (grid co lại như singlechart + toolbar-locked). */
+.workspaceDockPinned {
+  position: static;
+  width: auto;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.workspaceDockPinned::before {
+  display: none;
+}
+
+/* F2: flyout display:contents ở pinned — chuỗi height:100% của .dock được giữ
+   (row definite → wrapper stretch definite → dock bounded, scroll nội bộ).
+   Để flyout static height:auto sẽ làm .dock height:100% vô định → content
+   height 1301px tràn xuống bottom panel (đã đo runtime). */
+.workspaceDockPinned .workspaceDockFlyout {
+  display: contents;
+  visibility: visible;
+}
+
+/* W3-mobile: bottomsheet của host là absolute (out-of-flow) → wrapper
+   shrink-fit về width 0, dock tràn ra ngoài viewport (đã đo: strip x=399-443
+   ở viewport 400px). Ép wrapper full-bleed bottom để sheet có containing
+   block đúng. Desktop không đổi. */
+@media (max-width: 767px) {
+  .workspaceDock {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    width: auto;
+    /* Giữ nguyên hành vi bottomsheet cũ (C7/A12): desktop mới nâng lên
+       token sidebar 48; mobile vẫn dưới panel theo thiết kế bottomsheet. */
+    z-index: 20;
+  }
+  .workspaceDock::before {
+    display: none;
+  }
+  /* Mobile không hover: flyout thường trực (strip + bottomsheet như W3). */
+  .workspaceDockFlyout {
+    position: static;
+    transform: none;
+    visibility: visible;
+  }
+}

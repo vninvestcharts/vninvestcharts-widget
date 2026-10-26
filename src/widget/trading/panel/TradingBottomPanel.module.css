@@ -1,0 +1,681 @@
+.panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--vnsc-bg-secondary, #111820);
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+/* P1-S2: badge ô chart (multi follow-active) — hàng slim trong panel. */
+.titleBadgeRow {
+  display: flex;
+  align-items: center;
+  padding: 2px 12px 0;
+  flex-shrink: 0;
+}
+
+.titleBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vnsc-text-primary, #e0e0e0);
+}
+
+.titleBadgeDot {
+  color: var(--vnsc-color-bullish, #26a69a);
+  font-size: 9px;
+}
+
+.titleBadgeId {
+  color: var(--vnsc-text-secondary, #727f8c);
+  font-weight: 400;
+}
+
+/* ── Tầng 1: KPI Header Bar ────────────────────────────────────────── */
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 14px;
+  border-bottom: 1px solid var(--vnsc-border, #2a2a2a);
+  background: var(--vnsc-bg-secondary, #111820);
+  overflow-x: auto;
+  scrollbar-width: none;
+  min-height: 52px;
+}
+
+.panelHeader::-webkit-scrollbar {
+  display: none;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.brandSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding-right: 6px;
+  border-right: 1px solid var(--vnsc-border-subtle, rgba(255, 255, 255, 0.08));
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--vnsc-color-bullish, #16a34a);
+  box-shadow: 0 0 6px rgba(22, 163, 74, 0.4);
+  flex: none;
+}
+
+.brandTitle {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--vnsc-text-primary, #f1f5f9);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.brandBadge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--vnsc-bg-surface, rgba(255, 255, 255, 0.06));
+  color: var(--vnsc-text-secondary, #94a3b8);
+  border: 1px solid var(--vnsc-border-subtle, rgba(255, 255, 255, 0.08));
+}
+
+.kpiGrid {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  min-width: 0;
+}
+
+.kpiCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--vnsc-bg-primary, #0d141b);
+  border: 1px solid var(--vnsc-border-subtle, rgba(255, 255, 255, 0.06));
+  min-width: max-content;
+}
+
+.kpiCardPrimary {
+  background: var(--vnsc-bg-primary, #0d141b);
+  border-color: var(--vnsc-border, #2a2a2a);
+}
+
+.kpiCardRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+/* Compact KPI reflow: value + pill share one row, meta stacks. */
+.kpiValueRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.kpiStack {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+/* 3-row KPI blocks: row1 pairs, row2 sub-labels, row3 sub-values. */
+.kpiWide,
+.kpiWide3 {
+  display: grid;
+  column-gap: 12px;
+  row-gap: 1px;
+  align-items: center;
+  align-content: center;
+}
+
+.kpiWide {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.kpiWide3 {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.kpiWide3 > .kpiPair {
+  grid-column: 1 / -1;
+}
+
+.kpiPair {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* Row 1 hero numbers read larger than rows 2–3 meta. */
+.kpiWide .kpiValue,
+.kpiWide3 .kpiValue {
+  font-size: 15px;
+}
+
+.kpiSubLabel {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--vnsc-text-secondary, #787b86);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpiSubVal {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpiLabel {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vnsc-text-secondary, #787b86);
+  white-space: nowrap;
+}
+
+.kpiValue {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vnsc-text-primary, #ffffff);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.kpiValueLarge {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vnsc-text-primary, #ffffff);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.kpiSub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: var(--vnsc-text-secondary, #94a3b8);
+  font-variant-numeric: tabular-nums;
+  margin-top: 1px;
+  white-space: nowrap;
+}
+
+/* Currency code suffix on KPI values (VND/USDT — codes need no i18n). */
+.kpiCur {
+  font-size: 0.62em;
+  font-weight: 600;
+  color: var(--vnsc-text-secondary, #94a3b8);
+  letter-spacing: 0.03em;
+}
+
+.pnlPillPositive {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--vnsc-color-bullish, #26a69a);
+  background: rgba(38, 166, 154, 0.14);
+  border: 1px solid rgba(38, 166, 154, 0.25);
+  font-variant-numeric: tabular-nums;
+}
+
+.pnlPillNegative {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--vnsc-color-bearish, #ef5350);
+  background: rgba(239, 83, 80, 0.14);
+  border: 1px solid rgba(239, 83, 80, 0.25);
+  font-variant-numeric: tabular-nums;
+}
+
+.pnlPillNeutral {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vnsc-text-secondary, #94a3b8);
+  background: rgba(255, 255, 255, 0.05);
+  font-variant-numeric: tabular-nums;
+}
+
+.marginBadgeSafe {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 0 4px;
+  border-radius: 3px;
+  color: var(--vnsc-color-bullish, #26a69a);
+  background: rgba(38, 166, 154, 0.12);
+}
+
+.marginBadgeWarning {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 0 4px;
+  border-radius: 3px;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.marginBadgeDanger {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 0 4px;
+  border-radius: 3px;
+  color: var(--vnsc-color-bearish, #ef5350);
+  background: rgba(239, 83, 80, 0.12);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.btnAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  background: var(--vnsc-bg-primary, #0d141b);
+  color: var(--vnsc-text-primary, #e0e0e0);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btnAction:hover {
+  background: var(--vnsc-bg-surface, rgba(255, 255, 255, 0.08));
+  border-color: var(--vnsc-border-subtle, rgba(255, 255, 255, 0.15));
+}
+
+.btnReset {
+  color: var(--vnsc-text-secondary, #94a3b8);
+}
+
+.btnReset:hover {
+  color: var(--vnsc-color-bearish, #ef5350);
+  border-color: rgba(239, 83, 80, 0.3);
+}
+
+.btnReset:focus-visible,
+.btnAction:focus-visible {
+  outline: 2px solid var(--vnsc-accent, #2f6df6);
+  outline-offset: 1px;
+}
+
+.btnReset:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  color: var(--vnsc-text-secondary, #94a3b8);
+  border-color: var(--vnsc-border, #2a2a2a);
+}
+
+/* Icon-only header actions (labels live in title/aria). */
+.btnIconOnly {
+  padding: 0;
+  width: 28px;
+  justify-content: center;
+}
+
+/* ── Tầng 2: Tab Bar ───────────────────────────────────────────────── */
+.tabBar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--vnsc-border, #2a2a2a);
+  background: var(--vnsc-bg-secondary, #111820);
+  min-height: 36px;
+}
+
+.tab,
+.activeTab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.tab {
+  color: var(--vnsc-text-secondary, #787b86);
+  border-bottom: 2px solid transparent;
+  font-weight: 500;
+}
+
+.tab:hover {
+  color: var(--vnsc-text-primary, #e0e0e0);
+}
+
+.activeTab {
+  color: var(--vnsc-text-primary, #ffffff);
+  border-bottom: 2px solid var(--vnsc-accent, #2962ff);
+  font-weight: 600;
+}
+
+.tabBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(41, 98, 255, 0.15);
+  color: var(--vnsc-accent, #2962ff);
+}
+
+.btnClosePinned {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--vnsc-text-secondary, #787b86);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 13px;
+}
+
+.btnClosePinned:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--vnsc-text-primary, #ffffff);
+}
+
+/* ── Tầng 3: Data Canvas & Empty State ─────────────────────────────── */
+.tabBody {
+  flex: 1;
+  min-height: 120px;
+  overflow: auto;
+  padding: 8px 12px;
+}
+
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 16px;
+  text-align: center;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.emptyIcon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+
+.emptyTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  margin-bottom: 4px;
+}
+
+.emptyHint {
+  font-size: 11px;
+  color: var(--vnsc-text-secondary, #787b86);
+  max-width: 340px;
+  line-height: 1.4;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--vnsc-border, #2a2a2a);
+  white-space: nowrap;
+}
+
+.table th {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--vnsc-text-secondary, #787b86);
+  background: var(--vnsc-bg-secondary, #111820);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.table td {
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1px solid var(--vnsc-border-subtle, rgba(255, 255, 255, 0.04));
+}
+
+.table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.table button {
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+.kpis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.logList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Tầng 3: Disabled CTA (chuẩn theme công nghiệp, thay nút native) ── */
+.ctaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 14px 16px;
+}
+
+.ctaTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vnsc-text-primary, #f1f5f9);
+}
+
+.ctaHint {
+  font-size: 12px;
+  color: var(--vnsc-text-secondary, #94a3b8);
+}
+
+.ctaButton {
+  margin-top: 4px;
+  background: var(--vnsc-accent, #38bdf8);
+  border: 1px solid var(--vnsc-accent, #38bdf8);
+  color: #0b1220;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+  white-space: nowrap;
+}
+
+.ctaButton:hover {
+  filter: brightness(1.1);
+}
+
+/* ── Dialog nạp vốn paper (thay ConfirmDialog reset) ── */
+.capitalOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(4, 8, 16, 0.6);
+  z-index: 20;
+}
+
+.capitalBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 280px;
+  max-width: 340px;
+  padding: 14px 16px;
+  background: var(--vnsc-bg-secondary, #131722);
+  border: 1px solid var(--vnsc-border, rgba(148, 163, 184, 0.16));
+  border-radius: 8px;
+}
+
+.capitalTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vnsc-text-primary, #f1f5f9);
+}
+
+.capitalHint {
+  font-size: 12px;
+  color: var(--vnsc-text-secondary, #94a3b8);
+}
+
+.capitalPresets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.capitalPreset {
+  background: transparent;
+  border: 1px solid var(--vnsc-border, rgba(148, 163, 184, 0.25));
+  color: var(--vnsc-text-secondary, #94a3b8);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.capitalPreset:hover {
+  border-color: var(--vnsc-accent, #38bdf8);
+  color: var(--vnsc-accent, #38bdf8);
+}
+
+.capitalField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--vnsc-text-secondary, #94a3b8);
+}
+
+.capitalField input {
+  background: var(--vnsc-bg-primary, #0b1220);
+  border: 1px solid var(--vnsc-border, rgba(148, 163, 184, 0.25));
+  color: var(--vnsc-text-primary, #f1f5f9);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.capitalError {
+  font-size: 12px;
+  color: var(--vnsc-color-bearish, #ef5350);
+}
+
+.capitalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.capitalActions button {
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.capitalActions button[data-testid="capital-confirm"] {
+  background: var(--vnsc-accent, #38bdf8);
+  border: 1px solid var(--vnsc-accent, #38bdf8);
+  color: #0b1220;
+}
+
+.capitalActions button[data-testid="capital-confirm"]:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.capitalActions button[data-testid="capital-cancel"] {
+  background: transparent;
+  border: 1px solid var(--vnsc-border, rgba(148, 163, 184, 0.25));
+  color: var(--vnsc-text-secondary, #94a3b8);
+}
+

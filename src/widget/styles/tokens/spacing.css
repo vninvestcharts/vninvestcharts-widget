@@ -1,0 +1,98 @@
+/* Design Tokens - Spacing & Sizing */
+/* All --vnsc-space-*, --vnsc-radius-*, --vnsc-size-* tokens */
+
+/* H0.8: `.vnsc-root` — the document-root selector never matches inside the
+   widget's Shadow DOM (useShadowDOM defaults on), so tokens resolved to "". */
+.vnsc-root {
+  /* Base spacing unit: 4px */
+  --vnsc-space-0: 0;
+  --vnsc-space-1: 4px;   /* xs */
+  --vnsc-space-2: 8px;   /* sm */
+  --vnsc-space-3: 12px;  /* md-sm */
+  --vnsc-space-4: 16px;  /* md */
+  --vnsc-space-5: 20px;  /* md-lg */
+  --vnsc-space-6: 24px;  /* lg */
+  --vnsc-space-8: 32px;  /* xl */
+  --vnsc-space-10: 40px; /* 2xl */
+  --vnsc-space-12: 48px; /* 3xl */
+  --vnsc-space-16: 64px; /* 4xl */
+
+  /* Semantic spacing aliases */
+  --vnsc-space-xs: 4px;
+  --vnsc-space-sm: 8px;
+  --vnsc-space-md: 16px;
+  --vnsc-space-lg: 24px;
+  --vnsc-space-xl: 32px;
+  --vnsc-space-2xl: 40px;
+  --vnsc-space-3xl: 48px;
+
+  /* Component-specific spacing */
+  --vnsc-space-toolbar-gap: 8px;
+  --vnsc-space-toolbar-padding: 8px;
+  --vnsc-space-panel-padding: 16px;
+  --vnsc-space-modal-padding: 24px;
+  --vnsc-space-drawing-gap: 4px;
+  --vnsc-space-dock-padding: 12px;
+  --vnsc-space-splitter-size: 4px;
+  --vnsc-space-header-height: 36px;
+  --vnsc-space-footer-height: 28px;
+  --vnsc-space-panel-height: 300px;
+
+  /* Border Radius */
+  --vnsc-radius-none: 0;
+  --vnsc-radius-xs: 2px;
+  --vnsc-radius-sm: 4px;
+  --vnsc-radius-md: 6px;
+  --vnsc-radius-lg: 8px;
+  --vnsc-radius-xl: 12px;
+  --vnsc-radius-2xl: 16px;
+  --vnsc-radius-full: 9999px;
+
+  /* Semantic radius aliases */
+  --vnsc-radius-button: 4px;
+  --vnsc-radius-input: 4px;
+  --vnsc-radius-card: 8px;
+  --vnsc-radius-modal: 12px;
+  --vnsc-radius-popover: 8px;
+  --vnsc-radius-tooltip: 6px;
+
+  /* Sizing */
+  --vnsc-size-xs: 16px;
+  --vnsc-size-sm: 24px;
+  --vnsc-size-md: 32px;
+  --vnsc-size-lg: 40px;
+  --vnsc-size-xl: 48px;
+  --vnsc-size-2xl: 56px;
+  --vnsc-size-3xl: 64px;
+
+  /* Icon sizes */
+  --vnsc-icon-xs: 12px;
+  --vnsc-icon-sm: 16px;
+  --vnsc-icon-md: 20px;
+  --vnsc-icon-lg: 24px;
+  --vnsc-icon-xl: 28px;
+
+  /* Button sizes */
+  --vnsc-btn-height-sm: 24px;
+  --vnsc-btn-height-md: 32px;
+  --vnsc-btn-height-lg: 40px;
+  --vnsc-btn-padding-x-sm: 8px;
+  --vnsc-btn-padding-x-md: 12px;
+  --vnsc-btn-padding-x-lg: 16px;
+
+  /* Input sizes */
+  --vnsc-input-height-sm: 24px;
+  --vnsc-input-height-md: 32px;
+  --vnsc-input-height-lg: 40px;
+  --vnsc-input-padding-x: 10px;
+
+  /* Chart-specific sizes */
+  --vnsc-chart-margin-top: 8px;
+  --vnsc-chart-margin-right: 12px;
+  --vnsc-chart-margin-bottom: 32px;
+  --vnsc-chart-margin-left: 12px;
+  --vnsc-pane-min-height: 60px;
+  --vnsc-pane-handle-size: 4px;
+  --vnsc-tooltip-padding: 8px 12px;
+  --vnsc-tooltip-gap: 4px;
+}

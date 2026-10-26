@@ -1,0 +1,103 @@
+{
+  "src/demo/demoData.ts": [
+    "throw new Error(`Không tải được dữ liệu Binance: ${response.status}`);"
+  ],
+  "src/demo/showcases/comparison.tsx": [
+    "description: \"So sánh 8 mã crypto cùng lúc với symbol linking\",",
+    "label: \"So sánh đa mã\","
+  ],
+  "src/demo/showcases/custom.tsx": [
+    "description: \"Tự tạo layout, thêm/xóa biểu đồ, lưu workspace cá nhân\",",
+    "label: \"Tùy chỉnh workspace\","
+  ],
+  "src/demo/showcases/overview.tsx": [
+    "description: \"4 biểu đồ crypto 1h đồng bộ — BTC, ETH, SOL, BNB\",",
+    "label: \"Tổng quan thị trường\","
+  ],
+  "src/demo/showcases/technical.tsx": [
+    "description: \"Workspace chuyên sâu với multiple panes và indicators\",",
+    "label: \"Phân tích kỹ thuật\","
+  ],
+  "src/demo/showcases/trading.tsx": [
+    "description: \"Workspace giao dịch đầy đủ: backtest, paper trade, tape reading\",",
+    "label: \"Quy trình giao dịch\","
+  ],
+  "src/lib/adapters/BinanceAdapter.ts": [
+    "throw new BinanceHttpError(response.status, `Không tải được dữ liệu Binance: ${response.status}`);",
+    "throw new Error(`Interval không hợp lệ: \"${interval}\"`);",
+    "throw new Error(`Tên symbol không hợp lệ: \"${symbol}\"`);"
+  ],
+  "src/lib/adapters/VNStocksAdapter.ts": [
+    "throw new Error(`Interval không hợp lệ: \"${interval}\"`);",
+    "throw new Error(`Tên symbol không hợp lệ: \"${symbol}\"`);"
+  ],
+  "src/lib/core/IndicatorLegend.tsx": [
+    "aria-label={hidden ? labels?.showIndicatorAriaLabel?.(shortLabel) ?? `Hiện ${series.type}` : labels?.hideIndicatorAriaLabel?.(shortLabel) ?? `Ẩn ${series.type}`}",
+    "aria-label={labels?.editIndicatorAriaLabel?.(shortLabel) ?? `Cài đặt ${series.type}`}",
+    "aria-label={labels?.removeIndicatorAriaLabel?.(shortLabel) ?? `Xóa ${series.type}`}",
+    "title={hidden ? labels?.showIndicatorTitle ?? \"Hiện indicator\" : labels?.hideIndicatorTitle ?? \"Ẩn indicator\"}",
+    "title={labels?.editIndicatorTitle ?? \"Cài đặt indicator\"}",
+    "title={labels?.removeIndicatorTitle ?? \"Xóa indicator khỏi pane này\"}"
+  ],
+  "src/lib/core/PaneHeader.tsx": [
+    "aria-label={labels?.addSeriesAriaLabel?.(pane.label) ?? `Thêm series cho ${pane.label}`}",
+    "aria-label={labels?.dragAriaLabel?.(pane.label) ?? `Kéo ${pane.label}`}",
+    "aria-label={labels?.removeAriaLabel?.(pane.label) ?? `Ẩn ${pane.label}`}",
+    "aria-label={labels?.toggleVisibleAriaLabel?.(pane.label, pane.visible) ?? (pane.visible ? `Ẩn ${pane.label}` : `Hiện ${pane.label}`)}",
+    "series chips already identify the pane (e.g. \"Vol\" chip vs \"Khối lượng\"). */}",
+    "title={labels?.addSeriesTitle ?? \"Thêm indicator/series\"}",
+    "title={labels?.dragTitle?.(pane) ?? (pane.pinned ? \"Pane chính không thể kéo\" : \"Kéo để đổi vị trí pane\")}",
+    "title={labels?.removeTitle ?? \"Ẩn pane (có thể khôi phục từ menu Panes)\"}",
+    "title={labels?.toggleVisibleTitle?.(pane) ?? (pane.pinned ? \"Pane chính luôn hiển thị\" : pane.visible ? \"Ẩn pane\" : \"Hiện lại pane\")}"
+  ],
+  "src/lib/core/SeriesPicker.tsx": [
+    "placeholder=\"Tìm chỉ báo...\""
+  ],
+  "src/lib/core/canvas/ChartRenderContext.ts": [
+    "throw new Error(\"useChartRenderContext phải được dùng bên trong ChartCanvas tree\");"
+  ],
+  "src/lib/core/trading/MarketRules.ts": [
+    "return { valid: false, reason: \"Khối lượng phải dương\", code: \"INVALID_QUANTITY\" };",
+    "return { valid: false, reason: \"Khối lượng phải là bội số dương của lô 100\", code: \"INVALID_QUANTITY\" };",
+    "return { valid: false, reason: \"Spot crypto không được bán khống\", code: \"SHORT_NOT_ALLOWED\" };",
+    "return { valid: false, reason: \"Số lượng hợp đồng phải là số nguyên dương\", code: \"INVALID_QUANTITY\" };",
+    "return { valid: false, reason: \"Tài khoản cơ sở không được phép bán khống\", code: \"SHORT_NOT_ALLOWED\" };",
+    "return { valid: false, reason: `Vượt giới hạn ${max} HĐ/lệnh`, code: \"INVALID_QUANTITY\" };"
+  ],
+  "src/lib/core/trading/RiskEngine.ts": [
+    "reason: \"Sức mua không đủ\",",
+    "return { valid: false, rejectCode: \"INVALID_PRICE\", reason: \"Thiếu giá định giá\", availableBuyingPower: account.freeMargin };",
+    "return { valid: false, rejectCode: \"SHORT_NOT_ALLOWED\", reason: \"Spot không bán khống\", availableBuyingPower: account.freeMargin };",
+    "return { valid: false, rejectCode: \"UNSUPPORTED_ORDER_TYPE\", reason: \"Lệnh VN chỉ cho HOSE/HNX/UPCOM/phái sinh\", availableBuyingPower: account.freeMargin };",
+    "return { valid: false, rejectCode: \"UNSUPPORTED_TIF\", reason: \"TIF không hỗ trợ\", availableBuyingPower: account.freeMargin };"
+  ],
+  "src/lib/core/trading/VirtualBrokerEngine.ts": [
+    "return this.rejected(input, \"INVALID_QUANTITY\", \"Không đủ số lượng khả dụng (T+2)\");"
+  ],
+  "src/lib/indicators/overlays/DarkFlowBadge.tsx": [
+    "absorption: \"HẤP THỤ\",",
+    "if (v >= 30) return { label: \"Thấp\", cssClass: \"gc-darkflow-badge--low\" };",
+    "if (v >= 60) return { label: \"Vừa\", cssClass: \"gc-darkflow-badge--mid\" };",
+    "if (v >= 80) return { label: \"Mạnh\", cssClass: \"gc-darkflow-badge--strong\" };",
+    "mixed: \"HỖN HỢP\",",
+    "return { label: \"Yếu\", cssClass: \"gc-darkflow-badge--none\" };"
+  ],
+  "src/widget/adapters/corporateEvents.ts": [
+    "description: \"Doanh thu tăng trưởng 25% YoY. LNST đạt 1,200 tỷ đồng.\",",
+    "description: \"Hợp đồng trị giá 50 triệu USD xuất khẩu sang thị trường Mỹ.\",",
+    "description: \"Tỷ lệ phân bổ: 2:1. Ngày giao dịch bổ sung: 10/08/2026.\",",
+    "description: \"Tỷ lệ thực hiện: 15% (1,500đ/cp). Ngày chi trả: 25/08/2026.\",",
+    "title: \"Báo cáo Q2/2026\",",
+    "title: \"Chia tách cổ phiếu 2:1\",",
+    "title: \"Cổ tức tiền mặt 15%\",",
+    "title: \"Ký hợp đồng xuất khẩu lớn\",",
+    "title: evt.title || \"Sự kiện doanh nghiệp\","
+  ],
+  "src/widget/constants/vn30.ts": [
+    "BVH: \"Bảo Việt\",",
+    "HPG: \"Hòa Phát\","
+  ],
+  "src/widget/trading/ticket/orderTicketModel.ts": [
+    "const sideLabel = input.side === \"buy\" ? (vi ? \"MUA\" : \"BUY\") : (vi ? \"BÁN\" : \"SELL\");"
+  ]
+}

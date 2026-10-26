@@ -1,0 +1,42 @@
+/* Preset: Midnight Blue — cool dark blue palette */
+.vnsc-root[data-chart-theme="midnight-blue"] {
+  --vnsc-bg-primary: #0d1117;
+  --vnsc-bg-secondary: #161b22;
+  --vnsc-bg-tertiary: #0d1117;
+  --vnsc-bg-elevated: #1c2333;
+  --vnsc-bg-overlay: rgba(13, 17, 23, 0.9);
+  --vnsc-bg-modal: #161b22;
+  --vnsc-bg-popover: #161b22;
+  --vnsc-bg-tooltip: #1c2333;
+  --vnsc-bg-input: #0d1117;
+  --vnsc-bg-input-hover: #161b22;
+  --vnsc-bg-hover: rgba(88, 166, 255, 0.08);
+  --vnsc-bg-active: rgba(88, 166, 255, 0.14);
+  --vnsc-bg-selected: rgba(88, 166, 255, 0.2);
+  --vnsc-bg-focus: rgba(88, 166, 255, 0.25);
+
+  --vnsc-text-primary: #c9d1d9;
+  --vnsc-text-secondary: #8b949e;
+  --vnsc-text-tertiary: #484f58;
+  --vnsc-text-link: #58a6ff;
+  --vnsc-text-link-hover: #79c0ff;
+
+  --vnsc-border-primary: #21262d;
+  --vnsc-border-secondary: #30363d;
+  --vnsc-border-divider: #21262d;
+
+  --vnsc-color-primary: #58a6ff;
+  --vnsc-color-primary-hover: #79c0ff;
+  --vnsc-color-primary-active: #79c0ff;
+
+  --vnsc-color-accent: #58a6ff;
+  --vnsc-color-accent-hover: #79c0ff;
+
+  --vnsc-color-grid: rgba(255, 255, 255, 0.07);
+  --vnsc-color-grid-subtle: rgba(255, 255, 255, 0.03);
+  --vnsc-color-crosshair: #58a6ff;
+  --vnsc-color-selection: rgba(88, 166, 255, 0.2);
+
+  --vnsc-scrollbar-thumb: #30363d;
+  --vnsc-scrollbar-thumb-hover: #484f58;
+}

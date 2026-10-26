@@ -1,0 +1,78 @@
+/**
+ * WE2 P4-03: OHLC header styles.
+ */
+
+.vnsc-ohlc-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 6px 12px;
+	background: var(--vnsc-bg-secondary);
+	border-bottom: 1px solid var(--vnsc-border);
+	font-family: inherit;
+	font-size: var(--vnsc-font-md, 12px);
+	color: var(--vnsc-text-primary);
+	z-index: 30;
+}
+
+.vnsc-ohlc-header__symbol {
+	font-size: var(--vnsc-font-lg, 14px);
+	font-weight: 700;
+}
+
+.vnsc-ohlc-header__timeframe {
+	background: var(--vnsc-accent, #2962ff);
+	color: #fff;
+	padding: 2px 6px;
+	border-radius: var(--vnsc-radius-sm, 3px);
+	font-size: var(--vnsc-font-sm, 11px);
+	font-weight: 600;
+}
+
+.vnsc-ohlc-header__values {
+	color: var(--vnsc-text-secondary);
+	white-space: nowrap;
+}
+
+.vnsc-ohlc-header__volume {
+	color: var(--vnsc-text-secondary);
+}
+
+.vnsc-ohlc-header__change {
+	font-weight: 600;
+}
+
+.vnsc-ohlc-header__menu {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.vnsc-ohlc-menu-btn {
+	background: transparent;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: var(--vnsc-text-secondary, #a0a0a0);
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	padding: 0;
+}
+
+.vnsc-ohlc-menu-btn:hover {
+	color: var(--vnsc-text-primary, #e0e0e0);
+	background: var(--vnsc-bg-tertiary, #1c2430);
+	border-color: var(--vnsc-border, #2a2a2a);
+}
+
+.vnsc-ohlc-menu-btn--active {
+	color: var(--vnsc-accent, #2962ff);
+	background: var(--vnsc-bg-tertiary, #1c2430);
+	border-color: var(--vnsc-accent, #2962ff);
+}
+

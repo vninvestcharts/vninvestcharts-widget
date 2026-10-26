@@ -1,0 +1,172 @@
+/* ════════════════════════════════════════════════════════════════
+   VNInvestCharts — Chart Theme CSS custom properties
+   ────────────────────────────────────────────────────────────────
+   Set data-chart-theme on any ancestor container to activate a
+   palette: "modern-light" | "classic-dark" | "trading-night" |
+            "neutral-pro" | "high-contrast"
+
+   The --rsc-* properties are consumed by all chart surfaces.
+════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── defaults (Modern Light) ── */
+  --rsc-bg:           #F6F8FA;
+  --rsc-surface:      #FFFFFF;
+  --rsc-surface-sub:  #FAFBFC;
+  --rsc-border:       #E1E8F0;
+  --rsc-border-mid:   #C8D4E4;
+  --rsc-text:         #2B3A4A;
+  --rsc-text-muted:   #6B7893;
+  --rsc-text-micro:   #9BA5BB;
+  --rsc-accent:       #0B74DE;
+  --rsc-accent-bg:    rgba(11,116,222,0.08);
+  --rsc-button-hover: #095BB8;
+  --rsc-up:           #1E8A3A;
+  --rsc-dn:           #D64545;
+  --rsc-volume-up:    #A7E3B0;
+  --rsc-volume-dn:    #F5A6A6;
+  --rsc-canvas-bg:    #FFFFFF;
+  --rsc-axis-stroke:  #2B3A4A;
+  --rsc-axis-fill:    #2B3A4A;
+  --rsc-grid-stroke:  rgba(200, 206, 223, 0.4);
+  --rsc-live-badge:   #FF6B35;
+  --rsc-tooltip-bg:   #0B1B2B;
+  --rsc-tooltip-text: #FFFFFF;
+  --rsc-annotation:   #FFB020;
+  --rsc-focus-overlay: rgba(11,116,222,0.08);
+}
+
+[data-chart-theme="modern-light"] {
+  --rsc-bg:           #F6F8FA;
+  --rsc-surface:      #FFFFFF;
+  --rsc-surface-sub:  #FAFBFC;
+  --rsc-border:       #E1E8F0;
+  --rsc-border-mid:   #C8D4E4;
+  --rsc-text:         #2B3A4A;
+  --rsc-text-muted:   #6B7893;
+  --rsc-text-micro:   #9BA5BB;
+  --rsc-accent:       #0B74DE;
+  --rsc-accent-bg:    rgba(11,116,222,0.08);
+  --rsc-button-hover: #095BB8;
+  --rsc-up:           #1E8A3A;
+  --rsc-dn:           #D64545;
+  --rsc-volume-up:    #A7E3B0;
+  --rsc-volume-dn:    #F5A6A6;
+  --rsc-canvas-bg:    #FFFFFF;
+  --rsc-axis-stroke:  #2B3A4A;
+  --rsc-axis-fill:    #2B3A4A;
+  --rsc-grid-stroke:  rgba(200, 206, 223, 0.4);
+  --rsc-live-badge:   #FF6B35;
+  --rsc-tooltip-bg:   #0B1B2B;
+  --rsc-tooltip-text: #FFFFFF;
+  --rsc-annotation:   #FFB020;
+  --rsc-focus-overlay: rgba(11,116,222,0.08);
+}
+
+[data-chart-theme="classic-dark"] {
+  --rsc-bg:           #0F1720;
+  --rsc-surface:      #07101A;
+  --rsc-surface-sub:  #0F1925;
+  --rsc-border:       #122433;
+  --rsc-border-mid:   #1A3140;
+  --rsc-text:         #B8C7D6;
+  --rsc-text-muted:   #7A8B9E;
+  --rsc-text-micro:   #4E6273;
+  --rsc-accent:       #4DA6FF;
+  --rsc-accent-bg:    rgba(77,166,255,0.08);
+  --rsc-button-hover: #123047;
+  --rsc-up:           #2ECC71;
+  --rsc-dn:           #FF6B6B;
+  --rsc-volume-up:    #1F8A4A;
+  --rsc-volume-dn:    #C94A4A;
+  --rsc-canvas-bg:    #07101A;
+  --rsc-axis-stroke:  #9FB4C8;
+  --rsc-axis-fill:    #B8C7D6;
+  --rsc-grid-stroke:  rgba(255, 255, 255, 0.08);
+  --rsc-live-badge:   #FF5A3C;
+  --rsc-tooltip-bg:   #0B1B2B;
+  --rsc-tooltip-text: #E6F0FF;
+  --rsc-annotation:   #FFD166;
+  --rsc-focus-overlay: rgba(77,166,255,0.08);
+}
+
+[data-chart-theme="trading-night"] {
+  --rsc-bg:           #071226;
+  --rsc-surface:      #041022;
+  --rsc-surface-sub:  #071A30;
+  --rsc-border:       #083044;
+  --rsc-border-mid:   #0B3A52;
+  --rsc-text:         #A9D6FF;
+  --rsc-text-muted:   #6B9BC0;
+  --rsc-text-micro:   #3E6E91;
+  --rsc-accent:       #00A3FF;
+  --rsc-accent-bg:    rgba(0,163,255,0.09);
+  --rsc-button-hover: #045A80;
+  --rsc-up:           #00C48C;
+  --rsc-dn:           #FF4D6D;
+  --rsc-volume-up:    #007A4F;
+  --rsc-volume-dn:    #B33A4A;
+  --rsc-canvas-bg:    #041022;
+  --rsc-axis-stroke:  #7FB3C9;
+  --rsc-axis-fill:    #A9D6FF;
+  --rsc-grid-stroke:  rgba(255, 255, 255, 0.08);
+  --rsc-live-badge:   #FF6B35;
+  --rsc-tooltip-bg:   #021826;
+  --rsc-tooltip-text: #E6F9FF;
+  --rsc-annotation:   #FFD166;
+  --rsc-focus-overlay: rgba(0,163,255,0.09);
+}
+
+[data-chart-theme="neutral-pro"] {
+  --rsc-bg:           #FFFFFF;
+  --rsc-surface:      #FAFBFC;
+  --rsc-surface-sub:  #F4F6F8;
+  --rsc-border:       #E6EDF5;
+  --rsc-border-mid:   #CBD5E1;
+  --rsc-text:         #2C3E50;
+  --rsc-text-muted:   #64748B;
+  --rsc-text-micro:   #94A3B8;
+  --rsc-accent:       #2B6CB0;
+  --rsc-accent-bg:    rgba(43,108,176,0.07);
+  --rsc-button-hover: #234F86;
+  --rsc-up:           #157A3B;
+  --rsc-dn:           #B92E2E;
+  --rsc-volume-up:    #9ED7A6;
+  --rsc-volume-dn:    #F1A3A3;
+  --rsc-canvas-bg:    #FAFBFC;
+  --rsc-axis-stroke:  #3B4A57;
+  --rsc-axis-fill:    #2C3E50;
+  --rsc-grid-stroke:  rgba(150, 160, 180, 0.12);
+  --rsc-live-badge:   #E85D3A;
+  --rsc-tooltip-bg:   #1B2B3A;
+  --rsc-tooltip-text: #FFFFFF;
+  --rsc-annotation:   #F6C85F;
+  --rsc-focus-overlay: rgba(43,108,176,0.07);
+}
+
+[data-chart-theme="high-contrast"] {
+  --rsc-bg:           #000000;
+  --rsc-surface:      #0A0A0A;
+  --rsc-surface-sub:  #111111;
+  --rsc-border:       #2A2A2A;
+  --rsc-border-mid:   #3A3A3A;
+  --rsc-text:         #FFFFFF;
+  --rsc-text-muted:   #B0B0B0;
+  --rsc-text-micro:   #707070;
+  --rsc-accent:       #FFD700;
+  --rsc-accent-bg:    rgba(255,215,0,0.12);
+  --rsc-button-hover: #333333;
+  --rsc-up:           #00FF7A;
+  --rsc-dn:           #FF3B30;
+  --rsc-volume-up:    #00E060;
+  --rsc-volume-dn:    #FF6A5A;
+  --rsc-canvas-bg:    #0A0A0A;
+  --rsc-axis-stroke:  #FFFFFF;
+  --rsc-axis-fill:    #FFFFFF;
+  --rsc-grid-stroke:  rgba(255, 255, 255, 0.12);
+  --rsc-live-badge:   #FFB000;
+  --rsc-tooltip-bg:   #000000;
+  --rsc-tooltip-text: #FFFFFF;
+  --rsc-annotation:   #00FFFF;
+  --rsc-focus-overlay: rgba(255,215,0,0.12);
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- 
+		NOTE: frame-ancestors CSP directive MUST be set via HTTP Response Header, not meta tag.
+		Browsers ignore frame-ancestors in meta tags.
+		
+		Configure your web server (Nginx, Apache, Cloudflare, etc.) to send:
+		Content-Security-Policy: frame-ancestors 'self' https://vninvestcharts.com https://app.vninvestcharts.com https://charts.vninvestcharts.com http://localhost:3000 http://localhost:5173;
+		
+		The IframeBridge also validates origins dynamically against an allowlist for defense-in-depth.
+	-->
+	<title>VNInvestCharts Widget</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		html, body {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background: #0a0e14;
+		}
+		#root {
+			width: 100%;
+			height: 100%;
+		}
+		/* Loading state */
+		.loading {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 100%;
+			color: #64748b;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+			font-size: 14px;
+		}
+		.loading::after {
+			content: "";
+			width: 20px;
+			height: 20px;
+			border: 2px solid #2962ff;
+			border-top-color: transparent;
+			border-radius: 50%;
+			animation: spin 0.8s linear infinite;
+			margin-left: 12px;
+		}
+		@keyframes spin {
+			to { transform: rotate(360deg); }
+		}
+	</style>
+</head>
+<body>
+	<div id="root" class="loading">Loading VNInvestCharts...</div>
+	<!-- The iframe bundle will be injected here by the build system -->
+	<script type="module" src="./iframeEntry.tsx"></script>
+</body>
+</html>

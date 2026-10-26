@@ -1,0 +1,66 @@
+/* Preset: High Contrast — maximum readability for accessibility */
+.vnsc-root[data-chart-theme="high-contrast"] {
+  --vnsc-bg-primary: #000000;
+  --vnsc-bg-secondary: #0d0d0d;
+  --vnsc-bg-tertiary: #000000;
+  --vnsc-bg-elevated: #1a1a1a;
+  --vnsc-bg-overlay: rgba(0, 0, 0, 0.95);
+  --vnsc-bg-modal: #0d0d0d;
+  --vnsc-bg-popover: #0d0d0d;
+  --vnsc-bg-tooltip: #1a1a1a;
+  --vnsc-bg-input: #000000;
+  --vnsc-bg-hover: rgba(255, 255, 255, 0.12);
+  --vnsc-bg-active: rgba(255, 255, 255, 0.2);
+  --vnsc-bg-selected: rgba(255, 255, 255, 0.18);
+  --vnsc-bg-focus: rgba(59, 130, 246, 0.35);
+
+  --vnsc-text-primary: #ffffff;
+  --vnsc-text-secondary: #e0e0e0;
+  --vnsc-text-tertiary: #b0b0b0;
+  --vnsc-text-muted: #c0c0c0;
+  --vnsc-text-link: #FFD700;
+  --vnsc-text-link-hover: #FFC700;
+  --vnsc-text-disabled: #808080;
+  --vnsc-text-placeholder: #909090;
+  --vnsc-text-on-primary: #000000;
+  --vnsc-text-on-accent: #000000;
+
+  --vnsc-border-primary: #ffffff;
+  --vnsc-border-secondary: #e0e0e0;
+  --vnsc-border-divider: #ffffff;
+  --vnsc-border-focus: #FFD700;
+  --vnsc-border-overlay: rgba(255, 255, 255, 0.3);
+
+  --vnsc-color-primary: #FFD700;
+  --vnsc-color-primary-hover: #FFC700;
+  --vnsc-color-primary-active: #FFE033;
+
+  --vnsc-color-accent: #FFD700;
+  --vnsc-color-accent-hover: #FFC700;
+
+  --vnsc-color-bullish: #00ff66;
+  --vnsc-color-bearish: #ff3333;
+  --vnsc-color-neutral: #cccccc;
+
+  --vnsc-color-grid: rgba(255, 255, 255, 0.15);
+  --vnsc-color-grid-subtle: rgba(255, 255, 255, 0.08);
+  --vnsc-color-crosshair: #FFD700;
+  --vnsc-color-selection: rgba(255, 215, 0, 0.35);
+
+  --vnsc-color-whale-buy: #00ff66;
+  --vnsc-color-whale-sell: #ff3333;
+
+  --vnsc-color-success: #00ff66;
+  --vnsc-color-success-hover: #33ff88;
+  --vnsc-color-warning: #ffcc00;
+  --vnsc-color-warning-hover: #ffdd33;
+  --vnsc-color-error: #ff3333;
+  --vnsc-color-error-hover: #ff6666;
+  --vnsc-color-info: #60a5fa;
+
+  --vnsc-scrollbar-thumb: #606060;
+  --vnsc-scrollbar-thumb-hover: #909090;
+
+  --vnsc-focus-ring: 0 0 0 3px rgba(96, 165, 250, 0.6);
+  --vnsc-focus-ring-offset: 2px;
+}

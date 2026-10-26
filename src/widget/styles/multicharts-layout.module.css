@@ -1,0 +1,496 @@
+/**
+ * Multicharts Layout Styles
+ * CSS Grid layout for multicharts view with left sidebar toolbar
+ * 
+ * Layout Structure:
+ * ┌─────────────────────────────────────────────────────────────────────────────┐
+ * │ Header (40px) - UnifiedHeader                                               │
+ * ├──────────────────┬──────────────────────────────────────────────────────────┤
+ * │                  │                                                          │
+ * │ Drawing          │                                                          │
+ * │ Toolbar          │         Charts Grid (MAXIMIZED AREA)                     │
+ * │ (48px/280px)     │                                                          │
+ * │                  │                                                          │
+ * ├──────────────────┴──────────────────────────────────────────────────────────┤
+ * │ Footer (32px) - MultiChartsFooter (auto-hide on mobile)                     │
+ * └─────────────────────────────────────────────────────────────────────────────┘
+ */
+
+.multichartsLayout {
+  display: grid;
+  grid-template-rows: 40px 1fr 32px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header"
+    "charts"
+    "footer";
+  height: 100%;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--vnsc-bg-primary, #131722);
+  color: var(--vnsc-text-primary, #d1d4dc);
+  font-family: var(--vnsc-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+/* Header - spans full width */
+.header {
+  grid-area: header;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.headerWorkspaceMode {
+  cursor: pointer;
+}
+
+/* Toolbar - absolute overlay */
+.toolbar {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  bottom: 32px;
+  width: 0px;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Toolbar locked / docked mode (TASK-03) */
+.toolbarLocked .toolbar {
+  width: 44px;
+  pointer-events: auto;
+}
+
+.toolbarLocked .charts {
+  margin-left: 44px;
+}
+
+/* Bottom panel (Paper Trading / Strategy Tester / Pine Editor) is a grid
+   sibling of .charts (implicit row above the footer), so it needs the same
+   docked-rail clearance — otherwise the 44px rail overlaps its left edge. */
+.toolbarLocked [data-vnsc-bottom-panel="host"] {
+  margin-left: 44px;
+}
+
+/* Charts area - maximized */
+.charts {
+  grid-area: charts;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* S1 (F8 full-height, mirror single): body-row chứa mainCol (charts +
+   panel) và dock. Overlay neo theo body (full content height như toolbar);
+   pinned in-flow đẩy cả col (grid + panel co như singlechart). */
+.workspaceBody {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.workspaceMainCol {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* .charts là con flex của mainCol (giữ position/overflow cho replay overlay). */
+.workspaceBody .charts {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Footer - spans full width */
+.footer {
+  grid-area: footer;
+  z-index: 100;
+  flex-shrink: 0;
+  transition: height 0.2s ease, opacity 0.2s ease, padding 0.2s ease;
+}
+
+/* Footer hidden state (auto-hide on mobile or chart focused) */
+.footer.hidden {
+  height: 0;
+  padding: 0 16px;
+  opacity: 0;
+  pointer-events: none;
+  border-top: none;
+}
+
+/* ============================================
+   Responsive Breakpoints
+   ============================================ */
+
+/* Desktop & Tablet toolbar visibility */
+@media (min-width: 769px) {
+  .toolbar {
+    display: flex;
+  }
+}
+
+/* Mobile (<768px) - Toolbar hidden, shown via FAB */
+@media (max-width: 768px) {
+  .multichartsLayout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px 1fr 0px;
+    grid-template-areas:
+      "header"
+      "charts"
+      "footer";
+  }
+  
+  .toolbar {
+    display: none;
+  }
+  
+  .toolbar.mobileVisible {
+    display: flex;
+    position: fixed;
+    top: 40px; /* Below header */
+    left: 0;
+    bottom: 32px; /* Above footer */
+    width: 280px;
+    max-width: 85vw;
+    height: auto;
+    max-height: calc(100vh - 72px);
+    z-index: 1000;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+    border-right: 1px solid var(--vnsc-border, #2a2e39);
+    min-width: 280px;
+    max-width: 280px;
+    width: 280px;
+  }
+  
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0px;
+    min-height: 0px;
+    padding: 0;
+    border-top: none;
+    overflow: visible;
+    pointer-events: none;
+    background: transparent;
+    z-index: 100;
+  }
+}
+
+/* ============================================
+   Toolbar Internal Layout
+   ============================================ */
+
+.toolbar :global(.unifiedDrawingToolbar) {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Ensure toolbar content scrolls when expanded */
+.toolbar.expanded :global(.unifiedDrawingToolbar) {
+  overflow-y: auto;
+}
+
+/* Collapsed toolbar - only show icons */
+.toolbar.collapsed :global(.toolbarContent) {
+  display: none;
+}
+
+.toolbar.collapsed :global(.toolbarHeader) {
+  padding: 8px;
+  justify-content: center;
+}
+
+.toolbar.collapsed :global(.toolbarHeader .toolbarTitle),
+.toolbar.collapsed :global(.toolbarHeader .lockToggle),
+.toolbar.collapsed :global(.toolbarHeader .collapseToggle) {
+  display: none;
+}
+
+.toolbar.collapsed :global(.toolbarHeader .expandToggle) {
+  display: flex;
+}
+
+/* ============================================
+   Charts Grid Container
+   ============================================ */
+
+.chartsContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Grid container for chart slots */
+.gridContainer {
+  flex: 1;
+  display: grid;
+  gap: 8px;
+  padding: 8px;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* Grid layout variations based on chart count */
+.gridContainer[data-layout="1x1"] { grid-template-columns: 1fr; grid-template-rows: 1fr; }
+.gridContainer[data-layout="1x2"] { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+.gridContainer[data-layout="2x1"] { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+.gridContainer[data-layout="2x2"] { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.gridContainer[data-layout="1x4"] { grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr; }
+.gridContainer[data-layout="4x1"] { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); }
+.gridContainer[data-layout="2x4"] { grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; }
+.gridContainer[data-layout="3x3"] { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); }
+
+/* Chart slot */
+.chartSlot {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border: 1px solid var(--vnsc-border, #2a2e39);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--vnsc-bg-primary, #131722);
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chartSlot:hover {
+  border-color: var(--vnsc-border-hover, #3a3e49);
+}
+
+.chartSlot.active {
+  border: 1px solid var(--vnsc-primary, #2962ff);
+}
+
+.chartSlot.empty {
+  border: 2px dashed var(--vnsc-border, #2a2e39);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vnsc-bg-secondary, #1e222d);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.chartSlot.empty:hover {
+  background: var(--vnsc-bg-tertiary, #262b36);
+  border-color: var(--vnsc-primary, #2962ff);
+}
+
+.chartSlot.empty:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--vnsc-primary, #2962ff);
+}
+
+.chartSlot.empty span {
+  color: var(--vnsc-text-muted, #787b86);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* Slot header with symbol badge */
+.slotHeader {
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.slotHeader > * {
+  pointer-events: auto;
+}
+
+.symbolBadge {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.groupBadge {
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.groupBadgeA { background-color: #e74c3c; }
+.groupBadgeB { background-color: #3498db; }
+.groupBadgeC { background-color: #2ecc71; }
+.groupBadgeD { background-color: #f39c12; }
+
+/* ============================================
+   OHLC Hover Tooltip Positioning
+   ============================================ */
+
+.charts :global(.ohlcTooltip) {
+  pointer-events: none;
+  z-index: 200;
+}
+
+/* ============================================
+   System Menu Dropdown Z-Index
+   ============================================ */
+
+.header :global(.menu),
+.toolbar :global(.menu) {
+  z-index: 1000;
+}
+
+/* ============================================
+   High Contrast Mode
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  .multichartsLayout {
+    border: 2px solid currentColor;
+  }
+  
+  .toolbar {
+    border-right-width: 2px;
+  }
+  
+  .chartSlot {
+    border-width: 2px;
+  }
+  
+  .chartSlot.active {
+    border-width: 3px;
+  }
+  
+  .footer {
+    border-top-width: 2px;
+  }
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .multichartsLayout,
+  .toolbar,
+  .footer,
+  .chartSlot,
+  .slotHeader,
+  .toolbar :global(.unifiedDrawingToolbar) {
+    transition: none;
+  }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  .toolbar,
+  .footer,
+  .slotHeader,
+  .header :global(.menu) {
+    display: none !important;
+  }
+  
+  .multichartsLayout {
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "charts"
+      "footer";
+  }
+  
+  .chartSlot {
+    break-inside: avoid;
+    border: 1px solid #000 !important;
+  }
+}
+
+/* ============================================
+   Dark Mode Variables (fallback)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  /* H0.8: this file is a CSS module, so the class would be hashed — hence
+     `:global(.vnsc-root)`. The document-root selector never matches in the
+     Shadow DOM, so these dark-mode variables resolved to "" in the bundle. */
+  :global(.vnsc-root) {
+    --vnsc-bg-primary: #131722;
+    --vnsc-bg-secondary: #1e222d;
+    --vnsc-bg-tertiary: #262b36;
+    --vnsc-bg-hover: #232838;
+    --vnsc-bg-input: #0d1117;
+    --vnsc-border: #2a2e39;
+    --vnsc-border-hover: #3a3e49;
+    --vnsc-text-primary: #d1d4dc;
+    --vnsc-text-secondary: #787b86;
+    --vnsc-text-muted: #787b86;
+    --vnsc-primary: #2962ff;
+    --vnsc-primary-hover: #1a52e0;
+    --vnsc-success: #0ecb81;
+    --vnsc-danger-bg: #2a1a1a;
+    --vnsc-danger-border: #442222;
+    --vnsc-danger-text: #f87171;
+    --vnsc-danger-hover: #3a2a2a;
+    --vnsc-accent: #2962ff;
+    --vnsc-accent-hover: #1a52e0;
+    --vnsc-accent-subtle: rgba(41, 98, 255, 0.15);
+    --vnsc-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --vnsc-font-mono: ui-monospace, SFMono-Regular, monospace;
+  }
+}
+
+/* Mobile Touch Target Optimizations */
+@media (max-width: 768px) {
+  /* System menu items */
+  .multichartsLayout [role="menuitem"],
+  .multichartsLayout [role="option"] {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+  }
+  
+  /* Footer tabs */
+  .multichartsLayout footer button {
+    min-height: 44px;
+    padding: 0 16px;
+  }
+  
+  /* Search dropdown results */
+  .multichartsLayout .vnsc-symbol-search-dropdown-container li {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}

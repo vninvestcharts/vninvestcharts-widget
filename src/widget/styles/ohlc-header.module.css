@@ -1,0 +1,524 @@
+.ohlcHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  background: var(--vnsc-bg-secondary, #111820);
+  border-bottom: 1px solid var(--vnsc-border, #2a2a2a);
+  font-family: var(--vnsc-font-family-base);
+  font-size: 12px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  z-index: 30;
+  min-height: 32px;
+  /* Never force page width: squeeze internally instead of pushing the dock
+     strip off-screen on narrow windows. */
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ohlcHeader::-webkit-scrollbar {
+  display: none;
+}
+
+.leftGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.symbol {
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.timeframe {
+  /* V-05: solid #2563eb + white = 5.2:1 (was accent/white, weak). */
+  background: var(--vnsc-accent-strong, #2563eb);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.timeframeGroup {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.timeframeBtn {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--vnsc-text-secondary, #787b86);
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.timeframeBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--vnsc-text-primary, #e0e0e0);
+}
+
+.timeframeBtnActive {
+  background: var(--vnsc-accent-strong, #2563eb);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Chart Type Selector */
+.selectorGroup {
+  position: relative;
+}
+
+.selectorBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 4px;
+  color: var(--vnsc-text-secondary, #787b86);
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.selectorBtn:hover,
+.selectorBtnOpen {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--vnsc-text-primary, #e0e0e0);
+  border-color: var(--vnsc-accent, #2962ff);
+}
+
+.selectorArrow {
+  font-size: 8px;
+  margin-left: 2px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  background: var(--vnsc-bg-primary, #1e293b);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  list-style: none;
+  padding: 4px;
+  z-index: 100;
+  min-width: 120px;
+}
+
+/* CLIP-FIX: chart-type menu portals to document.body (fixed) so the header's
+   overflow-x:auto can never clip it. Coords come from the toggle button rect. */
+.dropdownFloating {
+  position: fixed;
+  top: auto;
+  left: auto;
+  margin-top: 0;
+  z-index: 9999;
+}
+
+.dropdownItem {
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--vnsc-text-secondary, #787b86);
+  transition: background 0.15s ease;
+}
+
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--vnsc-text-primary, #e0e0e0);
+}
+
+.dropdownItemSelected {
+  background: rgba(41, 98, 255, 0.15);
+  color: var(--vnsc-primary, #2962ff);
+  font-weight: 600;
+}
+
+/* CT-P2: disabled future chart types (Renko/Kagi) + Coming Soon badge. */
+.dropdownItemDisabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.dropdownItemDisabled:hover {
+  background: transparent;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.comingSoonBadge {
+  margin-left: 8px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--vnsc-primary, #2962ff);
+  background: rgba(41, 98, 255, 0.15);
+  white-space: nowrap;
+}
+
+/* Replay Controls */
+.replayControl {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.replayToggleBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 4px;
+  color: var(--vnsc-text-secondary, #787b86);
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.replayToggleBtn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--vnsc-text-primary, #e0e0e0);
+  border-color: var(--vnsc-accent, #2962ff);
+}
+
+.replayToggleBtnActive {
+  background: rgba(41, 98, 255, 0.2);
+  color: var(--vnsc-primary, #2962ff);
+  font-weight: 600;
+  border-color: var(--vnsc-primary, #2962ff);
+}
+
+.replayBar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+}
+
+.replayBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--vnsc-text-secondary, #787b86);
+  cursor: pointer;
+  font-size: 10px;
+  transition: all 0.15s ease;
+}
+
+.replayBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--vnsc-text-primary, #e0e0e0);
+}
+
+.replayBtnActive {
+  color: var(--vnsc-primary, #2962ff);
+}
+
+.replaySlider {
+  width: 80px;
+  height: 4px;
+  accent-color: var(--vnsc-accent, #2962ff);
+  cursor: pointer;
+}
+
+.replayProgress {
+  font-size: 10px;
+  color: var(--vnsc-text-secondary, #787b86);
+  white-space: nowrap;
+  min-width: 50px;
+}
+
+.replayPnl {
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  margin: 0 4px;
+}
+.replayPnl[data-pnl-positive="true"] {
+  color: #22bb5c;
+}
+.replayPnl[data-pnl-positive="false"] {
+  color: #d7324b;
+}
+
+.replayAnalytics {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 10px;
+  white-space: nowrap;
+  margin: 0 4px;
+}
+.replayAnalyticsItem {
+  padding: 0 4px;
+  color: var(--vnsc-text-secondary, #787b86);
+  border-right: 1px solid var(--vnsc-border, rgba(148,163,184,0.2));
+}
+.replayAnalyticsItem:last-child {
+  border-right: none;
+}
+.replayAnalyticsItem[data-positive="true"] {
+  color: #22bb5c;
+}
+.replayAnalyticsItem[data-positive="false"] {
+  color: #d7324b;
+}
+
+.replaySpeed {
+  background: transparent;
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 4px;
+  color: var(--vnsc-text-secondary, #787b86);
+  font-size: 10px;
+  padding: 1px 4px;
+  cursor: pointer;
+}
+
+/* Menu */
+.menu {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.menuBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--vnsc-text-secondary, #787b86);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.menuBtn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--vnsc-text-primary);
+}
+
+.menuBtnActive {
+  background-color: var(--vnsc-accent, #2962ff);
+  color: #fff;
+}
+
+.menuBtnActive:hover {
+  background-color: #1a52d6;
+  color: #fff;
+}
+
+.upgradeBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid rgba(41, 98, 255, 0.45);
+  border-radius: 4px;
+  /* V-09: toned down — flat translucent instead of glowing gradient. */
+  background: rgba(41, 98, 255, 0.14);
+  color: #dbe4ff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  box-shadow: none;
+}
+
+.upgradeBtn:hover {
+  background: rgba(41, 98, 255, 0.24);
+  box-shadow: none;
+}
+
+.logoBadge {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.logoBadgeMobile {
+  background: linear-gradient(135deg, var(--vnsc-accent, #22d3ee), #0891b2);
+  color: #0a0e17;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.rightGroupMobile {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dropdownContainerMobile {
+  position: relative;
+}
+
+.mobileChartSystemMenu {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  min-width: 220px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding: 8px;
+  background-color: var(--vnsc-bg-secondary, #0f172a);
+  border: 1px solid var(--vnsc-border, rgba(148, 163, 184, 0.18));
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 250;
+  scrollbar-width: thin;
+}
+
+.menuActionBtn {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--vnsc-text-secondary, #94a3b8);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.12s ease;
+}
+
+.menuActionBtn:hover,
+.menuActionBtn.active {
+  background-color: var(--vnsc-bg-hover, rgba(255, 255, 255, 0.05));
+  color: var(--vnsc-text-primary, #e2e8f0);
+}
+
+.replayBarMobile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--vnsc-bg-secondary, #111820);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 6px;
+  padding: 6px 10px;
+  position: absolute;
+  top: 36px;
+  left: 6px;
+  right: 6px;
+  z-index: 220;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  box-sizing: border-box;
+}
+
+.ohlcCluster {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+  font-size: 11px;
+  font-family: var(--vnsc-font-mono, monospace);
+  white-space: nowrap;
+}
+
+.ohlcItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* V-03: one up/down pair (D3). By-field ohlcOpen/High/Low/Close removed. */
+.ohlcLabel {
+  color: inherit;
+  opacity: 0.75;
+  font-weight: 600;
+}
+
+.ohlcValue {
+  color: inherit;
+}
+
+.ohlcChange {
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.ohlcUp {
+  color: var(--vnsc-color-bullish, #26a69a);
+}
+
+.ohlcDown {
+  color: var(--vnsc-color-bearish, #ef5350);
+}
+
+@media (max-width: 640px) {
+  .ohlcHeader {
+    padding: 3px 6px;
+    gap: 4px;
+  }
+
+  .symbol {
+    font-size: 12px;
+  }
+
+  .replaySlider {
+    width: 60px;
+    flex: 1;
+  }
+
+  .menuBtn {
+    width: 24px;
+    height: 24px;
+  }
+}

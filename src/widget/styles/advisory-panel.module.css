@@ -1,0 +1,282 @@
+/* Advisory Panel Styles - CSS Module */
+.panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 100%;
+  z-index: 50;
+  background: var(--vnsc-bg-primary);
+  border-left: 1px solid var(--vnsc-border-primary);
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  color: var(--vnsc-text-primary);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid var(--vnsc-border-primary);
+  background: var(--vnsc-bg-secondary);
+}
+
+.title {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.headerActions {
+  display: flex;
+  gap: 6px;
+}
+
+.refreshBtn {
+  background: none;
+  border: 1px solid var(--vnsc-border-secondary);
+  color: var(--vnsc-text-secondary);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 11px;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.refreshBtn:hover:not(:disabled) {
+  background: var(--vnsc-bg-hover);
+  color: var(--vnsc-text-primary);
+  border-color: var(--vnsc-text-disabled);
+}
+
+.refreshBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--vnsc-text-tertiary);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+  transition: color 0.15s ease;
+}
+
+.closeBtn:hover {
+  color: var(--vnsc-text-primary);
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.skeletonRow {
+  height: 40px;
+  background: var(--vnsc-bg-tertiary);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.decisionBadge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.decisionLabel {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.decisionStrongBuy {
+  background: var(--vnsc-color-success-hover);
+  color: var(--vnsc-text-on-primary);
+}
+
+.decisionBuy {
+  background: var(--vnsc-color-success);
+  color: var(--vnsc-text-on-primary);
+}
+
+.decisionHold {
+  background: var(--vnsc-color-neutral);
+  color: var(--vnsc-text-on-primary);
+}
+
+.decisionSell {
+  background: var(--vnsc-color-warning);
+  color: var(--vnsc-text-on-primary);
+}
+
+.decisionStrongSell {
+  background: var(--vnsc-color-error);
+  color: var(--vnsc-text-on-primary);
+}
+
+.confidence {
+  text-align: center;
+}
+
+.confidenceLabel {
+  color: var(--vnsc-text-tertiary);
+  font-size: 10px;
+}
+
+.confidenceValue {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.agentRows {
+  margin-bottom: 8px;
+}
+
+.agentRow {
+  border-bottom: 1px solid var(--vnsc-border-primary);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.agentHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.agentName {
+  flex: 1;
+  font-size: 12px;
+  color: var(--vnsc-text-primary);
+  font-weight: 500;
+}
+
+.agentWeight {
+  color: var(--vnsc-text-tertiary);
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+.agentSignal {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--vnsc-color-neutral);
+  color: var(--vnsc-text-on-primary);
+  letter-spacing: 0.5px;
+}
+
+.agentSignalBuy {
+  background: var(--vnsc-color-success);
+}
+
+.agentSignalSell {
+  background: var(--vnsc-color-error);
+}
+
+.agentSignalHold {
+  background: var(--vnsc-color-neutral);
+}
+
+.agentExpand {
+  color: var(--vnsc-text-tertiary);
+  font-size: 10px;
+}
+
+.agentScoreBar {
+  height: 4px;
+  background: var(--vnsc-border-primary);
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.agentScoreFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.agentExplanation {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--vnsc-text-secondary);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.explanationToggle {
+  background: none;
+  border: none;
+  color: var(--vnsc-text-link);
+  cursor: pointer;
+  font-size: 11px;
+  padding: 0;
+  text-decoration: underline;
+  transition: color 0.15s ease;
+}
+
+.explanationToggle:hover {
+  color: var(--vnsc-text-link-hover);
+}
+
+.explanationContent {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--vnsc-text-secondary);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.timestamp {
+  margin-top: 10px;
+  font-size: 10px;
+  color: var(--vnsc-text-tertiary);
+  text-align: right;
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--vnsc-text-placeholder);
+  padding-top: 24px;
+  font-size: 12px;
+}
+
+.emptyIcon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 480px) {
+  .panel {
+    width: 100%;
+    height: auto;
+    max-height: 50%;
+    bottom: 0;
+    top: auto;
+    border-left: none;
+    border-top: 1px solid var(--vnsc-border-primary);
+  }
+}

@@ -1,0 +1,43 @@
+/* ════════════════════════════════════════════════════════════════
+   VNInvestCharts — ChartSplitter default styles
+   ────────────────────────────────────────────────────────────────
+   Minimalist: invisible until hover, then bright accent line.
+   Override colours via --rsc-* CSS custom properties.
+════════════════════════════════════════════════════════════════ */
+
+.rsc-splitter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 24px;
+  margin-top: -12px;
+  cursor: row-resize;
+  z-index: 12;
+  pointer-events: auto;
+  user-select: none;
+  touch-action: none;
+}
+
+.rsc-splitter::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2px;
+  background: transparent;
+  transition: background 0.15s;
+}
+
+.rsc-splitter:hover::after,
+.rsc-splitter--dragging::after {
+  background: var(--rsc-accent, #2962ff);
+}
+
+@media (pointer: coarse) {
+  .rsc-splitter {
+    height: 28px;
+    margin-top: -14px;
+  }
+}

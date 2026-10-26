@@ -1,0 +1,12 @@
+/* Design Tokens - Surface Layer System */
+.vnsc-root {
+  --vnsc-surface-0: var(--vnsc-bg-primary);
+  --vnsc-surface-1: var(--vnsc-bg-secondary);
+  --vnsc-surface-2: var(--vnsc-bg-tertiary);
+  --vnsc-surface-3: var(--vnsc-bg-elevated);
+  --vnsc-surface-4: var(--vnsc-bg-elevated);
+}
+
+.vnsc-root[data-chart-mode="light"] {
+  --vnsc-surface-4: #e2e8f0;
+}

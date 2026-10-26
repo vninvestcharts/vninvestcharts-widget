@@ -1,0 +1,434 @@
+/**
+ * Unified Drawing Toolbar Styles
+ * Professional trading platform drawing toolbar with high visibility and accessibility
+ */
+
+.unifiedDrawingToolbar {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  min-width: 280px;
+  max-width: 320px;
+  background: var(--vnsc-bg-secondary, #1e222d);
+  border-right: 1px solid var(--vnsc-border, #2a2e39);
+  height: 100%;
+  overflow-y: auto;
+  font-family: var(--vnsc-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  position: relative;
+  z-index: 50;
+  transition: width 0.2s ease, min-width 0.2s ease;
+}
+
+.unifiedDrawingToolbar.collapsed {
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+}
+
+.unifiedDrawingToolbar.locked {
+  position: sticky;
+  top: 0;
+}
+
+.toolbarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--vnsc-border, #2a2e39);
+  background: var(--vnsc-bg-tertiary, #262b36);
+  flex-shrink: 0;
+}
+
+.toolbarTitle {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--vnsc-text-primary, #d1d4dc);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lockToolbarToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid var(--vnsc-border, #2a2e39);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--vnsc-text-secondary, #787b86);
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.lockToolbarToggle:hover {
+  background: var(--vnsc-bg-primary, #131722);
+  border-color: var(--vnsc-primary, #2962ff);
+  color: var(--vnsc-primary, #2962ff);
+}
+
+.lockToolbarToggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.3);
+  border-color: var(--vnsc-primary, #2962ff);
+}
+
+.lockToolbarToggle.locked {
+  background: rgba(41, 98, 255, 0.15);
+  border-color: var(--vnsc-primary, #2962ff);
+  color: var(--vnsc-primary, #2962ff);
+}
+
+.lockToolbarToggle.locked:hover {
+  background: rgba(41, 98, 255, 0.25);
+}
+
+.toolbarContent {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.toolbarSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--vnsc-text-muted, #787b86);
+  padding: 0 4px;
+}
+
+.toolGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.toolButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 8px;
+  background: var(--vnsc-bg-tertiary, #262b36);
+  border: 1px solid var(--vnsc-border, #2a2e39);
+  border-radius: 8px;
+  color: var(--vnsc-text-primary, #d1d4dc);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 56px;
+  position: relative;
+}
+
+.toolButton:hover {
+  background: var(--vnsc-bg-primary, #131722);
+  border-color: var(--vnsc-primary, #2962ff);
+  color: var(--vnsc-primary, #2962ff);
+}
+
+.toolButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.3);
+  border-color: var(--vnsc-primary, #2962ff);
+}
+
+.toolButton.active {
+  background: rgba(41, 98, 255, 0.15);
+  border-color: var(--vnsc-primary, #2962ff);
+  color: var(--vnsc-primary, #2962ff);
+}
+
+.toolButton.active:hover {
+  background: rgba(41, 98, 255, 0.25);
+}
+
+.toolIcon {
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.toolLabel {
+  font-size: 10px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.toolShortcut {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 8px;
+  color: var(--vnsc-text-muted, #787b86);
+  background: var(--vnsc-bg-primary, #131722);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: var(--vnsc-font-mono, ui-monospace, SFMono-Regular, monospace);
+}
+
+.favoriteStar {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-size: 10px;
+  color: var(--vnsc-primary, #2962ff);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.toolButton:hover .favoriteStar,
+.toolButton:focus-within .favoriteStar {
+  opacity: 1;
+}
+
+.favoriteStar.active {
+  opacity: 1;
+}
+
+.unifiedToolbarExtras {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--vnsc-border, #2a2e39);
+}
+
+.extraControls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.extraControls button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--vnsc-bg-tertiary, #262b36);
+  border: 1px solid var(--vnsc-border, #2a2e39);
+  border-radius: 8px;
+  color: var(--vnsc-text-primary, #d1d4dc);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 40px;
+}
+
+.extraControls button:hover:not(:disabled) {
+  background: var(--vnsc-bg-primary, #131722);
+  border-color: var(--vnsc-primary, #2962ff);
+  color: var(--vnsc-primary, #2962ff);
+}
+
+.extraControls button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.3);
+  border-color: var(--vnsc-primary, #2962ff);
+}
+
+.extraControls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.clearAllBtn {
+  background: var(--vnsc-danger-bg, #2a1a1a) !important;
+  border-color: var(--vnsc-danger-border, #442222) !important;
+  color: var(--vnsc-danger-text, #f87171) !important;
+}
+
+.clearAllBtn:hover:not(:disabled) {
+  background: var(--vnsc-danger-hover, #3a2a2a) !important;
+  border-color: var(--vnsc-danger-border-hover, #553333) !important;
+}
+
+.toolbarPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 200px;
+  color: var(--vnsc-text-muted, #787b86);
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.placeholderToolGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  width: 100%;
+  max-width: 200px;
+  opacity: 0.5;
+}
+
+.placeholderText {
+  font-size: 13px;
+  max-width: 200px;
+  line-height: 1.5;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.toolButton.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.noActive {
+  border-left: 2px solid var(--vnsc-primary, #2962ff);
+}
+
+/* Collapsed state */
+.unifiedDrawingToolbar.collapsed .toolbarTitle,
+.unifiedDrawingToolbar.collapsed .sectionLabel,
+.unifiedDrawingToolbar.collapsed .toolLabel,
+.unifiedDrawingToolbar.collapsed .toolShortcut,
+.unifiedDrawingToolbar.collapsed .extraControls button span:not(.toolIcon),
+.unifiedDrawingToolbar.collapsed .toolbarPlaceholder {
+  display: none;
+}
+
+.unifiedDrawingToolbar.collapsed .toolButton {
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+  min-height: 44px;
+}
+
+.unifiedDrawingToolbar.collapsed .toolGrid {
+  grid-template-columns: 1fr;
+}
+
+.unifiedDrawingToolbar.collapsed .extraControls {
+  flex-direction: column;
+}
+
+.unifiedDrawingToolbar.collapsed .extraControls button {
+  padding: 10px;
+  min-height: 44px;
+}
+
+.unifiedDrawingToolbar.collapsed::after {
+  content: attr(data-collapsed-label);
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 8px);
+  transform: translateY(-50%);
+  background: var(--vnsc-bg-tertiary, #262b36);
+  color: var(--vnsc-text-primary, #d1d4dc);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 100;
+  border: 1px solid var(--vnsc-border, #2a2e39);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.unifiedDrawingToolbar.collapsed:hover::after {
+  opacity: 1;
+}
+
+.unifiedDrawingToolbar.collapsed:hover {
+  box-shadow: 2px 0 12px rgba(41, 98, 255, 0.15);
+  border-right-color: var(--vnsc-primary, #2962ff);
+}
+
+.unifiedDrawingToolbar.collapsed .placeholderToolGrid {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .unifiedDrawingToolbar {
+    width: 260px;
+    min-width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .unifiedDrawingToolbar {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 50vh;
+    border-right: none;
+    border-top: 1px solid var(--vnsc-border, #2a2e39);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .unifiedDrawingToolbar.collapsed {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .toolButton,
+  .extraControls button,
+  .lockToolbarToggle {
+    border-width: 2px;
+  }
+  
+  .toolButton.active,
+  .lockToolbarToggle.locked {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .unifiedDrawingToolbar,
+  .toolButton,
+  .extraControls button,
+  .lockToolbarToggle,
+  .favoriteStar {
+    transition: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .unifiedDrawingToolbar {
+    display: none;
+  }
+}

@@ -1,0 +1,993 @@
+.menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  min-width: 280px;
+  max-width: 360px;
+  max-height: 80vh;
+  overflow-y: scroll;
+  background: var(--vnsc-bg-secondary, #111820);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  font-size: 13px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+}
+
+.menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.menu::-webkit-scrollbar-thumb {
+  background: var(--vnsc-text-muted, #64748b);
+  border-radius: 3px;
+}
+
+.section {
+  border-bottom: 1px solid var(--vnsc-border, #2a2a2a);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--vnsc-bg-tertiary, #1a1f2e);
+  cursor: pointer;
+  user-select: none;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--vnsc-text-secondary, #a0a0a0);
+}
+
+.dropdownTrigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.dropdownTrigger:hover {
+  background: var(--vnsc-bg-hover, #232838);
+  border-color: var(--vnsc-border, #2a2a2a);
+}
+
+.dropdownTrigger.open {
+  background: var(--vnsc-bg-hover, #232838);
+  border-color: var(--vnsc-accent, #2962ff);
+}
+
+.currentWorkspace,
+.currentLayout {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.syncStatus {
+  font-variant-numeric: tabular-nums;
+}
+
+.dropdownArrow {
+  font-size: 10px;
+  color: var(--vnsc-text-secondary, #a0a0a0);
+  transition: transform 0.15s;
+}
+
+.dropdownTrigger.open .dropdownArrow {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  padding: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: var(--vnsc-border, #2a2a2a);
+  margin: 6px 0;
+}
+
+.workspaceInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 4px;
+  font-size: 12px;
+}
+
+.workspaceLabel {
+  color: var(--vnsc-text-secondary, #a0a0a0);
+}
+
+.workspaceName {
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.newWorkspaceInput {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 4px;
+}
+
+.input {
+  padding: 8px 10px;
+  background: var(--vnsc-bg-input, #0d1117);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 4px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.input:focus {
+  border-color: var(--vnsc-accent, #2962ff);
+}
+
+.inputActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.buttonPrimary,
+.buttonSecondary {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.buttonPrimary {
+  background: var(--vnsc-accent, #2962ff);
+  color: white;
+  border: none;
+}
+
+.buttonPrimary:hover {
+  background: var(--vnsc-accent-hover, #1a52e0);
+}
+
+.buttonSecondary {
+  background: transparent;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+}
+
+.buttonSecondary:hover {
+  background: var(--vnsc-bg-hover, #232838);
+}
+
+.workspaceItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.dropdownItem:hover {
+  background: var(--vnsc-bg-hover, #232838);
+}
+
+.dropdownItem.active {
+  background: var(--vnsc-accent-subtle, rgba(41, 98, 255, 0.15));
+  color: var(--vnsc-accent, #2962ff);
+}
+
+.dropdownItemIcon {
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
+}
+
+.workspaceItemName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.activeIndicator {
+  color: var(--vnsc-accent, #2962ff);
+  font-weight: bold;
+}
+
+.workspaceActions {
+  display: flex;
+  gap: 4px;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--vnsc-text-secondary, #a0a0a0);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.actionButton:hover {
+  background: var(--vnsc-bg-hover, #232838);
+  color: var(--vnsc-text-primary, #e0e0e0);
+}
+
+.emptyState {
+  padding: 16px;
+  text-align: center;
+  color: var(--vnsc-text-secondary, #a0a0a0);
+  font-size: 12px;
+}
+
+.fileInput {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.syncToggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.15s;
+}
+
+.syncToggleLabel:hover {
+  background: var(--vnsc-bg-hover, #232838);
+}
+
+.syncToggleInput {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--vnsc-accent, #2962ff);
+  cursor: pointer;
+}
+
+.syncToggleLabelText {
+  font-size: 13px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+}
+
+.actionItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.actionItem:hover {
+  background: var(--vnsc-bg-hover, #232838);
+}
+
+.actionIcon {
+  font-size: 16px;
+  width: 24px;
+  text-align: center;
+}
+
+.upgradeItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: linear-gradient(135deg, rgba(41, 98, 255, 0.12), rgba(26, 82, 214, 0.08));
+  border: 1px solid rgba(41, 98, 255, 0.2);
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 4px 8px;
+  width: calc(100% - 16px);
+  box-sizing: border-box;
+}
+
+.upgradeItem:hover {
+  background: linear-gradient(135deg, rgba(41, 98, 255, 0.2), rgba(26, 82, 214, 0.15));
+  border-color: rgba(41, 98, 255, 0.4);
+}
+
+.upgradeIcon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.upgradeContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.upgradeLabel {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.upgradeDesc {
+  font-size: 10px;
+  color: #94a3b8;
+  line-height: 1.3;
+}
+
+/* Drawing Tools Section */
+.drawingToolsSection {
+  padding: 4px 0;
+}
+
+.drawingToolsSection:first-child {
+  padding-top: 0;
+}
+
+.sectionLabel {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--vnsc-text-muted, #787b86);
+  padding: 0 10px 4px;
+}
+
+.toolGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  padding: 0 6px;
+}
+
+.drawingToolButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 6px;
+  background: var(--vnsc-bg-tertiary, #1a1f2e);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 48px;
+  position: relative;
+}
+
+.drawingToolButton:hover {
+  background: var(--vnsc-bg-hover, #232838);
+  border-color: var(--vnsc-accent, #2962ff);
+  color: var(--vnsc-accent, #2962ff);
+}
+
+.drawingToolButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.3);
+  border-color: var(--vnsc-accent, #2962ff);
+}
+
+.drawingToolButton.active {
+  background: rgba(41, 98, 255, 0.15);
+  border-color: var(--vnsc-accent, #2962ff);
+  color: var(--vnsc-accent, #2962ff);
+}
+
+.drawingToolButton.active:hover {
+  background: rgba(41, 98, 255, 0.25);
+}
+
+.toolIcon {
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+}
+
+.toolLabel {
+  font-size: 9px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.toolShortcut {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  font-size: 7px;
+  color: var(--vnsc-text-muted, #787b86);
+  background: var(--vnsc-bg-input, #0d1117);
+  padding: 1px 3px;
+  border-radius: 2px;
+  font-family: var(--vnsc-font-mono, ui-monospace, SFMono-Regular, monospace);
+}
+
+.favoriteStar {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  font-size: 9px;
+  color: var(--vnsc-accent, #2962ff);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.drawingToolButton:hover .favoriteStar,
+.drawingToolButton:focus-within .favoriteStar {
+  opacity: 1;
+}
+
+.favoriteStar.active {
+  opacity: 1;
+}
+
+.drawingToolsExtras {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--vnsc-border, #2a2a2a);
+}
+
+.extraControls {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.extraControls button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 10px;
+  background: var(--vnsc-bg-tertiary, #1a1f2e);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 36px;
+}
+
+.extraControls button:hover:not(:disabled) {
+  background: var(--vnsc-bg-hover, #232838);
+  border-color: var(--vnsc-accent, #2962ff);
+  color: var(--vnsc-accent, #2962ff);
+}
+
+.extraControls button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(41, 98, 255, 0.3);
+  border-color: var(--vnsc-accent, #2962ff);
+}
+
+.extraControls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.clearAllBtn {
+  background: var(--vnsc-danger-bg, #2a1a1a) !important;
+  border-color: var(--vnsc-danger-border, #442222) !important;
+  color: var(--vnsc-danger-text, #f87171) !important;
+}
+
+.clearAllBtn:hover:not(:disabled) {
+  background: var(--vnsc-danger-hover, #3a2a2a) !important;
+  border-color: var(--vnsc-danger-border-hover, #553333) !important;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .menu {
+    min-width: 260px;
+    max-width: calc(100vw - 24px);
+    right: -12px;
+  }
+}
+
+/* Theme grid */
+.themeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 8px 12px;
+}
+
+.themeGridItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--vnsc-bg-tertiary, #1a1f2e);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 6px;
+  color: var(--vnsc-text-secondary, #a0a0a0);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.themeGridItem:hover {
+  background: var(--vnsc-bg-hover, #232838);
+  border-color: var(--vnsc-accent, #2962ff);
+  color: var(--vnsc-text-primary, #e0e0e0);
+}
+
+.themeGridItemActive {
+  background: rgba(41, 98, 255, 0.15);
+  border-color: var(--vnsc-accent, #2962ff);
+  color: var(--vnsc-accent, #2962ff);
+}
+
+.themeSwatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .drawingToolButton,
+  .extraControls button,
+  .dropdownTrigger {
+    border-width: 2px;
+  }
+
+  .drawingToolButton.active,
+  .dropdownTrigger.open {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .drawingToolButton,
+  .extraControls button,
+  .dropdownTrigger,
+  .favoriteStar,
+  .dropdownArrow {
+    transition: none;
+  }
+}
+
+/* Context indicator */
+.contextIndicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--vnsc-border, #2a2a2a);
+}
+
+.contextDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.contextIndicator[data-context="workspace"] {
+  color: #2962ff;
+}
+
+.contextIndicator[data-context="workspace"] .contextDot {
+  background: #2962ff;
+}
+
+.contextIndicator[data-context="chart"] {
+  color: #089981;
+}
+
+.contextIndicator[data-context="chart"] .contextDot {
+  background: #089981;
+}
+
+/* Print styles */
+@media print {
+  .menu {
+    display: none;
+  }
+}
+
+/* ── Mobile Bottom Sheet ────────────────────────────────────────────── */
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 10000;
+  pointer-events: auto;
+}
+
+.mobileBottomSheet {
+  width: 100%;
+  max-width: 500px;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--vnsc-bg-secondary, #1e222d);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-bottom: none;
+}
+
+.mobileHandleBarContainer {
+  width: 100%;
+  height: 24px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.mobileHandleBar {
+  width: 40px;
+  height: 4px;
+  background-color: var(--vnsc-text-muted, #64748b);
+  border-radius: 2px;
+}
+
+.mobileContent {
+  flex: 1;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 16px 16px;
+}
+
+.mobileContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobileContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobileContent::-webkit-scrollbar-thumb {
+  background: var(--vnsc-text-muted, #64748b);
+  border-radius: 3px;
+}
+
+/* Mobile timeframe grid */
+.timeframeGridMobile {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 8px 12px;
+}
+
+.timeframeChip {
+  min-height: 44px;
+  background: var(--vnsc-bg-tertiary, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e2e8f0);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.timeframeChip:active,
+.timeframeChipActive {
+  background: var(--vnsc-accent-bg, rgba(34, 211, 238, 0.12));
+  border-color: var(--vnsc-accent, #22d3ee);
+  color: var(--vnsc-accent, #22d3ee);
+}
+
+.mobileSelect {
+  appearance: auto;
+}
+
+.mobileActionBtn {
+  display: flex; align-items: center; gap: 8px;
+  width: calc(100% - 24px); margin: 4px 12px;
+  padding: 10px 12px;
+  background: var(--vnsc-bg-tertiary, #1a1f2e);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 13px; cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mobileActionBtn:active,
+.mobileActionBtnActive {
+  background: var(--vnsc-accent-subtle, rgba(41,98,255,0.15));
+  border-color: var(--vnsc-accent, #2962ff);
+  color: var(--vnsc-accent, #2962ff);
+}
+
+.mobileChartTypeSelect {
+  width: 100%; padding: 8px 12px;
+  background: var(--vnsc-bg-tertiary, #1a1f2e);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 14px;
+}
+
+.mobilePackSection {
+  padding: 6px 12px;
+}
+
+.mobileFeaturesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px 12px;
+}
+
+.mobileActionRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 12px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--vnsc-border, #2a2a2a);
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+.mobileActionRow:last-child {
+  border-bottom: none;
+}
+.mobileActionRow:hover {
+  background: var(--vnsc-bg-hover, #232838);
+}
+.mobileActionRow.active {
+  background: var(--vnsc-accent-subtle, rgba(41,98,255,0.15));
+  color: var(--vnsc-accent, #2962ff);
+}
+.mobileActionRowMain {
+  flex: 1;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.highContrast .mobileActionRow {
+  border-width: 2px;
+}
+
+.toolGridMobile {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 6px 12px;
+}
+
+/* Mobile chart list */
+.chartListMobile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 12px;
+}
+
+.chartCard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--vnsc-bg-tertiary, #1a1f2e);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+}
+
+.chartCard:active,
+.chartCardActive {
+  background: var(--vnsc-accent-subtle, rgba(41,98,255,0.15));
+  border-color: var(--vnsc-accent, #2962ff);
+  color: var(--vnsc-accent, #2962ff);
+}
+
+.chartSymbol {
+  font-weight: 600;
+  flex: 1;
+}
+
+.chartTimeframe {
+  font-size: 11px;
+  color: var(--vnsc-text-secondary, #a0a0a0);
+  font-weight: 500;
+}
+
+.chartCardActive .chartTimeframe {
+  color: var(--vnsc-accent, #2962ff);
+}
+
+.chartCheck {
+  font-size: 14px;
+  color: var(--vnsc-accent, #2962ff);
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .mobileBottomSheet {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mobileBottomSheet {
+    transition: none;
+  }
+}
+
+.layoutGridCompact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 4px 12px;
+}
+
+.gridItemCompact {
+  min-height: 44px;
+  background-color: var(--vnsc-bg-tertiary, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e2e8f0);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.gridItemCompact:active,
+.gridItemCompact.active {
+  background-color: var(--vnsc-accent-bg, rgba(34, 211, 238, 0.12));
+  border-color: var(--vnsc-accent, #22d3ee);
+  color: var(--vnsc-accent, #22d3ee);
+}
+
+.syncOptionsCompactMobile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 4px 12px;
+}
+
+.syncOptionMobile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  background-color: var(--vnsc-bg-tertiary, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  padding: 0 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.syncCheckboxMobile {
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--vnsc-accent, #22d3ee);
+  cursor: pointer;
+}
+
+.syncLabelTextMobile {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--vnsc-text-primary, #e2e8f0);
+}

@@ -1,0 +1,204 @@
+.host {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 11px;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.positionLineLong,
+.positionLineShort {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px solid;
+}
+
+.positionLineLong {
+  border-color: #16a34a;
+}
+
+.positionLineShort {
+  border-color: #dc2626;
+}
+
+.badge {
+  position: absolute;
+  left: 4px;
+  transform: translateY(-50%);
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--vnsc-bg-secondary, #111820);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  color: var(--vnsc-text-primary, #e0e0e0);
+  white-space: nowrap;
+}
+
+.posButtons {
+  position: absolute;
+  right: 64px;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 4px;
+  pointer-events: auto;
+}
+
+.iconBtn {
+  min-width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  background: var(--vnsc-bg-secondary, #111820);
+  color: var(--vnsc-text-primary, #e0e0e0);
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.iconBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* TVP-A1: pill strip liên hoàn — container KHÔNG bắt chuột (pointer-events kế thừa
+   none từ .layer), chỉ nút con mới auto. Không đổi cũng không thêm pointer-events ở đây. */
+.pillStrip {
+  position: absolute;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(17, 24, 32, 0.88);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  color: var(--vnsc-text-primary, #e0e0e0);
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+.pillChip {
+  padding: 0 2px;
+  opacity: 0.92;
+}
+
+.pillBtn {
+  min-width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 11px;
+  pointer-events: auto;
+}
+
+.pillBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.bracketConnector {
+  position: absolute;
+  width: 0;
+  border-right: 1px dashed;
+}
+
+.axisTag {
+  position: absolute;
+  transform: translateY(-50%);
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.axisTagBuy {
+  background: #16a34a;
+}
+
+.axisTagSell {
+  background: #dc2626;
+}
+
+.axisTagOrder {
+  background: #64748b;
+}
+
+.dashedLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px dashed #eab308;
+}
+
+.handle {
+  position: absolute;
+  right: 8px;
+  transform: translateY(-50%);
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #eab308;
+  color: #111;
+  font-weight: 700;
+  cursor: grab;
+  pointer-events: auto;
+  user-select: none;
+  touch-action: none;
+  white-space: nowrap;
+}
+
+.handle.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.tooltip {
+  position: absolute;
+  right: 76px;
+  transform: translateY(-50%);
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--vnsc-bg-secondary, #111820);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  color: var(--vnsc-text-primary, #e0e0e0);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.pendingLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px dashed #94a3b8;
+}
+
+.pendingLabel {
+  position: absolute;
+  right: 8px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--vnsc-bg-secondary, #111820);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  color: var(--vnsc-text-primary, #e0e0e0);
+  white-space: nowrap;
+  pointer-events: auto;
+}

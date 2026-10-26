@@ -1,0 +1,61 @@
+{
+  "roots": [
+    "src",
+    "packages",
+    "scripts",
+    "stories",
+    "config"
+  ],
+  "extensions": [
+    ".ts",
+    ".tsx",
+    ".js",
+    ".jsx",
+    ".py"
+  ],
+  "ignorePrefixes": [
+    "packages/vn-kline-engine-core/vendor/",
+    "src/lib/pinescript/parser.generated.js",
+    "packages/vn-kline-widget-pro/src/pinescript/parser.generated.js"
+  ],
+  "defaultMaxLines": {
+    "source": 800,
+    "test": 1200
+  },
+  "frozenBudgets": {
+    "src/widget/hooks/useWidgetForkInteraction.ts": 1320,
+    "src/widget/hooks/useChartImperativeHandle.ts": 1035,
+    "src/widget/adapters/VNInvestClient.ts": 1072,
+    "src/demo/PaneSettingsModal.tsx": 1163,
+    "scripts/generate-module-graph.ts": 831,
+    "src/widget/hooks/useForkRuntime.ts": 928,
+    "packages/vn-kline-engine-react/src/drawing-ui/renderers/renderSvg.ts": 1150,
+    "src/widget/VNInvestMultiCharts.tsx": 2000,
+    "packages/vn-kline-engine-drawing/src/overlayPrimitiveAdapter.ts": 2270,
+    "packages/vn-kline-engine-react/src/context/__tests__/sync-context.integration.test.tsx": 1500,
+    "src/lib/core/calculators/indicatorComputation.ts": 40,
+    "src/widget/components/toolbar/DrawingToolbar.tsx": 650,
+    "packages/vn-kline-engine-react/src/drawing-ui/components/FloatingSelectionToolbar.tsx": 1050,
+    "src/widget/components/drawing/DrawingInspector.tsx": 1000,
+    "src/widget/__tests__/VNInvestCharts.contract.test.tsx": 8912,
+    "src/widget/components/settings/SettingsModal.tsx": 520,
+    "src/lib/core/registry/SeriesRegistry.ts": 50,
+    "src/widget/components/layout/GridContainer.tsx": 1190,
+    "src/widget/i18n/messages.en.ts": 1577,
+    "src/widget/utils/widgetHelpers.ts": 885,
+    "src/widget/hooks/useWidgetDataBackfill.ts": 813,
+    "src/lib/indicators/utils.ts": 2471,
+    "packages/vn-kline-engine-core/src/overlay/canvasOverlayRenderer.ts": 1700,
+    "src/widget/i18n/messages.vi.ts": 1578,
+    "src/demo/i18n.tsx": 1250,
+    "packages/vn-kline-engine-react/src/context/SyncContext.tsx": 1350,
+    "packages/vn-kline-engine-core/src/engine/KernelEngine.ts": 3940,
+    "packages/vn-kline-engine-core/src/engine/KernelEngine.test.ts": 3700,
+    "src/widget/hooks/useWidgetData.ts": 1893,
+    "src/widget/hooks/useWidgetOverlays.tsx": 1131,
+    "packages/vn-kline-engine-drawing/src/hitTest.ts": 900,
+    "src/widget/components/header/OHLCHeader.tsx": 850,
+    "src/widget/VNInvestCharts.tsx": 3014,
+    "src/lib/pinescript/compile.ts": 700
+  }
+}

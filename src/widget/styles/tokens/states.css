@@ -1,0 +1,15 @@
+/* Design Tokens - Interactive State Colors */
+.vnsc-root {
+  --vnsc-state-hover: var(--vnsc-bg-hover);
+  --vnsc-state-active: var(--vnsc-bg-active);
+  --vnsc-state-pressed: rgba(255, 255, 255, 0.12);
+  --vnsc-state-dragging: rgba(59, 130, 246, 0.08);
+  --vnsc-state-loading: var(--vnsc-bg-disabled);
+  --vnsc-state-selected: var(--vnsc-bg-selected);
+  --vnsc-state-focus-within: var(--vnsc-bg-focus);
+}
+
+.vnsc-root[data-chart-mode="light"] {
+  --vnsc-state-pressed: rgba(0, 0, 0, 0.12);
+  --vnsc-state-dragging: rgba(37, 99, 235, 0.08);
+}

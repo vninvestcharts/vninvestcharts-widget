@@ -1,0 +1,403 @@
+/**
+ * WE2 P4-02: Drawing toolbar styles.
+ * .vnsc- prefix for widget namespace.
+ */
+
+.vnsc-drawing-toolbar {
+	position: relative;
+	height: 100%;
+	width: 42px;
+	min-width: 42px;
+	flex-shrink: 0;
+	z-index: 40;
+	background: var(--vnsc-bg-secondary);
+	border-right: 1px solid var(--vnsc-border-subtle, var(--vnsc-border));
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 6px 0;
+	gap: 6px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scrollbar-width: none;
+	transition: width 0.2s ease, padding 0.2s ease, border-right-width 0.2s ease;
+}
+
+/* P5/D-UI-05: doubled specificity instead of !important — wins over the base
+   rule below by specificity, collapses fully via the --collapsed modifier. */
+.vnsc-drawing-toolbar.vnsc-drawing-toolbar--collapsed {
+	width: 0;
+	min-width: 0;
+	padding: 0;
+	border-right: none;
+	overflow: hidden;
+}
+
+.vnsc-drawing-toolbar__expand-btn {
+	transition: background-color var(--vnsc-transition-fast), color var(--vnsc-transition-fast), transform var(--vnsc-transition-fast);
+}
+
+.vnsc-drawing-toolbar__expand-btn:hover {
+	background-color: var(--vnsc-bg-tertiary, #f1f5f9) !important;
+	color: var(--vnsc-text-primary) !important;
+	transform: scale(1.05);
+}
+
+
+.vnsc-drawing-toolbar::-webkit-scrollbar {
+	display: none;
+}
+
+.vnsc-drawing-toolbar__group {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	margin-bottom: 4px;
+}
+
+.vnsc-drawing-toolbar__group:not(:last-child) {
+	border-bottom: 1px solid var(--vnsc-border);
+	padding-bottom: 4px;
+}
+
+.vnsc-drawing-toolbar__btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border: none;
+	border-radius: var(--vnsc-radius-md, 4px);
+	background: transparent;
+	color: var(--vnsc-text-secondary);
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 600;
+	transition: background var(--vnsc-transition-fast), color var(--vnsc-transition-fast);
+}
+
+.vnsc-drawing-toolbar__btn:hover {
+	background: rgba(41, 98, 255, 0.08);
+	color: var(--vnsc-text-primary);
+}
+
+.vnsc-drawing-toolbar__btn--active {
+	background: var(--vnsc-accent-bg, rgba(41, 98, 255, 0.12));
+	color: var(--vnsc-accent);
+}
+
+.vnsc-drawing-toolbar__btn--active:hover {
+	background: var(--vnsc-accent-bg, rgba(41, 98, 255, 0.18));
+}
+
+.vnsc-drawing-toolbar__magnet {
+	width: 32px;
+	height: 32px;
+	border: none;
+	border-radius: var(--vnsc-radius-md, 4px);
+	background: transparent;
+	color: var(--vnsc-text-secondary);
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 700;
+	transition: background var(--vnsc-transition-fast), color var(--vnsc-transition-fast);
+}
+
+.vnsc-drawing-toolbar__magnet:hover {
+	background: rgba(41, 98, 255, 0.08);
+}
+
+/* ── Upgraded Grouped Flyout Styles ── */
+
+.vnsc-tools-group-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.vnsc-tool-btn--group {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1px;
+}
+
+.vnsc-tools-chevron {
+	font-size: 7px;
+	line-height: 1;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.vnsc-tools-flyout {
+	position: fixed;
+	z-index: var(--vnsc-z-maximum);
+	background: var(--vnsc-bg-primary, #0a0e14);
+	border: 1px solid var(--vnsc-border, #2a2a2a);
+	border-radius: var(--vnsc-radius-md, 6px);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+	display: flex;
+	flex-direction: column;
+	width: 220px;
+	overflow: hidden;
+}
+
+.vnsc-drawing-toolbar__btn:hover .vnsc-tool-fav-star {
+	opacity: 0.5 !important;
+}
+
+.vnsc-tool-fav-star:hover {
+	opacity: 1 !important;
+	color: var(--vnsc-accent, #2962ff) !important;
+}
+
+.vnsc-tools-flyout input::placeholder {
+	color: var(--vnsc-text-secondary, #a0a0a0);
+	opacity: 0.6;
+}
+
+.vnsc-tools-flyout input:focus {
+	border-color: var(--vnsc-accent, #2962ff) !important;
+}
+
+/* ── Auto-hide Drawing Toolbar ── */
+/* P5/D-UI-05: single source of truth — plain specificity (shell selectors beat
+   the base rules below); no !important needed since the component no longer
+   sets conflicting inline layout styles (see DrawingToolbar.tsx).
+   Off-screen state is also removed from keyboard/AT order via delayed
+   visibility (fixes the focus trap); :focus-within keeps it open while
+   tabbing through its controls. */
+
+.vnsc-drawing-toolbar-shell {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 10px;
+	pointer-events: none;
+	/* Above pane overlay wraps (z-40, later in DOM) so the rail strip stays
+	   hoverable across the full height — incl. the Vol pane header band where
+	   the indicator chip + splitter would otherwise cover it and force the
+	   toolbar shut. Below flyout portals. */
+	z-index: 60;
+	transition: width 0.2s ease;
+}
+
+.vnsc-drawing-toolbar-shell:hover,
+.vnsc-drawing-toolbar-shell:has(input:focus) {
+	width: 42px;
+	pointer-events: auto;
+}
+
+.vnsc-drawing-toolbar {
+	position: absolute;
+	left: -42px;
+	top: 0;
+	bottom: 0;
+	width: 42px;
+	min-width: 42px;
+	pointer-events: auto;
+	z-index: 3;
+	transition: left 0.2s ease, box-shadow 0.2s ease, border-right-color 0.2s ease, visibility 0s linear 0.2s;
+	border-right: 1px solid transparent;
+	box-shadow: none;
+	visibility: hidden;
+}
+
+.vnsc-drawing-toolbar-shell:hover .vnsc-drawing-toolbar,
+.vnsc-drawing-toolbar:hover,
+.vnsc-drawing-toolbar-shell:has(input:focus) .vnsc-drawing-toolbar,
+.vnsc-drawing-toolbar:has(input:focus),
+.vnsc-drawing-toolbar-shell:focus-within .vnsc-drawing-toolbar {
+	left: 0;
+	box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+	border-right-color: var(--vnsc-border-subtle, var(--vnsc-border));
+	visibility: visible;
+	transition: left 0.2s ease, box-shadow 0.2s ease, border-right-color 0.2s ease;
+}
+
+.vnsc-drawing-toolbar-handle {
+	display: flex;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 10px;
+	height: 44px;
+	transform: translateY(-50%);
+	align-items: center;
+	justify-content: center;
+	border-radius: 0 var(--vnsc-radius-xl, 8px) var(--vnsc-radius-xl, 8px) 0;
+	border: 1px solid var(--vnsc-border);
+	border-left: none;
+	background: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--vnsc-bg-primary) 92%, var(--vnsc-accent) 8%),
+		color-mix(in srgb, var(--vnsc-bg-secondary) 88%, var(--vnsc-accent) 12%)
+	);
+	box-shadow: 6px 10px 22px rgba(15, 23, 42, 0.16);
+	pointer-events: auto;
+	opacity: 1;
+	z-index: 2;
+	transition: opacity 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vnsc-drawing-toolbar-handle::before {
+	content: "";
+	width: 3px;
+	height: 3px;
+	border-radius: 999px;
+	background: var(--vnsc-text-secondary);
+	box-shadow:
+		0 -6px 0 var(--vnsc-text-secondary),
+		0 6px 0 var(--vnsc-text-secondary);
+}
+
+/* Docked toolbar mode (TASK-03) */
+.vnsc-drawing-toolbar-shell--docked {
+	width: 44px;
+	pointer-events: auto;
+}
+
+.vnsc-drawing-toolbar-shell--docked .vnsc-drawing-toolbar {
+	left: 0;
+	visibility: visible;
+	border-right: 1px solid var(--vnsc-border-subtle, var(--vnsc-border));
+	box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.vnsc-drawing-toolbar-shell--docked .vnsc-drawing-toolbar-handle {
+	display: none;
+}
+
+/* Adjust OHLC header padding dynamically to prevent occlusion by the handle/toolbar */
+.vnsc-ohlc-header {
+	padding-left: 22px !important;
+	transition: padding-left 0.2s ease !important;
+}
+.vnsc-container:has(.vnsc-drawing-toolbar-shell:hover) .vnsc-ohlc-header,
+.vnsc-container:has(.vnsc-drawing-toolbar-shell:focus-within) .vnsc-ohlc-header {
+	padding-left: 54px !important;
+}
+.vnsc-container:has(.vnsc-drawing-toolbar-shell--collapsed) .vnsc-ohlc-header {
+	padding-left: 12px !important;
+}
+
+/* P5: doubled specificity instead of !important (rules sit after the hover
+   rules above, so a collapsed shell stays shut on hover). */
+.vnsc-drawing-toolbar-shell.vnsc-drawing-toolbar-shell--collapsed {
+	width: 0;
+	pointer-events: none;
+}
+
+.vnsc-drawing-toolbar-shell.vnsc-drawing-toolbar-shell--collapsed .vnsc-drawing-toolbar-handle {
+	display: none;
+}
+
+@media (max-width: 768px) {
+	.vnsc-drawing-toolbar {
+		width: 48px !important;
+		min-width: 48px !important;
+		gap: 6px !important;
+		padding: 6px 0 !important;
+	}
+
+	.vnsc-drawing-toolbar__btn {
+		width: 40px !important;
+		height: 40px !important;
+		font-size: 16px !important;
+		border-radius: 6px !important;
+	}
+
+	.vnsc-drawing-toolbar__expand-btn {
+		width: 44px !important;
+		height: 44px !important;
+		left: 12px !important;
+		bottom: 20px !important;
+		font-size: 18px !important;
+		border-radius: 8px !important;
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+	}
+}
+
+/* ── Floating Favorites Bar & Star Toggle (TradingView Parity) ── */
+
+.vnsc-drawing-toolbar__btn--star-active {
+	color: #f59e0b !important;
+	background: rgba(245, 158, 11, 0.12) !important;
+}
+
+.vnsc-drawing-toolbar__btn--star-active:hover {
+	background: rgba(245, 158, 11, 0.22) !important;
+}
+
+.vnsc-floating-favorites-bar {
+	position: fixed;
+	z-index: var(--vnsc-z-popup, 20);
+	display: inline-flex;
+	align-items: center;
+	gap: 3px;
+	background: var(--vnsc-bg-primary, #0a0e14);
+	border: 1px solid var(--vnsc-border, #2a2a2a);
+	border-radius: var(--vnsc-radius-md, 8px);
+	padding: 4px 6px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.32);
+	user-select: none;
+	white-space: nowrap;
+}
+
+.vnsc-floating-favorites-grip {
+	cursor: grab;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 14px;
+	height: 28px;
+	color: var(--vnsc-text-secondary, #a0a0a0);
+	opacity: 0.7;
+	transition: opacity var(--vnsc-transition-fast, 0.15s), color var(--vnsc-transition-fast, 0.15s);
+	user-select: none;
+	touch-action: none;
+	font-size: 12px;
+	letter-spacing: 1px;
+}
+
+.vnsc-floating-favorites-grip:hover {
+	opacity: 1;
+	color: var(--vnsc-text-primary, #ffffff);
+}
+
+.vnsc-floating-favorites-grip:active {
+	cursor: grabbing;
+}
+
+.vnsc-floating-favorites-divider {
+	width: 1px;
+	height: 18px;
+	background: var(--vnsc-border-subtle, #2a2a2a);
+	margin: 0 3px;
+	flex-shrink: 0;
+}
+
+.vnsc-floating-favorites-close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border: none;
+	background: transparent;
+	border-radius: 4px;
+	color: var(--vnsc-text-secondary, #a0a0a0);
+	cursor: pointer;
+	transition: background var(--vnsc-transition-fast, 0.15s), color var(--vnsc-transition-fast, 0.15s);
+	font-size: 13px;
+	line-height: 1;
+	padding: 0;
+}
+
+.vnsc-floating-favorites-close:hover {
+	background: rgba(239, 68, 68, 0.15);
+	color: #ef4444;
+}
+

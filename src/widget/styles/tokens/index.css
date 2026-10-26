@@ -1,0 +1,19 @@
+/* Design Tokens - Main Index */
+/* Imports all token categories in dependency order */
+
+@import "./colors.css";
+@import "./spacing.css";
+@import "./typography.css";
+@import "./shadows.css";
+@import "./motion.css";
+@import "./z-index.css";
+@import "./opacity.css";
+@import "./focus.css";
+@import "./surfaces.css";
+@import "./states.css";
+@import "./backdrop.css";
+@import "./indicators.css";
+@import "./gradients.css";
+@import "./breakpoints.css";
+@import "./presets/midnight-blue.css"; /* TODO T2-08: evaluate vs classic-dark, keep 1 */
+@import "./presets/high-contrast.css";

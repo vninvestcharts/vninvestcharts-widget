@@ -1,0 +1,101 @@
+/* Design Tokens - Typography */
+/* All --vnsc-font-*, --vnsc-typography-* tokens */
+
+/* H0.8: `.vnsc-root` — the document-root selector never matches inside the
+   widget's Shadow DOM (useShadowDOM defaults on), so tokens resolved to "". */
+.vnsc-root {
+  /* Font Families */
+  --vnsc-font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --vnsc-font-family-mono: "JetBrains Mono", "Fira Code", "Consolas", "Monaco", monospace;
+  --vnsc-font-family-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --vnsc-font-family-ui: var(--vnsc-font-family-base);
+  /* T1 (UI_CONSISTENCY_HANDOFF): backward-compatible short aliases — ~85
+     callers across 12 files reference these; token values equal the scale. */
+  --vnsc-font-family: var(--vnsc-font-family-base);
+  --vnsc-font-mono: var(--vnsc-font-family-mono);
+
+  /* Font Sizes */
+  --vnsc-font-size-2xs: 10px;
+  --vnsc-font-size-xs: 11px;
+  --vnsc-font-size-sm: 12px;
+  --vnsc-font-size-base: 13px;
+  --vnsc-font-size-md: 14px;
+  --vnsc-font-size-lg: 16px;
+  --vnsc-font-size-xl: 18px;
+  --vnsc-font-size-2xl: 20px;
+  --vnsc-font-size-3xl: 24px;
+  --vnsc-font-size-4xl: 30px;
+  /* T1: short size aliases (values mirror the scale above). */
+  --vnsc-font-2xs: var(--vnsc-font-size-2xs);
+  --vnsc-font-xs: var(--vnsc-font-size-xs);
+  --vnsc-font-sm: var(--vnsc-font-size-sm);
+  --vnsc-font-base: var(--vnsc-font-size-base);
+  --vnsc-font-md: var(--vnsc-font-size-md);
+  --vnsc-font-lg: var(--vnsc-font-size-lg);
+  --vnsc-font-xl: var(--vnsc-font-size-xl);
+
+  /* Semantic font size aliases */
+  --vnsc-font-size-caption: 10px;
+  --vnsc-font-size-overline: 10px;
+  --vnsc-font-size-body-sm: 12px;
+  --vnsc-font-size-body: 13px;
+  --vnsc-font-size-body-lg: 14px;
+  --vnsc-font-size-heading-sm: 14px;
+  --vnsc-font-size-heading: 16px;
+  --vnsc-font-size-heading-lg: 18px;
+  --vnsc-font-size-display: 24px;
+
+  /* Font Weights */
+  --vnsc-font-weight-light: 300;
+  --vnsc-font-weight-normal: 400;
+  --vnsc-font-weight-medium: 500;
+  --vnsc-font-weight-semibold: 600;
+  --vnsc-font-weight-bold: 700;
+  --vnsc-font-weight-extrabold: 800;
+
+  /* Semantic font weight aliases */
+  --vnsc-font-weight-regular: 400;
+  --vnsc-font-weight-body: 400;
+  --vnsc-font-weight-heading: 600;
+  --vnsc-font-weight-button: 500;
+
+  /* Line Heights */
+  --vnsc-line-height-none: 1;
+  --vnsc-line-height-tight: 1.25;
+  --vnsc-line-height-snug: 1.375;
+  --vnsc-line-height-normal: 1.5;
+  --vnsc-line-height-relaxed: 1.625;
+  --vnsc-line-height-loose: 2;
+
+  /* Semantic line height aliases */
+  --vnsc-line-height-heading: 1.25;
+  --vnsc-line-height-body: 1.5;
+  --vnsc-line-height-code: 1.6;
+
+  /* Letter Spacing */
+  --vnsc-letter-spacing-tight: -0.02em;
+  --vnsc-letter-spacing-normal: 0;
+  --vnsc-letter-spacing-wide: 0.02em;
+  --vnsc-letter-spacing-wider: 0.04em;
+  --vnsc-letter-spacing-widest: 0.1em;
+
+  /* Semantic letter spacing aliases */
+  --vnsc-letter-spacing-heading: -0.02em;
+  --vnsc-letter-spacing-button: 0.02em;
+  --vnsc-letter-spacing-caption: 0.04em;
+
+  /* Typography Scale - Component specific */
+  --vnsc-typography-toolbar: var(--vnsc-font-size-sm) / var(--vnsc-line-height-normal) var(--vnsc-font-family-ui);
+  --vnsc-typography-panel-title: var(--vnsc-font-size-base) / var(--vnsc-line-height-tight) var(--vnsc-font-family-ui);
+  --vnsc-typography-panel-body: var(--vnsc-font-size-sm) / var(--vnsc-line-height-normal) var(--vnsc-font-family-ui);
+  --vnsc-typography-modal-title: var(--vnsc-font-size-lg) / var(--vnsc-line-height-tight) var(--vnsc-font-family-display);
+  --vnsc-typography-modal-body: var(--vnsc-font-size-base) / var(--vnsc-line-height-normal) var(--vnsc-font-family-ui);
+  --vnsc-typography-tooltip: var(--vnsc-font-size-xs) / var(--vnsc-line-height-normal) var(--vnsc-font-family-ui);
+  --vnsc-typography-button: var(--vnsc-font-size-sm) / var(--vnsc-line-height-none) var(--vnsc-font-family-ui);
+  --vnsc-typography-input: var(--vnsc-font-size-sm) / var(--vnsc-line-height-normal) var(--vnsc-font-family-ui);
+  --vnsc-typography-label: var(--vnsc-font-size-xs) / var(--vnsc-line-height-normal) var(--vnsc-font-family-ui);
+  --vnsc-typography-chart-axis: var(--vnsc-font-size-xs) / var(--vnsc-line-height-normal) var(--vnsc-font-family-mono);
+  --vnsc-typography-chart-tooltip: var(--vnsc-font-size-sm) / var(--vnsc-line-height-normal) var(--vnsc-font-family-ui);
+  --vnsc-typography-chart-price: var(--vnsc-font-size-base) / var(--vnsc-line-height-tight) var(--vnsc-font-family-mono);
+  --vnsc-typography-drawing-label: var(--vnsc-font-size-xs) / var(--vnsc-line-height-normal) var(--vnsc-font-family-ui);
+}

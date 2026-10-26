@@ -1,0 +1,172 @@
+/* Fork Overlays Styles - CSS Module */
+.forkXAxisOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 32;
+  pointer-events: none;
+}
+
+.forkXAxisTick {
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.forkXAxisTickLeftEdge { transform: translateX(0); }
+.forkXAxisTickRightEdge { transform: translateX(-100%); }
+
+.forkXAxisTickLine {
+  width: 1px;
+  height: 6px;
+  margin: 0 auto 2px;
+}
+
+.forkXAxisTickLabel {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 14px;
+  white-space: nowrap;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.forkXAxisHoverLabel {
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.forkXAxisHoverLine {
+  width: 1px;
+  height: 8px;
+  margin: 0 auto 2px;
+}
+
+.forkXAxisHoverLabelText {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  white-space: nowrap;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--vnsc-bg-secondary);
+  border: none;
+  color: var(--vnsc-text-primary);
+}
+
+.forkPaneTooltip {
+  position: absolute;
+  left: 8px;
+  z-index: 18;
+  pointer-events: none;
+  font-family: var(--gc-mono, monospace);
+  font-size: 11px;
+  line-height: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+}
+
+.forkPaneTooltipDark {
+  background: none;
+  border: none;
+}
+
+.forkPaneTooltipLight {
+  background: none;
+  border: none;
+}
+
+.forkPaneTooltipLabel {
+  color: var(--vnsc-text-secondary, #64748b);
+}
+
+.forkPaneTooltipValue {
+  color: var(--vnsc-text-primary, #1e2a3b);
+}
+
+.forkPaneTooltipDark .forkPaneTooltipLabel {
+  color: var(--vnsc-text-primary);
+}
+
+.forkPaneTooltipDark .forkPaneTooltipValue {
+  color: var(--vnsc-text-on-primary);
+}
+
+.forkYAxisLabel {
+  position: absolute;
+  z-index: 22;
+  pointer-events: none;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 12px;
+  white-space: nowrap;
+  padding: 1px 3px;
+  border-radius: 3px;
+  transform: translateY(-50%);
+}
+
+/* UI-C: 1px subpane separator cutting across plot + axis column. */
+.forkPaneSeparator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* UI-C: indicator-pane Y labels get a badge backdrop to rank below price labels. */
+.forkYAxisLabelIndicator {
+  background: var(--vnsc-bg-secondary, rgba(17, 24, 32, 0.85));
+}
+
+.forkRubberBand {
+  position: absolute;
+  border: 1px dashed var(--vnsc-accent, rgba(56, 189, 248, 0.9));
+  background: color-mix(in srgb, var(--vnsc-accent, rgba(56, 189, 248, 1)) 12%, transparent);
+  pointer-events: none;
+  z-index: 21;
+}
+
+.forkLoadingOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vnsc-bg-overlay, rgba(10, 14, 20, 0.85));
+}
+
+.forkBottomPanel {
+  height: var(--vnsc-bottom-panel-height, 260px);
+  max-height: 60dvh;
+  border-top: 1px solid var(--vnsc-border, #2a2a2a);
+  background: var(--vnsc-bg-secondary, #111820);
+  position: relative;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+@media (max-width: 480px) {
+  .forkXAxisTickLabel,
+  .forkXAxisHoverLabelText {
+    font-size: 9px;
+    padding: 0 2px;
+  }
+  
+  .forkPaneTooltip {
+    font-size: 10px;
+    left: 4px;
+    padding: 3px 6px;
+  }
+}

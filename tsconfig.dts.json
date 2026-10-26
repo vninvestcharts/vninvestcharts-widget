@@ -1,0 +1,29 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist/dts",
+    "rootDir": "src",
+    "declarationMap": false,
+    "stripInternal": true,
+    "ignoreDeprecations": "6.0",
+    // P2.5: force node_modules resolution for the dts program. The generated
+    // tsconfig.engine-paths.json maps @vninvestcharts/widget-pro to its SOURCE,
+    // which lives outside rootDir "src" and fails the whole declaration build
+    // with TS6059. node_modules (populated by sync-engine-dist.js, incl.
+    // widget-pro since P2.5) is exempt from rootDir. The strict source-level
+    // contract is still verified by `npm run type-check` + engine tests.
+    "paths": {}
+  },
+  "include": ["src"],
+  "exclude": [
+    "src/demo",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.tsx",
+    "src/**/__tests__/**"
+  ]
+}

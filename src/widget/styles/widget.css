@@ -1,0 +1,325 @@
+/**
+ * WE2 P4-01: Widget CSS root file.
+ *
+ * CSS variables for theme support + root class for widget namespace.
+ * Import this file once in the widget bundle or host app.
+ *
+ * NOTE: Theme CSS variables are now the SSOT in tokens/colors.css.
+ *       This file only holds layout, reset, and component styles.
+ */
+
+/* ── Token imports (SSOT) ─────────────────────────────────────────── */
+@import "./tokens/index.css";
+
+/* ── Pane header, tooltip, label, series picker ──────────────────── */
+@import "./pane-overlays.css";
+
+/* ── Drawing toolbar (tools, buttons, flyout, auto-hide shell) ───── */
+@import "./toolbar.css";
+
+/* ── Settings modal & Snapshot preview ───────────────────────────── */
+@import "./settings.css";
+
+/* ── Pane splitter (resize panes) ────────────────────────────────── */
+@import "./chart-splitter.css";
+
+/* ── OHLC header bar (symbol, price, change) ────────────────────── */
+@import "./header.css";
+
+/* ── Timeframe footer (TF chips, range chips) ───────────────────── */
+@import "./footer.css";
+
+/* ── Paper trade panel (sidebar) ────────────────────────────────── */
+@import "./paper-trade.css";
+
+/* ── Drawing dock, inspector, paper trade panel (docked) ────────── */
+@import "./drawing.css";
+
+/* ── Tape panel & Advisory panel ────────────────────────────────── */
+@import "./overlays.css";
+
+/* ── Replay control bar ─────────────────────────────────────────── */
+@import "./replay.css";
+
+/* ── Floating chart control bar (auto-hide; visuals in .module.css) ── */
+@import "./floating-chart-bar.css";
+
+/* ── Sync button theme overrides ───────────────────────────────────── */
+/* NOTE: MultiChartsFooter.module.css lives under components/footer/ which is
+   outside the CSS module build scan path (src/widget/styles/*.module.css only).
+   These rules provide the light-theme override that would otherwise be orphaned
+   in dist/index.css (never loaded at runtime — only injected.css is). */
+[data-chart-mode=light] .MultiChartsFooter_syncBtn {
+  background: var(--vnsc-bg-hover, rgba(0, 0, 0, 0.03));
+  border-color: var(--vnsc-border, rgba(0, 0, 0, 0.08));
+  color: var(--vnsc-text-primary, #1a1a1a);
+}
+[data-chart-mode=light] .MultiChartsFooter_syncBtn:hover {
+  background: var(--vnsc-bg-active, rgba(0, 0, 0, 0.06));
+  border-color: var(--vnsc-border-hover, rgba(0, 0, 0, 0.12));
+  color: var(--vnsc-text-primary, #1a1a1a);
+}
+[data-chart-mode=light] .MultiChartsFooter_syncBtnActive {
+  color: var(--vnsc-text-on-primary, #ffffff);
+  background: var(--vnsc-accent-subtle, rgba(99, 102, 241, 0.2));
+  border-color: var(--vnsc-accent, #6366f1);
+}
+[data-chart-mode=dark] .MultiChartsFooter_syncBtn {
+  padding: 4px 10px;
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  background: var(--vnsc-bg-hover, rgba(255, 255, 255, 0.03));
+  color: var(--vnsc-text-secondary, #787b86);
+  cursor: pointer;
+  font-size: var(--vnsc-font-size-2xs, 10px);
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+[data-chart-mode=dark] .MultiChartsFooter_syncBtn:hover {
+  color: var(--vnsc-text-primary, #d1d4dc);
+  background: var(--vnsc-bg-active, rgba(255, 255, 255, 0.08));
+  border-color: var(--vnsc-border-hover, rgba(255, 255, 255, 0.16));
+}
+[data-chart-mode=dark] .MultiChartsFooter_syncBtnActive {
+  color: var(--vnsc-text-on-primary, #ffffff);
+  background: var(--vnsc-accent-subtle, rgba(99, 102, 241, 0.2));
+  border-color: var(--vnsc-accent, #6366f1);
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.15);
+}
+
+/* ── Reset scoped strictly to widget subtree ──────────────────────── */
+/* Only applies to elements that are children of .vnsc-root (the widget's root div).
+   Does NOT affect the host app / demo shell layout. */
+.vnsc-root {
+	box-sizing: border-box;
+	overflow: hidden;
+	user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+.vnsc-root input,
+.vnsc-root select,
+.vnsc-root textarea {
+	user-select: text;
+	-webkit-user-select: text;
+	-ms-user-select: text;
+}
+.vnsc-root > *,
+.vnsc-root > *::before,
+.vnsc-root > *::after {
+	box-sizing: border-box;
+}
+
+/* ── Shared button style ──────────────────────────────────────────── */
+.vnsc-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	border-radius: var(--vnsc-radius-md);
+	cursor: pointer;
+	font-family: inherit;
+	font-weight: 600;
+	transition: background var(--vnsc-transition-fast), color var(--vnsc-transition-fast);
+}
+
+.vnsc-btn:hover {
+	background: var(--vnsc-accent-hover);
+	color: #fff;
+}
+
+.vnsc-btn:active {
+	transform: scale(0.97);
+}
+
+.vnsc-btn:focus-visible {
+	outline: var(--vnsc-focus-ring);
+	outline-offset: var(--vnsc-focus-ring-offset);
+}
+
+/* ── Shared chip style ────────────────────────────────────────────── */
+.vnsc-chip {
+	padding: 3px 8px;
+	border: 1px solid transparent;
+	border-radius: var(--vnsc-radius-md);
+	cursor: pointer;
+	font-size: var(--vnsc-font-sm);
+	font-weight: 500;
+	background: transparent;
+	color: var(--vnsc-text-secondary);
+	transition: color var(--vnsc-transition-fast), border-color var(--vnsc-transition-fast);
+}
+
+.vnsc-chip:hover {
+	color: var(--vnsc-text-primary);
+	border-color: rgba(255, 255, 255, 0.12);
+}
+
+.vnsc-chip--active {
+	color: var(--vnsc-text-primary);
+	font-weight: 600;
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vnsc-chip--active:hover {
+	border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Separator ────────────────────────────────────────────────────── */
+.vnsc-sep {
+	width: 1px;
+	height: 16px;
+	background: var(--vnsc-border);
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────── */
+.vnsc-root ::-webkit-scrollbar {
+	width: 6px;
+}
+
+.vnsc-root ::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.vnsc-root ::-webkit-scrollbar-thumb {
+	background: var(--vnsc-border);
+	border-radius: var(--vnsc-radius-sm);
+}
+
+.vnsc-root ::-webkit-scrollbar-thumb:hover {
+	background: var(--vnsc-text-muted);
+}
+
+/* ── Font & Typography reset (WP-11) ────────────────────────────────── */
+.vnsc-root,
+.vnsc-root input,
+.vnsc-root select,
+.vnsc-root textarea,
+.vnsc-root button {
+	font-family: "Inter", var(--gc-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif) !important;
+}
+
+/* ── Unified Right Sidebar & Splitter ───────────────────────────────── */
+.vnsc-sidebar-splitter {
+	position: relative;
+	width: 4px;
+	height: 100%;
+	cursor: col-resize;
+	z-index: 49;
+	background: transparent;
+	transition: background var(--vnsc-transition-fast);
+}
+.vnsc-sidebar-splitter:hover {
+	background: var(--vnsc-accent, #2962ff) !important;
+}
+
+.vnsc-sidebar-right {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background: var(--vnsc-bg-secondary);
+	border-left: 1px solid var(--vnsc-border);
+	position: relative;
+	z-index: 48;
+	min-width: 150px;
+	overflow-y: auto;
+}
+
+/* Override absolute positioning of panels inside sidebar */
+.vnsc-sidebar-right .vnsc-drawing-dock,
+.vnsc-sidebar-right .vnsc-paper-trade-panel,
+.vnsc-sidebar-right .vnsc-advisory-panel,
+.vnsc-sidebar-right .vnsc-tape-panel {
+	position: relative !important;
+	top: auto !important;
+	bottom: auto !important;
+	right: auto !important;
+	left: auto !important;
+	width: 100% !important;
+	height: auto !important;
+	flex: 1 1 0% !important;
+	min-height: 140px !important;
+	border-left: none !important;
+	border-right: none !important;
+	z-index: auto !important;
+	background: transparent !important;
+}
+
+/* Add bottom border separating panels in sidebar */
+.vnsc-sidebar-right > div:not(:last-child) {
+	border-bottom: 1px solid var(--vnsc-border) !important;
+}
+
+/* ── Spinner (empty-state loading) ────────────────────────────────── */
+@keyframes vnsc-spin {
+	to { transform: rotate(360deg); }
+}
+.vnsc-spinner {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	border: 2px solid currentColor;
+	border-top-color: transparent;
+	animation: vnsc-spin 1s linear infinite;
+}
+
+/* Fullscreen mode support overrides */
+.vnsc-root:fullscreen {
+	background-color: var(--vnsc-bg-primary, #0a0e14) !important;
+	width: 100vw !important;
+	height: 100vh !important;
+	padding: 0 !important;
+}
+
+/*
+ * Upsell / locked feature (PRICING 2026-10-22).
+ *
+ * `.vnsc-locked-feature` la nut upsell cua CapabilityGate. Truoc day class nay KHONG
+ * co style gi (chi co trong TSX) => nut render khong style, va khong hien duoc
+ * GOI hay GIA. Bai nay them style + dong "Goi - Gia" de gia 199.000d/thang cua
+ * goi Pro co cho ai nhin thay.
+ *
+ * Token only (design rule D2: 0 hex tho ngoai token) - fallback trong `var()` chi
+ * la gia tri cuoi cung cho host chua nap token.
+ */
+.vnsc-locked-feature {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 10px;
+	border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+	border-radius: 6px;
+	background: var(--vnsc-bg-hover, rgba(255, 255, 255, 0.03));
+	color: var(--vnsc-text-primary, #d1d4dc);
+	font: inherit;
+	font-size: 12px;
+	line-height: 1.35;
+	cursor: pointer;
+	text-align: left;
+}
+.vnsc-locked-feature:hover {
+	background: var(--vnsc-bg-active, rgba(255, 255, 255, 0.08));
+	border-color: var(--vnsc-border-hover, rgba(255, 255, 255, 0.12));
+}
+.vnsc-locked-feature:focus-visible {
+	outline: 2px solid var(--vnsc-focus-ring, var(--vnsc-accent, #6366f1));
+	outline-offset: 2px;
+}
+.vnsc-locked-feature__icon {
+	font-size: 12px;
+	line-height: 1;
+}
+.vnsc-locked-feature__label {
+	white-space: nowrap;
+}
+/* Dong "Goi Pro - 199.000d/thang": dong thong tin gia, khong phai nut rieng. */
+.vnsc-locked-feature__plan {
+	color: var(--vnsc-text-secondary, #787b86);
+	white-space: nowrap;
+}
+.vnsc-locked-feature__price {
+	color: var(--vnsc-accent, #6366f1);
+	font-weight: 600;
+	white-space: nowrap;
+}

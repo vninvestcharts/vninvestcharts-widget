@@ -1,0 +1,206 @@
+.gridContainer {
+  position: relative;
+  overflow: hidden;
+  padding: 8px 6px 6px 6px;
+  box-sizing: border-box;
+  transition: grid-template-rows 0.3s ease, grid-template-columns 0.3s ease;
+}
+
+.slot {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  background: var(--vnsc-bg-primary, #131722);
+  border-radius: 4px;
+  overflow: visible;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease, z-index 0.1s ease;
+}
+
+.slot:hover {
+  box-shadow: 0 0 0 1px var(--vnsc-border-hover, #3a3e49);
+}
+
+.slot.active {
+  box-shadow: 0 0 0 1px var(--vnsc-primary, #2962ff);
+  z-index: 10;
+}
+
+.rowSplitter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 10px;
+  cursor: row-resize;
+  background: transparent;
+  z-index: 20;
+  touch-action: none;
+}
+
+.rowSplitter::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--splitter-color, rgba(255, 255, 255, 0.08));
+  transform: translateY(-50%);
+  transition: background-color 0.2s ease;
+}
+
+.rowSplitter:hover::before {
+  background: var(--splitter-color-hover, rgba(255, 255, 255, 0.25));
+  height: 1px;
+}
+
+.rowSplitter.dragging::before {
+  background: var(--vnsc-primary, #2962ff);
+  height: 2px;
+}
+
+.colSplitter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -4px;
+  width: 10px;
+  cursor: col-resize;
+  background: transparent;
+  z-index: 20;
+  touch-action: none;
+}
+
+.colSplitter::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--splitter-color, rgba(255, 255, 255, 0.08));
+  transform: translateX(-50%);
+  transition: background-color 0.2s ease;
+}
+
+.colSplitter:hover::before {
+  background: var(--splitter-color-hover, rgba(255, 255, 255, 0.25));
+  width: 1px;
+}
+
+.colSplitter.dragging::before {
+  background: var(--vnsc-primary, #2962ff);
+  width: 2px;
+}
+
+/* Dark theme support */
+[data-chart-mode="dark"] .slot {
+  background: var(--vnsc-bg-primary, #131722);
+}
+
+[data-chart-mode="dark"] .rowSplitter::before,
+[data-chart-mode="dark"] .colSplitter::before {
+  background: var(--splitter-color-dark, rgba(255, 255, 255, 0.06));
+}
+
+[data-chart-mode="dark"] .rowSplitter:hover::before,
+[data-chart-mode="dark"] .colSplitter:hover::before {
+  background: var(--splitter-color-hover-dark, rgba(255, 255, 255, 0.25));
+}
+
+[data-chart-mode="dark"] .rowSplitter.dragging::before,
+[data-chart-mode="dark"] .colSplitter.dragging::before {
+  background: var(--vnsc-primary, #2962ff);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .rowSplitter,
+  .colSplitter {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .rowSplitter::before {
+    height: 3px;
+  }
+  
+  .colSplitter::before {
+    width: 3px;
+  }
+}
+
+/* Focus styles for accessibility */
+.slot:focus-within {
+  outline: 1px solid var(--vnsc-primary, #2962ff);
+  outline-offset: -1px;
+}
+
+.slot:focus-visible {
+  outline: 2px solid var(--vnsc-primary, #2962ff);
+  outline-offset: -2px;
+}
+
+.rowSplitter:focus,
+.colSplitter:focus {
+  outline: 1px solid var(--vnsc-primary, #2962ff);
+  outline-offset: -1px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .slot.active {
+    box-shadow: 0 0 0 2px var(--vnsc-primary, #2962ff);
+  }
+  
+  .rowSplitter::before,
+  .colSplitter::before {
+    background: currentColor;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .slot,
+  .rowSplitter::before,
+  .colSplitter::before {
+    transition: none;
+  }
+}
+/*
+ * Empty-grid-slot affordance (F-08, PRO audit 2026-10-15).
+ *
+ * This used to be an inline style with a hardcoded white border and white "+" glyph:
+ *   border: 2px dashed rgba(255,255,255,0.15) / color: rgba(255,255,255,0.3)
+ * The light theme sets `--vnsc-bg-primary: #ffffff` (injected.css:3161), so the button
+ * rendered white-on-white and was effectively invisible — on the one control that adds a
+ * chart to an empty slot. Inline styles bypass the token layer, which is why nothing in the
+ * theme switch could reach it.
+ *
+ * Tokens carry the theme. Each has a dark default in the `var(..., fallback)` position,
+ * matching the convention already used by `.slot` above.
+ */
+.emptySlot {
+  border: 2px dashed var(--vnsc-border-hover, #3a3e49);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  min-height: 60px;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.emptySlot:hover,
+.emptySlot:focus-visible {
+  border-color: var(--vnsc-text-secondary, #787b86);
+  color: var(--vnsc-text-primary, #d1d4dc);
+}
+
+.emptySlot:focus-visible {
+  outline: 2px solid var(--vnsc-text-link, #3b82f6);
+  outline-offset: 2px;
+}

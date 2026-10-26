@@ -1,0 +1,261 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 10000;
+  pointer-events: auto;
+}
+
+.bottomSheet {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--vnsc-bg-secondary, #1e222d);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding-bottom: 24px;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-bottom: none;
+}
+
+.handleBarContainer {
+  width: 100%;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.handleBar {
+  width: 40px;
+  height: 4px;
+  background-color: var(--vnsc-text-muted, #64748b);
+  border-radius: 2px;
+}
+
+.content {
+  padding: 0 16px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vnsc-text-secondary, #94a3b8);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.timeframeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.timeframeButton {
+  min-height: 44px;
+  background-color: var(--vnsc-bg-tertiary, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e2e8f0);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.timeframeButton:active,
+.timeframeButton.active {
+  background-color: var(--vnsc-accent-bg, rgba(34, 211, 238, 0.12));
+  border-color: var(--vnsc-accent, #22d3ee);
+  color: var(--vnsc-accent, #22d3ee);
+}
+
+.toolsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.toolButton {
+  min-height: 72px;
+  background-color: var(--vnsc-bg-tertiary, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e2e8f0);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 4px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.toolIcon {
+  font-size: 20px;
+}
+
+.toolLabel {
+  font-size: 11px;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.2;
+  max-height: 2.4em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.toolButton:active,
+.toolButton.active {
+  background-color: var(--vnsc-accent-bg, rgba(34, 211, 238, 0.12));
+  border-color: var(--vnsc-accent, #22d3ee);
+  color: var(--vnsc-accent, #22d3ee);
+}
+
+.layoutGridCompact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.gridItemCompact {
+  min-height: 40px;
+  background-color: var(--vnsc-bg-tertiary, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e2e8f0);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.gridItemCompact:active,
+.gridItemCompact.active {
+  background-color: var(--vnsc-accent-bg, rgba(34, 211, 238, 0.12));
+  border-color: var(--vnsc-accent, #22d3ee);
+  color: var(--vnsc-accent, #22d3ee);
+}
+
+.syncOptionsCompact {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.syncOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--vnsc-bg-tertiary, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.06));
+  border-radius: 6px;
+  color: var(--vnsc-text-secondary, #94a3b8);
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.syncOption input {
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--vnsc-accent, #22d3ee);
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.featureButton {
+  min-height: 44px;
+  background-color: var(--vnsc-bg-tertiary, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e2e8f0);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.featureButton:active,
+.featureButton.active {
+  background-color: var(--vnsc-accent-bg, rgba(34, 211, 238, 0.12));
+  border-color: var(--vnsc-accent, #22d3ee);
+  color: var(--vnsc-accent, #22d3ee);
+}
+
+.chartsGridCompact {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.chartItemCompact {
+  min-height: 44px;
+  background-color: var(--vnsc-bg-tertiary, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--vnsc-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  color: var(--vnsc-text-primary, #e2e8f0);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s;
+  padding: 0 8px;
+}
+
+.chartItemCompact:active,
+.chartItemCompact.active {
+  background-color: var(--vnsc-accent-bg, rgba(34, 211, 238, 0.12));
+  border-color: var(--vnsc-accent, #22d3ee);
+  color: var(--vnsc-accent, #22d3ee);
+}
+
+.chartIndicator {
+  flex-shrink: 0;
+}
+
+.chartSymbol {
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.chartTimeframe {
+  font-size: 11px;
+  opacity: 0.7;
+}

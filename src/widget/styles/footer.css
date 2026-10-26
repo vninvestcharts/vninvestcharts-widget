@@ -1,0 +1,77 @@
+/**
+ * WE2 P4-04: Timeframe footer styles.
+ */
+
+.vnsc-timeframe-footer {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 4px 12px;
+	background: var(--vnsc-bg-secondary);
+	border-top: 1px solid var(--vnsc-border);
+	z-index: 30;
+	flex-wrap: wrap;
+}
+
+.vnsc-tf-chip,
+.vnsc-range-chip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 3px 8px;
+	border: 1px solid transparent;
+	border-radius: var(--vnsc-radius-md);
+	cursor: pointer;
+	font-size: var(--vnsc-font-sm);
+	font-weight: 500;
+	background: transparent;
+	color: var(--vnsc-text-secondary);
+	transition: color var(--vnsc-transition-fast), border-color var(--vnsc-transition-fast);
+	font-family: inherit;
+}
+
+.vnsc-tf-chip:hover,
+.vnsc-range-chip:hover {
+	color: var(--vnsc-text-primary);
+	border-color: rgba(255, 255, 255, 0.12);
+}
+
+.vnsc-tf-chip--active,
+.vnsc-range-chip--active {
+	color: var(--vnsc-text-primary);
+	font-weight: 600;
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vnsc-tf-chip--active:hover,
+.vnsc-range-chip--active:hover {
+	border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Trademark in footer */
+.vnsc-trademark {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 0 8px;
+	font-size: 11px;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.35);
+	cursor: pointer;
+	user-select: none;
+	white-space: nowrap;
+	margin-left: auto;
+}
+
+.vnsc-trademark:hover {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.vnsc-trademark-icon {
+	font-size: 11px;
+	color: rgba(99, 102, 241, 0.5);
+}
+
+.vnsc-trademark-icon:hover {
+	color: rgba(99, 102, 241, 0.7);
+}

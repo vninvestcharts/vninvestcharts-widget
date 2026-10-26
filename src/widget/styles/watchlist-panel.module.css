@@ -1,0 +1,122 @@
+/* P4b: Watchlist panel */
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 4px 12px;
+  gap: 1px;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--vnsc-border, #2a3550) transparent;
+}
+
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: var(--vnsc-border, #2a3550);
+  border-radius: 8px;
+}
+
+.list::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 34px;
+  padding: 3px 8px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--vnsc-border-divider, rgba(42, 42, 42, 0.6));
+  border-radius: 0;
+  cursor: pointer;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row:hover {
+  background: var(--vnsc-bg-hover, rgba(255, 255, 255, 0.04));
+}
+
+/* D3: visible keyboard focus for the APG listbox (div rows, not buttons). */
+.row:focus {
+  outline: none;
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--vnsc-accent-strong, #2563eb);
+  outline-offset: -2px;
+  background: var(--vnsc-bg-hover, rgba(255, 255, 255, 0.04));
+}
+
+.rowActive {
+  background: var(--vnsc-bg-selected, rgba(59, 130, 246, 0.15));
+}
+
+.symBlock {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.sym {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--vnsc-text-primary, #d1d4dc);
+  white-space: nowrap;
+}
+
+.name {
+  font-size: 10px;
+  color: var(--vnsc-text-secondary, #787b86);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.spark {
+  flex-shrink: 0;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.price {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--vnsc-text-primary, #d1d4dc);
+}
+
+.pct {
+  font-size: 10px;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.up {
+  color: var(--vnsc-color-bullish, rgb(38, 166, 154));
+}
+
+.down {
+  color: var(--vnsc-color-bearish, rgb(239, 83, 80));
+}
+
+.empty {
+  padding: 16px 12px;
+  font-size: 12px;
+  color: var(--vnsc-text-secondary, #787b86);
+  text-align: center;
+}

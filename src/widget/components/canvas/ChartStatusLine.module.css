@@ -1,0 +1,166 @@
+/* ChartStatusLine Styles */
+.statusLineContainer {
+	position: absolute;
+	z-index: 25;
+	pointer-events: none;
+	user-select: none;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	font-size: 11px;
+	line-height: 16px;
+}
+
+.statusRow {
+	display: inline-flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+	pointer-events: auto;
+	padding: 2px 6px;
+	border-radius: 4px;
+	/* V-06: scrim 0.8 so wicks never cut through figures (was 0.45). */
+	background: rgba(18, 24, 38, 0.8);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	transition: background 0.15s ease;
+	max-width: calc(100vw - 120px);
+}
+
+.statusRowLight {
+	background: rgba(255, 255, 255, 0.85);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.statusRowDark {
+	background: rgba(18, 24, 38, 0.85);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.statusRow:hover {
+	background: rgba(18, 24, 38, 0.92);
+}
+
+.statusRowLight:hover {
+	background: rgba(255, 255, 255, 0.95);
+}
+
+.collapseBtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	background: transparent;
+	border: none;
+	border-radius: 3px;
+	color: var(--vnsc-text-secondary, #94a3b8);
+	cursor: pointer;
+	transition: transform 0.2s ease, color 0.15s ease;
+}
+
+.collapseBtn:hover {
+	color: var(--vnsc-text-primary, #f8fafc);
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.collapseBtnCollapsed {
+	transform: rotate(-90deg);
+}
+
+.symbolBadge {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-weight: 700;
+	font-size: 11.5px;
+	color: var(--vnsc-text-primary, #f8fafc);
+}
+
+.exchangeTag {
+	padding: 1px 4px;
+	border-radius: 3px;
+	font-size: 9px;
+	font-weight: 700;
+	text-transform: uppercase;
+	background: rgba(255, 255, 255, 0.1);
+	color: var(--vnsc-text-secondary, #94a3b8);
+	letter-spacing: 0.04em;
+}
+
+.timeframeTag {
+	font-weight: 500;
+	color: var(--vnsc-text-secondary, #94a3b8);
+	font-size: 11px;
+}
+
+.actionsGroup {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	opacity: 0.25;
+	transition: opacity 0.15s ease;
+}
+
+.statusRow:hover .actionsGroup {
+	opacity: 1;
+}
+
+.actionBtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	background: transparent;
+	border: none;
+	border-radius: 3px;
+	color: var(--vnsc-text-secondary, #94a3b8);
+	cursor: pointer;
+	font-size: 11px;
+	transition: color 0.15s, background 0.15s;
+}
+
+.actionBtn:hover {
+	color: var(--vnsc-text-primary, #f8fafc);
+	background: rgba(255, 255, 255, 0.12);
+}
+
+.ohlcValues {
+	display: inline-flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+	font-family: var(--gc-mono, "SF Mono", Monaco, Inconsolata, "Roboto Mono", monospace);
+	font-size: 10.5px;
+	font-variant-numeric: tabular-nums;
+}
+
+.label {
+	color: var(--vnsc-text-secondary, #94a3b8);
+	margin-right: 2px;
+}
+
+.bullish {
+	color: var(--vnsc-color-bullish, #26a69a) !important;
+}
+
+.bearish {
+	color: var(--vnsc-color-bearish, #ef5350) !important;
+}
+
+.indicatorRow {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	pointer-events: auto;
+	padding: 1px 6px;
+	border-radius: 4px;
+	font-size: 10px;
+	line-height: 14px;
+	color: var(--vnsc-text-secondary, #94a3b8);
+}
+

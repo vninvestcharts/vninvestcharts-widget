@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Source files
+src/
+config/
+scripts/
+tests/
+*.test.ts
+*.test.tsx
+
+# Build tools
+tsup.config.ts
+vite.config.ts
+webpack.config.js
+build-all.js
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# Documentation (explicitly excluded from npm)
+docs/
+
+# Storybook
+storybook-static/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Turbo
+.turbo/

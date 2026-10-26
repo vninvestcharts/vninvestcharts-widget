@@ -1,0 +1,263 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.modal {
+  min-width: 320px;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: var(--vnsc-radius-modal, 12px);
+  padding: var(--vnsc-space-modal-padding, 24px);
+  background: var(--vnsc-bg-modal, #1e293b);
+  color: var(--vnsc-text-primary, #e2e8f0);
+  box-shadow: var(--vnsc-shadow-modal, 0 8px 32px rgba(0, 0, 0, 0.4));
+  display: flex;
+  flex-direction: column;
+  gap: var(--vnsc-space-3, 12px);
+  font-family: var(--vnsc-font-family-base);
+  font-size: var(--vnsc-font-size-base, 13px);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.closeBtn {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tabs .tab,
+.tabs .activeTab {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 4px 6px;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.tab,
+.activeTab {
+  flex: 1;
+  min-width: 0;
+  padding: 5px 2px;
+  border-radius: 6px;
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activeTab {
+  background: var(--vnsc-accent, #2962ff);
+  color: #fff;
+}
+
+/* Compact ticket: label + control share one row (Giá / Khối lượng /
+   Chốt lời / Cắt lỗ inline instead of stacked full-width). */
+.field {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.field input,
+.row input {
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  background: var(--vnsc-bg-primary, #0d141b);
+  color: inherit;
+  min-width: 0;
+  /* Giá/KL là số sống theo tick — tabular-nums để số không giật (AC6). */
+  font-variant-numeric: tabular-nums;
+}
+
+.field input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Hierarchical section header (e.g. TP/SL unit): uppercase micro-label with
+   a divider so users tell sections apart at a glance. */
+.sectionLabel {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--vnsc-border-divider, #2a2a2a);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.tifRow {
+  opacity: 0.75;
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0.9;
+}
+
+.error {
+  color: var(--vnsc-color-error, #f87171);
+}
+
+/* ── Bước xác nhận lệnh (Pha 1 trust fixes) ─────────────────────────────────
+   Review thay thế form in-place: user phải đọc số (giá trị lệnh, margin, sức mua)
+   rồi mới bấm Xác nhận ⇒ không còn "1 click = mất tiền". */
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vnsc-space-2, 8px);
+}
+
+.reviewTitle {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vnsc-text-secondary, #787b86);
+}
+
+.reviewRows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+}
+
+.reviewRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.reviewLabel {
+  color: var(--vnsc-text-secondary, #787b86);
+  white-space: nowrap;
+}
+
+.reviewValue {
+  margin: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.reviewActions {
+  display: flex;
+  gap: 8px;
+  margin-top: var(--vnsc-space-2, 8px);
+}
+
+.reviewActions button {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.reviewActions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Nút xác nhận trong review: cùng ngôn ngữ màu với nút đặt lệnh (mua xanh / bán đỏ).
+   Selector của footer không match ở đây (không có ancestor .footer) ⇒ cần rule riêng. */
+.reviewActions button.submitBuy,
+.reviewActions button.submitSell {
+  border: none;
+  color: var(--vnsc-text-on-primary, #fff);
+  font-weight: 600;
+}
+
+.reviewActions button.submitBuy {
+  background: var(--vnsc-color-bullish, #16a34a);
+}
+
+.reviewActions button.submitSell {
+  background: var(--vnsc-color-bearish, #ef5350);
+}
+
+.footer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.footer button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.footer button.submitBuy,
+.footer button.submitSell {
+  border: none;
+  color: var(--vnsc-text-on-primary, #fff);
+  font-weight: 600;
+}
+
+.footer button.submitBuy {
+  background: var(--vnsc-color-bullish, #16a34a);
+}
+
+.footer button.submitSell {
+  background: var(--vnsc-color-bearish, #ef5350);
+}
+
+.footer button:last-child:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

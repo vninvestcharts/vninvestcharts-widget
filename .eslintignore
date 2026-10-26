@@ -1,0 +1,5 @@
+# /node_modules/* and /bower_components/* ignored by default
+
+build/*
+# Generated peggy parser output (scripts/gen-pine-parser.ts) — codegen, not source.
+src/lib/pinescript/parser.generated.js

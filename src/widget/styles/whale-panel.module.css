@@ -1,0 +1,62 @@
+/* Whale Panel Styles - CSS Module */
+.panel {
+  /* Styles applied via className in component */
+}
+
+.title {
+  /* Title styles */
+}
+
+.net {
+  /* Net flow styles */
+}
+
+.netPositive {
+  /* Positive net flow */
+}
+
+.netNegative {
+  /* Negative net flow */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 8px;
+  text-align: left;
+  color: var(--vnsc-text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--vnsc-border);
+}
+
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--vnsc-border);
+}
+
+.rowLabel {
+  font-weight: 500;
+  color: var(--vnsc-text-primary);
+}
+
+.buy {
+  color: #089981;
+  font-weight: 600;
+  text-align: right;
+}
+
+.sell {
+  color: #f23645;
+  font-weight: 600;
+  text-align: right;
+}
+
+@media (max-width: 480px) {
+  .panel {
+    /* Mobile adjustments */
+  }
+}

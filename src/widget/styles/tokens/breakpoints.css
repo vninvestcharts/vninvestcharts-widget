@@ -1,0 +1,7 @@
+/* Design Tokens - Container Query Breakpoints */
+.vnsc-root {
+  --vnsc-breakpoint-compact: 480px;
+  --vnsc-breakpoint-medium: 768px;
+  --vnsc-breakpoint-wide: 1200px;
+  --vnsc-breakpoint-ultra: 1920px;
+}

@@ -1,0 +1,212 @@
+.panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  background: var(--vnsc-bg-primary, #0c1017);
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border-bottom: 1px solid var(--vnsc-border-divider, #202b3c);
+  padding: 8px 12px;
+  flex-shrink: 0;
+}
+
+.title {
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.sidebar {
+  width: 220px;
+  border-right: 1px solid var(--vnsc-border-divider, #202b3c);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--vnsc-text-secondary, #9aa3b8);
+  border-bottom: 1px solid var(--vnsc-border-divider, #202b3c);
+}
+
+.scriptList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.scriptItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background 0.15s;
+  gap: 4px;
+}
+
+.scriptItem:hover {
+  background: var(--vnsc-bg-hover, #1a2030);
+}
+
+.scriptItemActive {
+  background: var(--vnsc-bg-selected, #1a2744);
+  border-left-color: var(--vnsc-accent, #6366f1);
+}
+
+.scriptName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.renameInput {
+  flex: 1;
+  background: var(--vnsc-bg-input, #090d14);
+  border: 1px solid var(--vnsc-accent, #6366f1);
+  border-radius: 3px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  font-size: 12px;
+  padding: 2px 6px;
+  outline: none;
+}
+
+.scriptActions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.compileBtn {
+  padding: 5px 12px;
+  background: var(--vnsc-color-success, #089981);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: auto;
+  transition: background-color 0.2s ease;
+}
+
+.compileBtn:hover {
+  background: var(--vnsc-color-success-hover, #067a68);
+}
+
+.toolBtn {
+  padding: 4px 10px;
+  background: var(--vnsc-bg-input, #1e2a3a);
+  border: 1px solid var(--vnsc-border-input, #2a3a4e);
+  border-radius: 4px;
+  color: var(--vnsc-text-primary, #c0c8d8);
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.toolBtn:hover {
+  background: var(--vnsc-bg-input-hover, #2a3a4e);
+}
+
+.smallBtn {
+  padding: 2px 6px;
+  background: transparent;
+  border: 1px solid var(--vnsc-border-input, #2a3a4e);
+  border-radius: 3px;
+  color: var(--vnsc-text-secondary, #9aa3b8);
+  font-size: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.smallBtn:hover {
+  background: var(--vnsc-bg-input-hover, #1e2a3a);
+  color: var(--vnsc-text-primary, #c0c8d8);
+}
+
+.smallBtnDanger {
+  padding: 2px 6px;
+  background: transparent;
+  border: 1px solid var(--vnsc-border-error, #4a1a1a);
+  border-radius: 3px;
+  color: var(--vnsc-color-bearish, #f23645);
+  font-size: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.smallBtnDanger:hover {
+  background: var(--vnsc-bg-hover, #2a1010);
+}
+
+.editorContainer {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.errorBox {
+  padding: 8px 12px;
+  background: rgba(242, 54, 69, 0.1);
+  border-top: 1px solid #f23645;
+  color: #f23645;
+  flex-shrink: 0;
+}
+
+.successBox {
+  padding: 8px 12px;
+  background: rgba(8, 153, 129, 0.1);
+  border-top: 1px solid #089981;
+  color: #089981;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 160px;
+  }
+  .scriptActions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .toolbar {
+    flex-wrap: wrap;
+  }
+  .sidebar {
+    display: none;
+  }
+  .compileBtn {
+    margin-left: 0;
+    width: 100%;
+  }
+}

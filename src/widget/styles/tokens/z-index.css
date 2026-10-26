@@ -1,0 +1,113 @@
+/* Design Tokens - Z-Index */
+/* All --vnsc-z-* tokens */
+
+/* H0.8: `.vnsc-root` — the document-root selector never matches inside the
+   widget's Shadow DOM (useShadowDOM defaults on), so tokens resolved to "". */
+.vnsc-root {
+  /* Base Z-Index Scale */
+  --vnsc-z-0: 0;
+  --vnsc-z-1: 1;
+  --vnsc-z-2: 2;
+  --vnsc-z-3: 3;
+  --vnsc-z-4: 4;
+  --vnsc-z-5: 5;
+  --vnsc-z-10: 10;
+  --vnsc-z-20: 20;
+  --vnsc-z-30: 30;
+  --vnsc-z-40: 40;
+  --vnsc-z-50: 50;
+
+  /* Semantic Z-Index Layers */
+  --vnsc-z-background: 0;
+  --vnsc-z-content: 1;
+  --vnsc-z-raised: 10;
+  --vnsc-z-overlay: 20;
+  --vnsc-z-modal: 30;
+  --vnsc-z-popover: 40;
+  --vnsc-z-tooltip: 50;
+  --vnsc-z-toast: 60;
+  --vnsc-z-maximum: 9999;
+
+  /* Component-specific Z-Index */
+  --vnsc-z-chart-canvas: 1;
+  --vnsc-z-chart-overlay: 10;
+  --vnsc-z-chart-crosshair: 15;
+  --vnsc-z-chart-tooltip: 20;
+  --vnsc-z-chart-drawing: 25;
+  --vnsc-z-chart-selection: 30;
+  --vnsc-z-chart-measurement: 35;
+  --vnsc-z-chart-x-axis: 40;
+  --vnsc-z-chart-pane-tooltip: 45;
+
+  --vnsc-z-toolbar: 50;
+  --vnsc-z-header: 55;
+  --vnsc-z-footer: 55;
+  --vnsc-z-dock: 60;
+  --vnsc-z-dock-flyout: 65;
+  --vnsc-z-drawing-toolbar: 70;
+  --vnsc-z-drawing-inspector: 75;
+  --vnsc-z-drawing-list: 75;
+  --vnsc-z-drawing-context-menu: 80;
+
+  --vnsc-z-panel: 85;
+  --vnsc-z-panel-content: 90;
+  --vnsc-z-modal-backdrop: 95;
+  --vnsc-z-modal: 100;
+  --vnsc-z-modal-content: 105;
+
+  --vnsc-z-popover: 110;
+  --vnsc-z-popover-content: 115;
+  --vnsc-z-tooltip: 120;
+  --vnsc-z-tooltip-content: 125;
+
+  --vnsc-z-toast: 130;
+  --vnsc-z-toast-content: 135;
+
+  --vnsc-z-ads-banner: 95;
+  --vnsc-z-ads-popup: 99;
+  --vnsc-z-trademark: 100;
+
+  /* Sidebar Z-Index */
+  --vnsc-z-sidebar: 48;
+  --vnsc-z-sidebar-splitter: 49;
+  --vnsc-z-sidebar-content: 50;
+
+  /* Bottom Panel Z-Index */
+  --vnsc-z-bottom-panel: 40;
+  --vnsc-z-bottom-panel-content: 41;
+
+  /* Drawing Dock Z-Index */
+  --vnsc-z-drawing-dock: 50;
+  --vnsc-z-drawing-dock-header: 51;
+  --vnsc-z-drawing-dock-content: 52;
+  --vnsc-z-drawing-dock-flyout: 55;
+
+  /* Settings Modal Z-Index */
+  --vnsc-z-settings-modal: 100;
+  --vnsc-z-settings-modal-content: 101;
+  --vnsc-z-settings-modal-tabs: 102;
+
+  /* Snapshot Preview Modal Z-Index */
+  --vnsc-z-snapshot-modal: 100;
+  --vnsc-z-snapshot-modal-content: 101;
+
+  /* Alerts Modal Z-Index */
+  --vnsc-z-alerts-modal: 100;
+  --vnsc-z-alerts-modal-content: 101;
+
+  /* Symbol Search Z-Index */
+  --vnsc-z-symbol-search: 80;
+  --vnsc-z-symbol-search-results: 81;
+
+  /* Whale Panel Z-Index */
+  --vnsc-z-whale-panel: 60;
+  --vnsc-z-whale-panel-content: 61;
+
+  /* Context Rail Z-Index */
+  --vnsc-z-context-rail: 55;
+  --vnsc-z-context-rail-content: 56;
+
+  /* PAT Token Modal Z-Index */
+  --vnsc-z-pat-modal: 100;
+  --vnsc-z-pat-modal-content: 101;
+}

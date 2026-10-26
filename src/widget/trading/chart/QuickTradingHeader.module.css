@@ -1,0 +1,75 @@
+/* QUICKTRADE_PILLS (Option A): strip 2 pill + mắt icon-only.
+   Dead selectors của bản cũ (.dragZone/.dragGrip/.spreadChip/.stepper/.stepBtn/.qtyInput/.hint)
+   đã xoá cùng rewrite — không consumer nào ngoài file này. */
+.header {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px;
+  background: var(--vnsc-bg-secondary, #111820);
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  border-radius: 8px;
+  font-family: var(--vnsc-font-family-base, Helvetica Neue, sans-serif);
+  font-size: 11px;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  max-width: max-content;
+}
+
+.sellBtn,
+.buyBtn {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  padding: 2px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sellBtn {
+  background: #dc2626;
+}
+
+.buyBtn {
+  background: #16a34a;
+}
+
+.sellBtn:disabled,
+.buyBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.price {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.92;
+}
+
+.toggle {
+  border-radius: 4px;
+  border: 1px solid var(--vnsc-border, #2a2a2a);
+  background: transparent;
+  color: var(--vnsc-text-primary, #e0e0e0);
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 11px;
+}
+
+.toggle[aria-pressed="true"] {
+  background: var(--vnsc-accent, #2962ff);
+  color: #fff;
+}
+
+/* A1: mắt icon-only gọn (affordance duy nhất còn lại ngoài 2 pill). */
+.eye {
+  padding: 2px 4px;
+  font-size: 12px;
+  line-height: 1;
+}

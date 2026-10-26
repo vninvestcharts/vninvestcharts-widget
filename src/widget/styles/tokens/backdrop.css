@@ -1,0 +1,9 @@
+/* Design Tokens - Backdrop / Glassmorphism */
+.vnsc-root {
+  --vnsc-backdrop-blur-sm: 4px;
+  --vnsc-backdrop-blur-md: 8px;
+  --vnsc-backdrop-blur-lg: 16px;
+  --vnsc-backdrop-blur-xl: 24px;
+  --vnsc-backdrop-saturate: 1.8;
+  --vnsc-backdrop-brightness: 0.7;
+}

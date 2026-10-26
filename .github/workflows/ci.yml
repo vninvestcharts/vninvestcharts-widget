@@ -1,0 +1,377 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+# VER-01: every gate writes its output to ci-evidence/ and the whole directory
+# is uploaded with `if: always()`, so a red build still ships the evidence a
+# reviewer needs. `set -o pipefail` keeps `| tee` from masking a failure.
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20, 22]
+
+    steps:
+      # fetch-depth 0, not the default 1. The `semver-breaking-public-api` step
+      # below resolves a merge-base against origin/dev, and a depth-1 checkout has
+      # no history to resolve it from: `git merge-base HEAD origin/dev` returns
+      # empty and the gate exits 2. Measured in a throwaway `git clone --depth 1`.
+      #
+      # `continue-on-error` would have been the cheaper patch and the wrong one. That
+      # exit code exists precisely so "could not verify" is distinguishable from
+      # "verified", and swallowing it turns the distinction back into a green tick.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@vninvestcharts'
+
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: init evidence dir
+        run: mkdir -p ci-evidence && echo "node=$(node -v) npm=$(npm -v) commit=${{ github.sha }}" | tee ci-evidence/env.txt
+
+      # BUILD FIRST, and this is load-bearing. `dist/` is gitignored, so on a fresh
+      # checkout it does not exist until something builds it. `check-doc-links.mjs`
+      # resolves `path:line` citations, and 07.01/07.02 cite `dist/index.js` — so a
+      # doc gate placed before the build reports 11 dead citations and CI goes red on
+      # a clean tree. Found 2026-10-08 by running the CI step order locally; CI had
+      # never run because billing lapsed.
+      #
+      # This is the same trap AGENT_PROTOCOL.md warns about for `verify-dist`, in the
+      # opposite direction: there a missing dist made a gate pass VACUOUSLY, here it
+      # makes a gate fail SPURIOUSLY. Both are "the gate is measuring the build, not
+      # the code".
+      - name: build
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee build.log
+
+      - name: type-check
+        run: |
+          set -o pipefail
+          npm run type-check 2>&1 | tee ci-evidence/type-check.log
+
+      # VER-04: `npm run lint` is red repo-wide (ledger R2-01), so the blocking
+      # gate is a RATCHET: fail only when lint debt grows, and require every
+      # newly-touched file to be clean. Replace with plain `npm run lint` once
+      # the baseline reaches 0.
+      - name: lint ratchet (no new debt)
+        run: |
+          set -o pipefail
+          npm run lint:ratchet 2>&1 | tee ci-evidence/lint-ratchet.log
+      - name: lint advisory (full report, non-blocking)
+        run: |
+          set -o pipefail
+          npm run lint 2>&1 | tee ci-evidence/lint-full.log || true
+      - name: tests
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee ci-evidence/tests.log
+
+      - name: audit fat-files
+        run: |
+          set -o pipefail
+          npm run audit:fat-files -- --allow-missing-engine 2>&1 | tee ci-evidence/audit-fat-files.log
+      - name: audit props
+        run: |
+          set -o pipefail
+          npm run audit:props 2>&1 | tee ci-evidence/audit-props.log
+      - name: audit any
+        run: |
+          set -o pipefail
+          npm run audit:any 2>&1 | tee ci-evidence/audit-any.log
+      - name: audit hardcoded text
+        run: |
+          set -o pipefail
+          npm run audit:hardcoded-text 2>&1 | tee ci-evidence/audit-i18n.log
+      # Guards the class of defect that shipped twice in this repo: a workflow
+      # step naming an npm script that does not exist, so the job is red forever
+      # and nobody reads why. Two workflows were deleted for exactly this
+      # (dbc8c57) and `git log -S 'test:parity-shared' -- package.json` is EMPTY,
+      # proving they were born broken rather than deleted.
+      - name: audit script existence
+        run: |
+          set -o pipefail
+          npm run audit:script-existence 2>&1 | tee ci-evidence/audit-script-existence.log
+      # Validates every `localIdentName` against the grammar of
+      # esbuild-plugin-css-modules, which is `[hash:length:algorithm:digest]`.
+      # `[hash:base64:5]` looked plausible and passed on Windows for years,
+      # because the plugin only validates the pattern when it actually renames a
+      # class, which did not happen locally. On the Linux runner it threw
+      # "Hash algorithm is not supported: 5" and failed the whole build.
+      - name: audit local-ident-name
+        run: |
+          set -o pipefail
+          npm run audit:local-ident-name 2>&1 | tee ci-evidence/audit-local-ident-name.log
+
+      # This package registers ~64 things at import time (every builtin indicator in
+      # src/lib/indicators/index.ts, every series in src/lib/core/registry/registerAll.ts).
+      # Declaring "sideEffects": false would let a bundler delete those registrations:
+      # the registry is empty in the browser while Node and the whole vitest suite stay
+      # green, because nothing tree-shakes under vitest. This gate also inspects the
+      # engine packages, so it catches the lie on either side of the twin-repo boundary.
+      - name: package side-effects (no false claim over an import-time registry)
+        run: |
+          set -o pipefail
+          npm run audit:package-side-effects 2>&1 | tee ci-evidence/audit-package-side-effects.log
+      # The side-effects gate decides "dropped" with a glob. A wrong glob makes it match
+      # nothing, which makes the gate pass unconditionally - the worst shape for a gate.
+      # So its glob table is asserted first, including cases that must stay false.
+      - name: package side-effects self-test (glob table)
+        run: |
+          set -o pipefail
+          node scripts/check-package-side-effects.js --self-test 2>&1 | tee ci-evidence/audit-package-side-effects-self-test.log
+      # F-TIER-02. 41 capabilities are declared paid (minTierFor >= pro); measured
+      # 2026-10-08, only 19 have a call site in the widget. The other 22 are not gates
+      # - there is nothing to gate - and the failure mode is invisible: review is green,
+      # tests are green, and the capability simply is not there. This gate forces every
+      # one of them to be named with a written reason, so the list cannot silently grow.
+      # Re-measure, do not trust the old survey's "5"; it was stale.
+      - name: paid capabilities are shipped or declared-unreached
+        run: |
+          set -o pipefail
+          npm run audit:paid-capability 2>&1 | tee ci-evidence/audit-paid-capability.log
+          npm run audit:paid-capability:self-test 2>&1 | tee ci-evidence/audit-paid-capability-self-test.log
+          npm run audit:scope-spelling 2>&1 | tee ci-evidence/audit-scope-spelling.log
+      # PINE-COPY 2026-10-08: upsell copy must not advertise behaviour that does not exist.
+      # Three Pine/strategy claims shipped to paying customers on a `pro` capability and were
+      # all false (`strategy.*` and `request.security` have zero dispatcher cases; the tester
+      # had no export control; a Pine series never reached the chart). A preventive gate that
+      # never executes prevents nothing, so this one is wired next to its sibling.
+      # Same `set -o pipefail` discipline: without it the tee would swallow the exit code.
+      - name: capability upsell copy is supported by code
+        run: |
+          set -o pipefail
+          npm run audit:capability-copy 2>&1 | tee ci-evidence/audit-capability-copy.log
+          npm run audit:capability-copy:self-test 2>&1 | tee ci-evidence/audit-capability-copy-self-test.log
+      # NOTE on `audit:fat-files` / `audit:package-side-effects`: the npm scripts
+      # measure the sibling engine checkout by default (fail-closed when it is
+      # absent). CI passes --allow-missing-engine EXPLICITLY below because the
+      # engine is a REGISTRY dependency (package.json dependencies), not a git
+      # submodule, so a runner has no source checkout and the engine half of
+      # those budgets cannot be measured here. The gates fail closed when an
+      # engine IS named and unusable; the flag only tolerates a genuinely
+      # absent one, and it prints "SKIPPED by --allow-missing-engine" so the
+      # log never implies the engine was verified. Engine budgets are enforced
+      # locally and in the engine repo. (F-QUAL-04 closed 2026-10-12: the flag
+      # used to be hardcoded in package.json, so even local runs skipped it.)
+
+      # CS-5: license hygiene. The payload blob is signed, not encrypted, so PII
+      # must never be added to the builder, and a private JWK must never be
+      # committed. Both are cheap greps; both have bitten before in other forms.
+      # GOV-02: version SSOT + release manifest (REL-06)
+      - name: version-sync (R1-05)
+        run: |
+          set -o pipefail
+          npm run check:version 2>&1 | tee ci-evidence/version-sync.log
+      # W-11: a removed/renamed public export must cost a major bump. check:version
+      # only keeps hardcoded version strings in sync, so it stays green while an
+      # export is silently deleted. Reads export NAMES only - no .d.ts type diff,
+      # so signature changes still pass. Documented in the script header.
+      - name: semver-breaking-public-api (W-11)
+        run: |
+          set -o pipefail
+          npm run check:semver 2>&1 | tee ci-evidence/semver-breaking.log
+      # VER-03: assert the rollback path still exists (cache policy, image
+      # retention, health assertion, no-deploy kill switches).
+      - name: rollback-readiness (VER-03)
+        run: |
+          set -o pipefail
+          npm run check:rollback-readiness 2>&1 | tee ci-evidence/rollback-readiness.log
+      - name: release-manifest (GOV-02)
+        run: |
+          set -o pipefail
+          npm run release:manifest 2>&1 | tee ci-evidence/release-manifest.log
+      - name: release-manifest in-sync check
+        run: |
+          set -o pipefail
+          npm run check:release-manifest 2>&1 | tee ci-evidence/release-manifest-check.log
+
+      # Bundle ratchet needs `dist/`, which this job does not build — it runs in
+      # the `package` job right after `build`. `bundlesize` target-gap reporting
+      # lives there too (BL-04, sizes from config/bundle-baseline.json as of
+      # 2026-10-04: IIFE 666.72/600 and CJS 456.35/350 are OVER target; ESM has
+      # shrunk to 284.2/350 and is now UNDER it. The "ESM 471/350, CJS 692/350"
+      # pair previously quoted here was stale — it predated the a8c94c8 baseline
+      # tightening. Tracked as backlog B2.)
+
+      # S6: Rule 15 - widget public must not statically import engine-pro (a static
+      # import of a package that does not exist breaks a Free consumer's bundler).
+      #
+      # This was a bare grep, and it matched inside COMMENTS: ProPluginRegistry.ts
+      # documents the intended usage with the import specifier in prose, and the gate
+      # failed on its own documentation. A gate that cannot tell a comment from code
+      # gets "fixed" by deleting the comment, and the next real violation then passes
+      # silently. The script strips comments first, and still catches static import,
+      # side-effect import and require() while allowing dynamic import().
+      - name: leak-check (no static engine-pro import in widget)
+        run: |
+          set -o pipefail
+          node scripts/check-engine-pro-leak.mjs 2>&1 | tee ci-evidence/leak-check.log
+
+      - name: public-tree + self-test
+        run: |
+          set -o pipefail
+          node scripts/check-public-tree.mjs 2>&1 | tee ci-evidence/public-tree.log
+          node scripts/check-public-tree.mjs --self-test 2>&1 | tee ci-evidence/public-tree-self-test.log
+      - name: blob-secrets + self-test
+        run: |
+          set -o pipefail
+          node scripts/check-blob-secrets.mjs 2>&1 | tee ci-evidence/blob-secrets.log
+          node scripts/check-blob-secrets.mjs --self-test 2>&1 | tee ci-evidence/blob-secrets-self-test.log
+      - name: no-internal-host + self-test
+        run: |
+          set -o pipefail
+          node scripts/check-no-internal-host.mjs 2>&1 | tee ci-evidence/no-internal-host.log
+          node scripts/check-no-internal-host.mjs --self-test 2>&1 | tee ci-evidence/no-internal-host-self-test.log
+
+      # VER-01: artifact inventory for the release decision.
+      - name: upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-evidence-node${{ matrix.node-version }}
+          path: ci-evidence/
+          if-no-files-found: warn
+          retention-days: 14
+
+  # REL-06 / VER-01: prove the publishable artifacts actually build and that a
+  # real consumer compiles against the tarball.
+  package:
+    runs-on: ubuntu-latest
+    needs: verify
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@vninvestcharts'
+
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: build
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee build.log
+      # VER-02: blocking bundle gate. Ratchet, not the absolute target — every
+      # bundle is still over target, so an absolute check would be a permanently
+      # red step nobody can act on. Fails only when a bundle grows past
+      # config/bundle-baseline.json; shrinking is rewarded.
+      - name: bundle-size ratchet (no growth, blocking)
+        run: |
+          set -o pipefail
+          npm run bundlesize:ratchet 2>&1 | tee bundle-ratchet.log
+      # BL-04: distance to the real target (advisory until BL-15/BL-19 shrink
+      # below limits; baseline 2026-09-25: IIFE 667/600, ESM 471/350,
+      # CJS 692/350 kB gzip)
+      - name: bundle-size target gap (advisory)
+        run: |
+          set -o pipefail
+          npm run bundlesize 2>&1 | tee bundle-size.log || true
+      - name: verify dist
+        run: |
+          set -o pipefail
+          npm run verify-dist 2>&1 | tee verify-dist.log
+      - name: consumer compile smoke (tarball)
+        run: |
+          set -o pipefail
+          npm run verify:consumer 2>&1 | tee consumer-smoke.log
+      - name: artifact inventory
+        run: |
+          set -o pipefail
+          npm pack --dry-run 2>&1 | tee pack-dry-run.log
+
+      - name: upload package evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-evidence
+          path: |
+            build.log
+            bundle-ratchet.log
+            bundle-size.log
+            verify-dist.log
+            consumer-smoke.log
+            pack-dry-run.log
+            release-manifest.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  # BL-04: coverage gate (thresholds in vitest.config.ts; baseline 61.65/72.09/57.05/61.65)
+  #
+  # Closed 2026-10-04, backlog B11: an earlier audit claimed this job ran a bare
+  # `npx vitest run --coverage` and therefore skipped `pretest`, so `injectStyles.test.ts`
+  # failed on a missing generated artifact rather than on logic. Re-read on
+  # 2026-10-04: that was already fixed here — the step below is `npm test -- --coverage`,
+  # with the reason inline. B11 needed no code change; only the stale backlog entry did.
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@vninvestcharts'
+
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Must go through `npm test`, not bare `npx vitest`. `pretest` runs
+      # `gen:engine-paths` + `build:css`, and `build:css` generates
+      # `src/widget/styles/injected.css`, which is gitignored and therefore absent
+      # on a fresh checkout. Skipping pretest makes the suite fail on a missing
+      # artifact, not on logic. `npm test --` forwards the coverage flags through
+      # vitest while still firing the pre/post hooks.
+      - run: npm test -- --coverage --coverage.reporter=text > coverage-run.txt 2>&1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage-run.txt
+
+  # BL-04: storybook visual E2E (NON-BLOCKING: 25 pre-existing canvas-render
+  # timeouts in this environment, stash-verified on clean tree 2026-09-24;
+  # promote to blocking when green — see BL04 ledger entry)
+  visual-e2e:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@vninvestcharts'
+
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:visual:ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/

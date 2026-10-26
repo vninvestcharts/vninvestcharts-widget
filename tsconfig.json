@@ -1,0 +1,38 @@
+{
+  "extends": "./tsconfig.engine-paths.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["vitest/globals"]
+  },
+  // `stories` was absent here entirely, so a story could be broken and `npm run
+  // type-check` would still exit 0. That is how stories/Widget.stories.tsx went on passing
+  // a bar ARRAY to MockAdapter's options-OBJECT constructor, and how mockData kept missing
+  // OHLCVBar's required `index`/`dataIndex`.
+  //
+  // Listed by FILE rather than as "stories". That is no longer about exclude semantics - the
+  // two broken files this comment used to exclude are DELETED now (B19, 2026-10-06): they
+  // imported modules removed from src/lib in the G4 cut (src/lib/{annotation,axes,
+  // interactive,tooltip} hold zero .ts/.tsx files, src/lib/ChartCanvas is absent), so the 8
+  // stories built on them could not load in Storybook either. Restoring them means rewriting
+  // them against the engine packages, which is a separate piece of work.
+  //
+  // Re-listing the remaining files by hand also means a NEW story file is not type-checked
+  // until someone adds it here, which is a real (small) gap. Kept explicit because the glob
+  // form hides which files are actually covered.
+  "include": ["src", "stories/Widget.stories.tsx", "stories/support/storyData.ts"]
+}

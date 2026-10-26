@@ -1,0 +1,6 @@
+/* Design Tokens - Gradients */
+.vnsc-root {
+  --vnsc-gradient-area-fill: linear-gradient(180deg, rgba(41,98,255,0.28) 0%, rgba(41,98,255,0) 100%);
+  --vnsc-gradient-volume-fade: linear-gradient(180deg, var(--vnsc-color-volume), transparent);
+  --vnsc-gradient-shimmer: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+}

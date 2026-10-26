@@ -1,0 +1,64 @@
+/* Design Tokens - Shadows & Elevation */
+/* All --vnsc-shadow-*, --vnsc-elevation-* tokens */
+
+.vnsc-root {
+  /* Shadow Layers */
+  --vnsc-shadow-none: none;
+  --vnsc-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --vnsc-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --vnsc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --vnsc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --vnsc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --vnsc-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --vnsc-shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+
+  /* Colored Shadows */
+  --vnsc-shadow-primary: 0 4px 14px rgba(59, 130, 246, 0.4);
+  --vnsc-shadow-primary-lg: 0 10px 25px rgba(59, 130, 246, 0.3);
+  --vnsc-shadow-success: 0 4px 14px rgba(34, 168, 94, 0.4);
+  --vnsc-shadow-error: 0 4px 14px rgba(192, 57, 43, 0.4);
+  --vnsc-shadow-warning: 0 4px 14px rgba(230, 126, 34, 0.4);
+
+  /* Focus Shadows */
+  --vnsc-shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.4);
+  --vnsc-shadow-focus-error: 0 0 0 3px rgba(192, 57, 43, 0.4);
+  --vnsc-shadow-focus-success: 0 0 0 3px rgba(34, 168, 94, 0.4);
+
+  /* Elevation System (Material-inspired) */
+  --vnsc-elevation-0: var(--vnsc-shadow-none);
+  --vnsc-elevation-1: var(--vnsc-shadow-sm);
+  --vnsc-elevation-2: var(--vnsc-shadow-md);
+  --vnsc-elevation-3: var(--vnsc-shadow-lg);
+  --vnsc-elevation-4: var(--vnsc-shadow-xl);
+  --vnsc-elevation-5: var(--vnsc-shadow-2xl);
+
+  /* Component-specific shadows */
+  --vnsc-shadow-toolbar: var(--vnsc-elevation-2);
+  --vnsc-shadow-panel: var(--vnsc-elevation-3);
+  --vnsc-shadow-modal: var(--vnsc-elevation-4);
+  --vnsc-shadow-popover: var(--vnsc-elevation-3);
+  --vnsc-shadow-tooltip: var(--vnsc-elevation-2);
+  --vnsc-shadow-dropdown: var(--vnsc-elevation-3);
+  --vnsc-shadow-dock: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --vnsc-shadow-drawing: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --vnsc-shadow-splitter: none;
+  --vnsc-shadow-chart-container: var(--vnsc-elevation-1);
+}
+
+/* Light mode shadow adjustments */
+.vnsc-root[data-chart-mode="light"] {
+  --vnsc-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --vnsc-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --vnsc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --vnsc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  --vnsc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
+  --vnsc-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  --vnsc-shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+
+  --vnsc-shadow-focus: 0 0 0 3px rgba(37, 99, 235, 0.4);
+  --vnsc-shadow-focus-error: 0 0 0 3px rgba(192, 57, 43, 0.4);
+  --vnsc-shadow-focus-success: 0 0 0 3px rgba(34, 168, 94, 0.4);
+
+  --vnsc-shadow-dock: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --vnsc-shadow-drawing: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
